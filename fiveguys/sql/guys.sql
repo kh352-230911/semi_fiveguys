@@ -53,12 +53,16 @@ create table tb_user (
 );
 create sequence seq_tb_user_user_no;
 
+select * from tb_user;
+
 -- 좋아요 테이블
 create table tb_attraction (
     user_no varchar2(50) not null,
     rest_no varchar2(50) not null,
     constraints pk_tb_attraction_user_rest_no primary key(user_no, rest_no)
 );
+
+select * from tb_attraction;
 
 -- 식당 테이블
 create table tb_restaurant (
@@ -81,12 +85,16 @@ create table tb_restaurant (
 );
 create sequence seq_tb_rest_no;
 
+select * from tb_restaurant;
+
 -- 식당-편의시설 브릿지 테이블
 create table tb_rest_convenience (
     rest_no varchar2(50) not null,
     conven_no varchar2(50) not null,
     constraints pk_tb_rest_convenience_rest_conven_no primary key(rest_no, conven_no)
 );
+
+select * from tb_rest_convenience;
 
 -- 편의시설 테이블
 create table tb_convenience (
@@ -95,6 +103,8 @@ create table tb_convenience (
     constraints pk_tb_convenience_conven_no primary key(conven_no)
 );
 create sequence seq_tb_conven_no;
+
+select * from tb_convenience;
 
 -- 메뉴 테이블
 create table tb_menu (
@@ -108,6 +118,10 @@ create table tb_menu (
 );
 create sequence seq_tb_menu_no;
 
+select * from tb_menu;
+
+insert into tb_menu values (seq_tb_menu_no.nextval, 1, '떡볶이', '고추장을 떡과 볶아서 먹는 맛있는 한국 요리', 3000);
+
 -- 메뉴 사진 테이블
 create table tb_menu_picture (
     menu_pic_no varchar2(50) not null,
@@ -117,6 +131,8 @@ create table tb_menu_picture (
     constraints fk_tb_menu_picture_menu_no foreign key(menu_no) references tb_menu(menu_no) on delete cascade
 );
 create sequence seq_tb_menu_pic_no;
+
+select * from tb_menu_picture;
 
 -- 예약 테이블
 create table tb_reservation (
@@ -135,6 +151,8 @@ create table tb_reservation (
 );
 create sequence seq_tb_reserv_no;
 
+select * from tb_reservation;
+
 -- 리뷰 테이블
 create table tb_review (
     review_no varchar2(50) not null,
@@ -150,6 +168,8 @@ create table tb_review (
 );
 create sequence seq_tb_review_no;
 
+select * from tb_review;
+
 -- 리뷰 사진 테이블
 create table tb_review_picture (
     review_pic_no varchar2(50) not null,
@@ -160,6 +180,8 @@ create table tb_review_picture (
     constraints fk_tb_review_review_no foreign key(review_no) references tb_review(review_no) on delete cascade
 );
 create sequence seq_tb_review_pic_no;
+
+select * from tb_review_picture;
 
 -- 댓글 테이블
 create table tb_comment (
@@ -176,4 +198,6 @@ create table tb_comment (
     constraints fk_tb_comment_parent_comment_id foreign key(_parent_comment_id) references tb_comment(comment_no) on delete cascade
 );
 create sequence seq_tb_comment_no;
+
+select * from tb_comment;
 
