@@ -40,14 +40,14 @@ public class MenuDaoTest {
         // when
         Menu menu = new Menu();
         menu.setRestNo(restNo);
-        menu.setMenuName("순대");
-        menu.setMenuContent("아침에 먹어도 맛있는 순대, 점심에 먹어도 맛있는 순대, 저녁에 먹어도 맛있는 순대, 냉장고에 넣었다 꺼내도 맛있는 순대, 차갑게 먹어도 맛있는 순대, 뜨거울때 먹어도 맛있는 순대, 새해에 먹는 맛있는 순대");
-        menu.setMenuPrice(3500);
+        menu.setName("순대");
+        menu.setContent("아침에 먹어도 맛있는 순대, 점심에 먹어도 맛있는 순대, 저녁에 먹어도 맛있는 순대, 냉장고에 넣었다 꺼내도 맛있는 순대, 차갑게 먹어도 맛있는 순대, 뜨거울때 먹어도 맛있는 순대, 새해에 먹는 맛있는 순대");
+        menu.setPrice(3500);
 
         int result = menuDao.insertMenu(session, menu);
         System.out.println(result);
 
-        String menuNo = menu.getMenuNo();
+        String menuNo = menu.getNo();
         Menu menuInserted = menuDao.findByMenuNo(session, menuNo);
         System.out.println(menuInserted);
 
@@ -56,9 +56,9 @@ public class MenuDaoTest {
         assertThat(menuNo).isNotNull();
         assertThat(menuInserted).satisfies((m) -> {
             assertThat(m.getRestNo()).isNotNull();
-            assertThat(m.getMenuName()).isNotNull();
-            assertThat(m.getMenuContent()).isNotNull();
-            assertThat(m.getMenuPrice()).isNotZero();
+            assertThat(m.getName()).isNotNull();
+            assertThat(m.getContent()).isNotNull();
+            assertThat(m.getPrice()).isNotZero();
             System.out.println(m);
         });
     }
@@ -75,9 +75,9 @@ public class MenuDaoTest {
         System.out.println(menu);
 
         // when
-        menu.setMenuName("순대곱창");
-        menu.setMenuContent("신림동 또순이 그 맛 그대로");
-        menu.setMenuPrice(13000);
+        menu.setName("순대곱창");
+        menu.setContent("신림동 또순이 그 맛 그대로");
+        menu.setPrice(13000);
         int result = menuDao.updateMenu(session, menu);
 
         // then
@@ -85,9 +85,9 @@ public class MenuDaoTest {
         Menu menuUpdated = menuDao.findByMenuNo(session, menuNo);
         assertThat(menuUpdated).satisfies((m) -> {
             assertThat(m.getRestNo()).isNotNull();
-            assertThat(m.getMenuName()).isNotNull();
-            assertThat(m.getMenuContent()).isNotNull();
-            assertThat(m.getMenuPrice()).isNotZero();
+            assertThat(m.getName()).isNotNull();
+            assertThat(m.getContent()).isNotNull();
+            assertThat(m.getPrice()).isNotZero();
             System.out.println(m);
         });
     }
@@ -119,8 +119,8 @@ public class MenuDaoTest {
         MenuDao menuDao = new MenuDao();
         List<Menu> menus = menuDao.findMenuAll(getSqlSession());
         return Stream.of(
-                Arguments.arguments(menus.get(0).getMenuNo()),
-                Arguments.arguments(menus.get(1).getMenuNo())
+                Arguments.arguments(menus.get(0).getNo()),
+                Arguments.arguments(menus.get(1).getNo())
         );
     }
 }
