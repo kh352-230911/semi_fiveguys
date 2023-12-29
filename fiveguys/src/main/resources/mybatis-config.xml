@@ -19,12 +19,12 @@
       - Member -> member
       - MemberAddress -> memberAddress
     -->
-    <package name="com.sh.mvc"/>
+    <package name="com.sh.guys"/>
   </typeAliases>
 
-  <typeHandlers>
-    <typeHandler handler="com.sh.mvc.common.ListStringTypeHandler"/>
-  </typeHandlers>
+<!--  <typeHandlers>-->
+<!--    <typeHandler handler="com.sh.mvc.common.ListStringTypeHandler"/>-->
+<!--  </typeHandlers>-->
 
   <environments default="development">
     <environment id="development">
@@ -49,9 +49,6 @@
   </environments>
 
   <mappers>
-    <mapper resource="mapper/member/member-mapper.xml"/>
-    <mapper resource="mapper/board/board-mapper.xml"/>
-    <mapper resource="mapper/photo/photo-mapper.xml"/>
-    <mapper resource="mapper/notification/notification-mapper.xml"/>
+    <mapper resource="mapper/restaurant/restaurant-mapper.xml"/>
   </mappers>
 </configuration>
