@@ -50,5 +50,6 @@
 
   <mappers>
     <mapper resource="mapper/restaurant/restaurant-mapper.xml"/>
+    <mapper resource="mapper/menu/menu-mapper.xml"/>
   </mappers>
 </configuration>

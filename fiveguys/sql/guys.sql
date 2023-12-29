@@ -55,7 +55,7 @@ create sequence seq_tb_user_user_no;
 -- drop table tb_user;
 select * from tb_user;
 
--- 우진 추가
+-- 우진 회원 테이블 샘플 데이터 추가
 insert into tb_user 
 values ('user' || lpad(seq_tb_user_user_no.nextval,3,0), 'woojin', 'woojin', '오우진', '우진', default, 'woojin@gmail.com',  '010-1234-1231', 'M', null, default);
 
@@ -92,6 +92,7 @@ create sequence seq_tb_rest_no;
 -- drop table tb_restaurant;
 select * from tb_restaurant;
 
+-- 우진 식당 테이블 샘플 데이터 추가
 insert into tb_restaurant values('rest' || lpad(seq_tb_rest_no.nextval,3,0), 'user021', '샘플 식당', '강남구 kh정보교육원',
 '샘플 데이터 입니다.', '02-3391-4991', 'it', '9:00', '18:00', default, '9:00', 5, default);
 insert into tb_restaurant values('rest' || lpad(seq_tb_rest_no.nextval,3,0), 'user021', '샘플 식당2', '강남구 kh정보교육원 3관',
