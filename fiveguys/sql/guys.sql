@@ -18,16 +18,16 @@ create table sample (
 create sequence seq_sample_id;
 
 select
-    'u'  lpad(123, 5, 0)
+    'u' || lpad(123, 5, 0)
 from dual;
 
-insert into sample values('user'  lpad(seq_sample_id.nextval,3,0), '안녕하세요');
-insert into sample values('user'  lpad(seq_sample_id.nextval,3,0), '안녕하세');
-insert into sample values('user'  lpad(seq_sample_id.nextval,3,0), '안녕');
-insert into sample values('user'  lpad(seq_sample_id.nextval,3,0), '안');
-insert into sample values('user'  lpad(seq_sample_id.nextval,3,0), '안녕하세요12312312');
-insert into sample values('user'  lpad(seq_sample_id.nextval,3,0), '안녕하세요12312312312312312312');
-insert into sample values('user'  lpad(seq_sample_id.nextval,3,0), '안녕1231123');
+insert into sample values('user' || lpad(seq_sample_id.nextval,3,0), '안녕하세요');
+insert into sample values('user' || lpad(seq_sample_id.nextval,3,0), '안녕하세');
+insert into sample values('user' || lpad(seq_sample_id.nextval,3,0), '안녕');
+insert into sample values('user' || lpad(seq_sample_id.nextval,3,0), '안');
+insert into sample values('user' || lpad(seq_sample_id.nextval,3,0), '안녕하세요12312312');
+insert into sample values('user' || lpad(seq_sample_id.nextval,3,0), '안녕하세요12312312312312312312');
+insert into sample values('user' || lpad(seq_sample_id.nextval,3,0), '안녕1231123');
 
 select * from sample;
 
@@ -52,6 +52,13 @@ create table tb_user (
     constraints ck_tb_user_user_role check(user_role in ('M', 'O', 'U'))
 );
 create sequence seq_tb_user_user_no;
+-- drop table tb_user;
+select * from tb_user;
+
+insert into tb_user values ('user' || lpad(seq_tb_user_user_no.nextval,3,0), 'leejj', '1234', '이재준', '재준', default, 'leejj3240@gmail.com', '01096984252', default, null, default);
+-- 우진 회원 테이블 샘플 데이터 추가
+insert into tb_user 
+values ('user' || lpad(seq_tb_user_user_no.nextval,3,0), 'woojin', 'woojin', '오우진', '우진', default, 'woojin@gmail.com',  '010-1234-1231', 'M', null, default);
 
 select * from tb_user;
 
@@ -83,6 +90,15 @@ create table tb_restaurant (
     constraints ck_tb_rest_rest_reserv check(rest_reserv in ('Y', 'N')) 
 );
 create sequence seq_tb_rest_no;
+-- drop table tb_restaurant;
+select * from tb_restaurant;
+
+-- 우진 식당 테이블 샘플 데이터 추가
+insert into tb_restaurant values('rest' || lpad(seq_tb_rest_no.nextval,3,0), 'user021', '샘플 식당', '강남구 kh정보교육원',
+'샘플 데이터 입니다.', '02-3391-4991', 'it', '9:00', '18:00', default, '9:00', 5, default);
+insert into tb_restaurant values('rest' || lpad(seq_tb_rest_no.nextval,3,0), 'user021', '샘플 식당2', '강남구 kh정보교육원 3관',
+'샘플 데이터2 입니다.', '02-1191-1911', 'it', '9:00', '18:00', default, '9:00', 5, default);
+
 
 select * from tb_restaurant;
 
@@ -93,6 +109,8 @@ create table tb_rest_convenience (
     constraints pk_tb_rest_convenience_rest_conven_no primary key(rest_no, conven_no)
 );
 
+-- drop table tb_rest_convenience;
+
 -- 편의시설 테이블
 create table tb_convenience (
     conven_no varchar2(50) not null,
@@ -100,6 +118,8 @@ create table tb_convenience (
     constraints pk_tb_convenience_conven_no primary key(conven_no)
 );
 create sequence seq_tb_conven_no;
+
+-- drop table tb_convenience;
 
 -- 메뉴 테이블
 create table tb_menu (
@@ -111,7 +131,19 @@ create table tb_menu (
     constraints pk_tb_menu_menu_no primary key(menu_no),
     constraints fk_tb_menu_rest_no foreign key(rest_no) references tb_restaurant(rest_no) on delete cascade
 );
-create sequence seq_tb_menu_no;
+create sequence seq_tb_menu_menu_no;
+
+
+select * from tb_menu;
+
+insert into tb_menu values ('menu' || lpad(seq_tb_menu_no.nextval,3,0), 'rest002', '떡볶이', '고추장을 떡과 볶아서 먹는 맛있는 한국 요리', 3000);
+
+insert into
+            tb_menu
+        values (
+            ('menu' || lpad(seq_tb_menu_menu_no.nextval,3,0)), 'rest002', '순대', '아침에 먹어도 맛있는 순대', 3500);
+        )
+-- drop table tb_menu;
 
 -- 메뉴 사진 테이블
 create table tb_menu_picture (
@@ -122,6 +154,8 @@ create table tb_menu_picture (
     constraints fk_tb_menu_picture_menu_no foreign key(menu_no) references tb_menu(menu_no) on delete cascade
 );
 create sequence seq_tb_menu_pic_no;
+
+-- drop table tb_menu_picture;
 
 -- 예약 테이블
 create table tb_reservation (
@@ -140,6 +174,8 @@ create table tb_reservation (
 );
 create sequence seq_tb_reserv_no;
 
+-- drop table tb_reservation;
+
 -- 리뷰 테이블
 create table tb_review (
     review_no varchar2(50) not null,
@@ -155,6 +191,8 @@ create table tb_review (
 );
 create sequence seq_tb_review_no;
 
+-- drop table tb_review;
+
 -- 리뷰 사진 테이블
 create table tb_review_picture (
     review_pic_no varchar2(50) not null,
@@ -165,6 +203,8 @@ create table tb_review_picture (
     constraints fk_tb_review_review_no foreign key(review_no) references tb_review(review_no) on delete cascade
 );
 create sequence seq_tb_review_pic_no;
+
+-- drop table tb_review_picture;
 
 -- 댓글 테이블
 create table tb_comment (
@@ -181,6 +221,7 @@ create table tb_comment (
     constraints fk_tb_comment_parent_comment_id foreign key(parent_comment_id) references tb_comment(comment_no) on delete cascade
 );
 create sequence seq_tb_comment_no;
+<<<<<<< HEAD
 
 
 
@@ -298,3 +339,7 @@ from
 
 commit;
 
+=======
+-- drop table tb_comment;
+commit;
+>>>>>>> 01171a0c0889d613e007f283c8b3454be33995ed

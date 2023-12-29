@@ -1,6 +1,7 @@
 package com.sh.guys.restaurant.model.entity;
 
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Restaurant {
     private String restNo;
