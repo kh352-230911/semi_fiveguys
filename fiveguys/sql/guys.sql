@@ -2,7 +2,7 @@
 alter session set "_oracle_script" = true;
 
 create user guys
-identified by guys
+identified by "Five_mans240111@"
 default tablespace users;
 
 grant connect, resource to guys;
@@ -53,6 +53,8 @@ create table tb_user (
 );
 create sequence seq_tb_user_user_no;
 
+select * from tb_user;
+
 -- 좋아요 테이블
 create table tb_attraction (
     user_no varchar2(50) not null,
@@ -69,7 +71,8 @@ create table tb_restaurant (
     rest_content varchar2(2000),
     rest_phone varchar2(50) not null,
     rest_category varchar2(50) not null,
-    rest_time varchar2(50) not null,
+    rest_open_time varchar2(50) not null,
+    rest_close_time varchar2(50) not null,
     rest_reserv char(1) default 'Y' not null,
     rest_reserv_time varchar2(50) not null,
     rest_total_star number,
@@ -80,6 +83,8 @@ create table tb_restaurant (
     constraints ck_tb_rest_rest_reserv check(rest_reserv in ('Y', 'N')) 
 );
 create sequence seq_tb_rest_no;
+
+select * from tb_restaurant;
 
 -- 식당-편의시설 브릿지 테이블
 create table tb_rest_convenience (
@@ -173,7 +178,123 @@ create table tb_comment (
     constraints pk_tb_comment_comment_no primary key(comment_no),
     constraints fk_tb_comment_user_no foreign key(user_no) references tb_user(user_no) on delete cascade,
     constraints fk_tb_comment_review_no foreign key(review_no) references tb_review(review_no) on delete cascade,
-    constraints fk_tb_comment_parent_comment_id foreign key(_parent_comment_id) references tb_comment(comment_no) on delete cascade
+    constraints fk_tb_comment_parent_comment_id foreign key(parent_comment_id) references tb_comment(comment_no) on delete cascade
 );
 create sequence seq_tb_comment_no;
+
+
+
+create table users (
+    no varchar2(30),
+    id varchar2(30) not null,
+    password varchar2(30) not null,
+    name varchar2(30) not null,
+    nickname varchar2(30) not null,
+    gender char(1),
+    email varchar2(50),
+    phone varchar2(20) not null,
+    role char(1) default 'U' not null,
+    category varchar2(50),
+    reg_date date default sysdate not null,
+    constraints pk_users_no primary key(no),
+    constraints uq_users_id unique(id),
+    constraints uq_users_nickname unique(nickname),
+    constraints ck_users_gender check(gender in ('M', 'F')),
+    constraints uq_users_phone unique(phone),
+    constraints ck_users_role check(role in ('U', 'O', 'M'))
+);
+create sequence seq_users_no;
+
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'honggd', '1234', '홍길동', 'hong', 'M', 'honggd@naver.com', '01011111111', default, '중식', default);
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'abcd', '1234', '김준호', 'abcd', 'M', 'abcd@naver.com', '01022222222', default, '중식', default);
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'hihiroo', '1234', '김안녕', 'hihiroo', 'F', 'hihiroo@naver.com', '01033333333', default, '일식', default);    
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'bcde', '1234', '서지와', 'bcde', 'F', 'bcde@naver.com', '01044444444', default, '양식', default);
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'cdef', '1234', '김윤정', 'cdef', 'F', 'cdef@naver.com', '01055555555', default, '한식', default);
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'defg', '1234', '박봉철', 'defg', 'M', 'defg@naver.com', '01066666666', default, '한식', default);
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'efgh', '1234', '하정운', 'efgh', 'M', 'efgh@naver.com', '01077777777', default, '중식', default);
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'fghi', '1234', '유병송', 'fghi', 'M', 'fghi@naver.com', '01088888888', default, '한식', default);
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'ghij', '1234', '노민우', 'ghij', 'M', 'ghij@naver.com', '01099999999', default, '중식', default);
+insert into users
+    values (('users' || lpad(seq_menu_no.nextval,3,0)), 'hijk', '1234', '김지호', 'hijk', 'M', 'hijk@naver.com', '01012345678', default, '중식', default);
+
+
+select * from users;
+
+create table restaurant (
+    no varchar2(30),
+    user_no varchar2(30) not null,
+    name varchar2(60) not null,
+    address varchar2(100) not null,
+    content varchar2(2000),
+    phone varchar2(20) not null,
+    category varchar2(50) not null,
+    open_time varchar2(50) not null,
+    close_time varchar2(50) not null,
+    reserv_possible char(1) default 'Y' not null,
+    total_star number not null,
+    reg_date date default sysdate,
+    constraints pk_restaurant_no primary key(no),
+    constraints fk_restaurant_user_no foreign key(user_no) references users(no) on delete cascade,
+    constraints uq_restaurant_phone unique(phone),
+    constraints ck_restaurant_reserv_possible check(reserv_possible in ('Y', 'N'))
+);
+create sequence seq_restaurant_no;
+
+insert into restaurant
+    values (('restaurant' || lpad(seq_restautant_no.nextval,3,0)), 'user002', '백소정', '서울시 강남구 역삼동', null, 
+    '943-1111', '일식', '10:00', '20:00', default, 5, default);
+
+
+
+
+
+create table menu (
+    no varchar2(30),
+    rest_no varchar2(30) not null,
+    name varchar2(100) not null,
+    content varchar2(500),
+    price number not null,
+    constraints pk_menu_no primary key(no),
+    constraints fk_menu_rest_no foreign key(rest_no) references restaurant(no) on delete cascade
+);
+create sequence seq_menu_no;
+
+insert into menu
+    values (('menu' || lpad(seq_menu_no.nextval,3,0)), 
+
+
+create table menu_picture (
+    no varchar2(30),
+    menu_no varchar2(30) not null,
+    renamed_filename varchar2(255) not null,
+    constraints pk_menu_picture_no primary key(no),
+    constraints fk_menu_picture_menu_no foreign key(menu_no) references menu(no) on delete cascade
+);
+create sequence seq_menu_picture_no;
+
+select
+    m.*,
+    p.no pic_no,
+    p.menu_no,
+    p.renamed_filename
+from
+    menu m join menu_picture p
+        on m.no = p.menu_no;
+        
+select
+    count(*)
+from
+    menu m join menu_picture p
+        on m.no = p.menu_no;
+
+commit;
 
