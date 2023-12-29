@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
     <!-- 메뉴 전체 조회 - 재준 -->
     <select id="findMenuAll" resultType="menu">
@@ -65,4 +65,30 @@
         where
             menu_name = #{menuName}
     </select>
+
+    <!-- 전체 게시물 조회 - 정호 -->
+    <select id="getTotalCount" resultType="_int">
+        select
+            count(*)
+        from
+            menu m join menu_picture p
+                        on m.no = p.menu_no
+    </select>
+
+    <!-- 페이지 별 게시물 조회 - 정호 -->
+    <select id="findAll" resultMap="menuVoMap">
+        select
+            m.*,
+            p.no pic_no,
+            p.menu_no,
+            p.renamed_filename
+        from
+            menu m join menu_picture p
+                        on m.no = p.menu_no
+    </select>
+    <resultMap id="menuVoMap" type="menuVo">
+        <id column="no" property="no">
+
+        </id>
+    </resultMap>
 </mapper>

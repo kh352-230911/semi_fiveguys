@@ -1,5 +1,6 @@
 package com.sh.guys.restaurant.model.entity;
 
+import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 public class Restaurant {
@@ -12,15 +13,15 @@ public class Restaurant {
     private String restCategory;
     private String restOpenTime;
     private String restCloseTime;
-    private String restReserv;
+    private Reservation restReserv;
     private String restReservTime;
-    private long restTotalStar;
-    private LocalDate restCreatedDate;
+    private double restTotalStar;
+    private LocalDateTime restCreatedDate;
 
     public Restaurant() {
     }
 
-    public Restaurant(String restNo, String userNo, String restName, String restAddress, String restContent, String restPhone, String restCategory, String restOpenTime, String restCloseTime, String restReserv, String restReservTime, long restTotalStar, LocalDate restCreatedDate) {
+    public Restaurant(String restNo, String userNo, String restName, String restAddress, String restContent, String restPhone, String restCategory, String restOpenTime, String restCloseTime, Reservation restReserv, String restReservTime, double restTotalStar, LocalDateTime restCreatedDate) {
         this.restNo = restNo;
         this.userNo = userNo;
         this.restName = restName;
@@ -108,11 +109,11 @@ public class Restaurant {
         this.restCloseTime = restCloseTime;
     }
 
-    public String getRestReserv() {
+    public Reservation getRestReserv() {
         return restReserv;
     }
 
-    public void setRestReserv(String restReserv) {
+    public void setRestReserv(Reservation restReserv) {
         this.restReserv = restReserv;
     }
 
@@ -124,19 +125,19 @@ public class Restaurant {
         this.restReservTime = restReservTime;
     }
 
-    public long getRestTotalStar() {
+    public double getRestTotalStar() {
         return restTotalStar;
     }
 
-    public void setRestTotalStar(long restTotalStar) {
+    public void setRestTotalStar(double restTotalStar) {
         this.restTotalStar = restTotalStar;
     }
 
-    public LocalDate getRestCreatedDate() {
+    public LocalDateTime getRestCreatedDate() {
         return restCreatedDate;
     }
 
-    public void setRestCreatedDate(LocalDate restCreatedDate) {
+    public void setRestCreatedDate(LocalDateTime restCreatedDate) {
         this.restCreatedDate = restCreatedDate;
     }
 
@@ -152,9 +153,9 @@ public class Restaurant {
                 ", restCategory='" + restCategory + '\'' +
                 ", restOpenTime='" + restOpenTime + '\'' +
                 ", restCloseTime='" + restCloseTime + '\'' +
-                ", restReserv='" + restReserv + '\'' +
+                ", restReserv=" + restReserv +
                 ", restReservTime='" + restReservTime + '\'' +
-                ", restTotalStar='" + restTotalStar + '\'' +
+                ", restTotalStar=" + restTotalStar +
                 ", restCreatedDate=" + restCreatedDate +
                 '}';
     }

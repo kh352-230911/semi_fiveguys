@@ -1,28 +1,29 @@
 package com.sh.guys.menu.model.entity;
 
 public class Menu {
-    private String menuNo;
+    private String no;
     private String restNo;
-    private String menuName;
-    private String menuContent;
-    private int menuPrice;
+    private String name;
+    private String content;
+    private int price;
 
-    public Menu() {}
+    public Menu() {
+    }
 
-    public Menu(String menuNo, String restNo, String menuName, String menuContent, int menuPrice) {
-        this.menuNo = menuNo;
+    public Menu(String no, String restNo, String name, String content, int price) {
+        this.no = no;
         this.restNo = restNo;
-        this.menuName = menuName;
-        this.menuContent = menuContent;
-        this.menuPrice = menuPrice;
+        this.name = name;
+        this.content = content;
+        this.price = price;
     }
 
-    public String getMenuNo() {
-        return menuNo;
+    public String getNo() {
+        return no;
     }
 
-    public void setMenuNo(String menuNo) {
-        this.menuNo = menuNo;
+    public void setNo(String no) {
+        this.no = no;
     }
 
     public String getRestNo() {
@@ -33,38 +34,39 @@ public class Menu {
         this.restNo = restNo;
     }
 
-    public String getMenuName() {
-        return menuName;
+    public String getName() {
+        return name;
     }
 
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getMenuContent() {
-        return menuContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setMenuContent(String menuContent) {
-        this.menuContent = menuContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public int getMenuPrice() {
-        return menuPrice;
+    public int getPrice() {
+        return price;
     }
 
-    public void setMenuPrice(int menuPrice) {
-        this.menuPrice = menuPrice;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override
     public String toString() {
         return "Menu{" +
-                "menuNo='" + menuNo + '\'' +
+                "no='" + no + '\'' +
                 ", restNo='" + restNo + '\'' +
-                ", menuName='" + menuName + '\'' +
-                ", menuContent='" + menuContent + '\'' +
-                ", menuPrice=" + menuPrice +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", price=" + price +
                 '}';
     }
 }
+

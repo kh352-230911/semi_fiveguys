@@ -9,7 +9,6 @@ import java.util.List;
 import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
 
 public class RestaurantService {
-
     private RestaurantDao restaurantDao = new RestaurantDao();
 
     // 식당 한건 조회 - 우진
