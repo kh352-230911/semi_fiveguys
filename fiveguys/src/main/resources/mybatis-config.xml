@@ -22,10 +22,6 @@
     <package name="com.sh.guys"/>
   </typeAliases>
 
-  <typeHandlers>
-    <typeHandler handler="com.sh.mvc.common.ListStringTypeHandler"/>
-  </typeHandlers>
-
   <environments default="development">
     <environment id="development">
       <transactionManager type="JDBC"/>
