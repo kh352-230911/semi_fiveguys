@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+    <!--무진 -->
+    <select id="findById" resultType="user">
+        select
+        *
+        from
+        tb_user
+        where
+        user_id = #{userId}
+    </select>
+    <!--무진 -->
+    <insert id="insertUser">
+        insert into
+        tb_user
+        values (
+        ('user' || lpad(seq_tb_user_user_no.nextval,3,0)),#{userId}, #{userPassword}, #{userName},#{userNickName}, #{userGender},#{userEmail}, #{userPhone}, #{userRole} ,
+        #{userCategory}, default
+        )
+    </insert>
+
+    <select id="findAll" resultType="user">
+        select
+            *
+        from
+            tb_user
+        order by
+         user_no
+    </select>
+
+    <select id="findByName" resultType="user">
+        select
+            *
+        from
+            tb_user
+        where
+        user_name like '%' || #{userName} || '%'
+    </select>
+    <select id="findByGender" resultType="user">
+        select
+            *
+        from
+            tb_user
+        where
+            user_gender = #{userGender}
+    </select>
+    <update id="updateUser">
+        update
+            tb_user
+        set
+            user_name = #{userName},
+            user_gender = #{userGender},
+            user_email = #{userEmail},
+            user_phone = #{userPhone},
+            user_nickname = #{userNickName}
+        where
+            user_id = #{userId}
+    </update>
+
+    <update id="updateUserPassword">
+        update
+            tb_user
+        set
+            user_password = #{userPassword}
+        where
+        user_id = #{userId}
+    </update>
+
+    <update id="updateUserRole" >
+        update
+            tb_user
+        set
+            user_role = #{userRole}
+        where
+            user_id = #{userId}
+    </update>
+
+    <delete id="deleteUser">
+        delete from
+        tb_user
+        where
+        user_id = #{userId}
+    </delete>
+
+</mapper>

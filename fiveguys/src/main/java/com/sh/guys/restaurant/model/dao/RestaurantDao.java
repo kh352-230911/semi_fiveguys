@@ -6,7 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import java.util.List;
 
 public class RestaurantDao {
-
     // 식당 한건 조회 - 우진
     public Restaurant findByNo(SqlSession session, String restNo) {
         return session.selectOne("restaurant.findByNo", restNo);
