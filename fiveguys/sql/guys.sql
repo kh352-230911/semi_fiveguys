@@ -55,11 +55,10 @@ create sequence seq_tb_user_user_no;
 -- drop table tb_user;
 select * from tb_user;
 
+insert into tb_user values ('user' || lpad(seq_tb_user_user_no.nextval,3,0), 'leejj', '1234', '이재준', '재준', default, 'leejj3240@gmail.com', '01096984252', default, null, default);
 -- 우진 회원 테이블 샘플 데이터 추가
 insert into tb_user 
 values ('user' || lpad(seq_tb_user_user_no.nextval,3,0), 'woojin', 'woojin', '오우진', '우진', default, 'woojin@gmail.com',  '010-1234-1231', 'M', null, default);
-
-
 
 -- 좋아요 테이블
 create table tb_attraction (
@@ -128,8 +127,18 @@ create table tb_menu (
     constraints pk_tb_menu_menu_no primary key(menu_no),
     constraints fk_tb_menu_rest_no foreign key(rest_no) references tb_restaurant(rest_no) on delete cascade
 );
-create sequence seq_tb_menu_no;
+create sequence seq_tb_menu_menu_no;
 
+
+select * from tb_menu;
+
+insert into tb_menu values ('menu' || lpad(seq_tb_menu_no.nextval,3,0), 'rest002', '떡볶이', '고추장을 떡과 볶아서 먹는 맛있는 한국 요리', 3000);
+
+insert into
+            tb_menu
+        values (
+            ('menu' || lpad(seq_tb_menu_menu_no.nextval,3,0)), 'rest002', '순대', '아침에 먹어도 맛있는 순대', 3500);
+        )
 -- drop table tb_menu;
 
 -- 메뉴 사진 테이블
