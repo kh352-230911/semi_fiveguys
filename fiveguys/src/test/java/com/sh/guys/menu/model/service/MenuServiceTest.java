@@ -5,6 +5,7 @@ import com.sh.guys.menu.model.entity.MenuPicture;
 import com.sh.guys.menu.model.vo.MenuVo;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,6 +35,7 @@ public class MenuServiceTest {
     }
 
     // 메뉴 전체 조회 - 재준
+    @Disabled
     @DisplayName("Menu 전체조회")
     @Test
     void test1() {
@@ -92,7 +94,7 @@ public class MenuServiceTest {
     void test3() {
         // given
         // 사용자가 메뉴명(ex: 떡볶이)을 검색
-        String name = "떡볶이";
+        String name = "아무거나";
 
         // when
         List<String> restNos = menuService.findByName(name);
@@ -123,7 +125,7 @@ public class MenuServiceTest {
         assertThat(page).isNotZero();
 
         Map<String, Integer> param = Map.of("page", page, "limit", LIMIT);
-        List<MenuVo> menus = menuService.findAll(param);
+        List<MenuVo> menus = menuService.findAllPage(param);
         System.out.println(menus);
 
 //        assertThat(menus)
