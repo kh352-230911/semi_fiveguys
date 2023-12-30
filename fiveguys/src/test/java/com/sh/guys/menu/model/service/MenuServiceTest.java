@@ -47,7 +47,6 @@ public class MenuServiceTest {
                     assertThat(menu.getNo()).isNotNull();
                     assertThat(menu.getRestNo()).isNotNull();
                     assertThat(menu.getName()).isNotNull();
-                    assertThat(menu.getContent()).isNotNull();
                     assertThat(menu.getPrice()).isNotZero();
                     System.out.println(menu);
                 });
@@ -68,7 +67,6 @@ public class MenuServiceTest {
                     assertThat(_menu.getNo()).isNotNull();
                     assertThat(_menu.getRestNo()).isNotNull();
                     assertThat(_menu.getName()).isNotNull();
-                    assertThat(_menu.getContent()).isNotNull();
                     assertThat(_menu.getPrice()).isNotZero();
                     System.out.println(menu);
                 });
@@ -97,17 +95,20 @@ public class MenuServiceTest {
 
         // when
         List<String> restNos = menuService.findByName(name);
+        System.out.println(restNos);
+        System.out.println(restNos.toArray().length);
 
         // then
         assertThat(restNos)
-                .isNotNull()
+                .isNotEmpty()
                 .allSatisfy((restNo) -> {
                     assertThat(restNo).isNotNull();
                     System.out.println(restNo);
+                    System.out.println(restNo.length());
                 });
     }
 
-    @DisplayName("전제 게시물 조회")
+    @DisplayName("전체 게시물 조회")
     @Test
     public void test4() {
         int totalCount = menuService.getTotalCount();

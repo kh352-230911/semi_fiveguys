@@ -33,7 +33,7 @@ public class MenuDaoTest {
     // 메뉴 추가 - 재준
     @DisplayName("메뉴 등록")
     @ParameterizedTest
-    @ValueSource(strings = "rest002")
+    @ValueSource(strings = "restaurant014")
     @Order(1)
     void test1(String no) {
         // given
@@ -66,7 +66,7 @@ public class MenuDaoTest {
     // 메뉴 수정 - 재준
     @DisplayName("메뉴 수정")
     @ParameterizedTest
-    @ValueSource(strings = "menu001")
+    @ValueSource(strings = "menu022")
     @Order(2)
     void test2(String no) {
         // given
@@ -95,7 +95,7 @@ public class MenuDaoTest {
     // 메뉴 삭제 - 재준
     @DisplayName("메뉴 삭제")
     @ParameterizedTest
-    @ValueSource(strings = "menu001")
+    @ValueSource(strings = "menu022")
     @Order(3)
     void test3(String no) {
         // given
