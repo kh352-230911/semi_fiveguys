@@ -2,7 +2,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <div>
-            <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt="">
+            <a href="${pageContext.request.contextPath}/restaurant/restaurantDetail"><img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt=""></a>
         </div>
         <div>
             <img class="h-auto max-w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt="">
