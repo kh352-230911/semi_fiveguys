@@ -41,4 +41,7 @@ public class UserDao {
     public int deleteUser(SqlSession session, String id) {
         return session.delete("user.deleteUser", id);
     }
+
+
+
 }

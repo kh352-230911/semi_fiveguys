@@ -113,4 +113,22 @@ public class UserService {
         }
         return result;
     }
+
+
+    public User logintest(String id, String password) {
+        SqlSession session = getSqlSession();
+        try {
+            User user = userDao.findById(session, id);
+            if (user != null && user.getPassword().equals(password)) {
+                session.commit();
+                return user;
+            }
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return null;
+    }
 }

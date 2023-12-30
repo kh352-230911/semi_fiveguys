@@ -1,11 +1,15 @@
 package com.sh.guys.user.model.dao;
 
+import com.sh.guys.menu.model.dao.MenuDao;
+import com.sh.guys.user.model.entity.Gender;
+import com.sh.guys.user.model.entity.Role;
+import com.sh.guys.user.model.entity.User;
+import com.sh.guys.user.model.service.UserService;
 import com.sh.guys.user.model.entity.Gender;
 import com.sh.guys.user.model.entity.Role;
 import com.sh.guys.user.model.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
-
 import java.util.List;
 
 import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
@@ -30,7 +34,7 @@ public class UserDaoTest {
         this.session.close();
     }
 
-//   무진
+    //   무진
     @Disabled
     @Order(1)
     @DisplayName("회원가입")
@@ -138,7 +142,7 @@ public class UserDaoTest {
         User user2 = userDao.findById(session, id);
         assertThat(user2.getRole().name()).isEqualTo(newRole.name());
     }
-
+  
     @Disabled
     @Order(6)
     @DisplayName("회원삭제")
@@ -155,4 +159,3 @@ public class UserDaoTest {
         assertThat(user2).isNull();
     }
 }
-
