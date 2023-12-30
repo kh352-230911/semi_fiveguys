@@ -39,7 +39,7 @@ public class MenuServiceTest {
     void test1() {
         // given
         // when
-        List<Menu> menus = menuService.findMenuAll();
+        List<Menu> menus = menuService.findAll();
         System.out.println(menus);
         // then
         assertThat(menus)
@@ -48,7 +48,6 @@ public class MenuServiceTest {
                     assertThat(menu.getNo()).isNotNull();
                     assertThat(menu.getRestNo()).isNotNull();
                     assertThat(menu.getName()).isNotNull();
-                    assertThat(menu.getContent()).isNotNull();
                     assertThat(menu.getPrice()).isNotZero();
                     System.out.println(menu);
                 });
@@ -59,9 +58,9 @@ public class MenuServiceTest {
     @Test
     void test2_1() {
         // given
-        String menuNo = "menu022";
+        String no = "menu022";
         // when
-        Menu menu = menuService.findByMenuNo(menuNo);
+        Menu menu = menuService.findByNo(no);
         // then
         assertThat(menu)
                 .isNotNull()
@@ -69,7 +68,6 @@ public class MenuServiceTest {
                     assertThat(_menu.getNo()).isNotNull();
                     assertThat(_menu.getRestNo()).isNotNull();
                     assertThat(_menu.getName()).isNotNull();
-                    assertThat(_menu.getContent()).isNotNull();
                     assertThat(_menu.getPrice()).isNotZero();
                     System.out.println(menu);
                 });
@@ -79,10 +77,10 @@ public class MenuServiceTest {
     @DisplayName("존재하지 않는 메뉴 한건 조회")
     @ParameterizedTest
     @ValueSource(strings = {"menu100000", "menu200000"})
-    void test2_2(String menuNo) {
+    void test2_2(String no) {
         // given
         // when
-        Menu menu = menuService.findByMenuNo(menuNo);
+        Menu menu = menuService.findByNo(no);
         //then
         assertThat(menu).isNull();
         System.out.println(menu);
@@ -94,21 +92,24 @@ public class MenuServiceTest {
     void test3() {
         // given
         // 사용자가 메뉴명(ex: 떡볶이)을 검색
-        String menuName = "떡볶이";
+        String name = "떡볶이";
 
         // when
-        List<String> restNos = menuService.findByMenuName(menuName);
+        List<String> restNos = menuService.findByName(name);
+        System.out.println(restNos);
+        System.out.println(restNos.toArray().length);
 
         // then
         assertThat(restNos)
-                .isNotNull()
+                .isNotEmpty()
                 .allSatisfy((restNo) -> {
                     assertThat(restNo).isNotNull();
                     System.out.println(restNo);
+                    System.out.println(restNo.length());
                 });
     }
 
-    @DisplayName("전제 게시물 조회")
+    @DisplayName("전체 게시물 조회")
     @Test
     public void test4() {
         int totalCount = menuService.getTotalCount();

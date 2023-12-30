@@ -15,25 +15,25 @@ public class MenuService {
     private MenuDao menuDao = new MenuDao();
 
     // 메뉴 전체 조회 - 재준
-    public List<Menu> findMenuAll() {
+    public List<Menu> findAll() {
         SqlSession session = getSqlSession();
-        List<Menu> menu = menuDao.findMenuAll(session);
+        List<Menu> menu = menuDao.findAll(session);
         session.close();
         return menu;
     }
 
     // 메뉴 식별번호로 존재하는 메뉴 한개 조회 - 재준
-    public Menu findByMenuNo(String menuNo) {
+    public Menu findByNo(String menuNo) {
         SqlSession session = getSqlSession();
-        Menu menu = menuDao.findByMenuNo(session, menuNo);
+        Menu menu = menuDao.findByNo(session, menuNo);
         session.close();
         return menu;
     }
 
     // 메뉴 이름으로 식당 식별번호 조회 - 재준
-    public List<String> findByMenuName(String menuName) {
+    public List<String> findByName(String menuName) {
         SqlSession session = getSqlSession();
-        List<String> restNo = menuDao.findByMenuName(session, menuName);
+        List<String> restNo = menuDao.findByName(session, menuName);
         session.close();
         return restNo;
     }

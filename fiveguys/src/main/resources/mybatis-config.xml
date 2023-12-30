@@ -52,6 +52,5 @@
     <mapper resource="mapper/restaurant/restaurant-mapper.xml"/>
     <mapper resource="mapper/menu/menu-mapper.xml"/>
     <mapper resource="mapper/user/user-mapper.xml"/>
-
   </mappers>
 </configuration>

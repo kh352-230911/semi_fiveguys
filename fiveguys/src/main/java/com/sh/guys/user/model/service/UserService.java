@@ -10,9 +10,10 @@ import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
 
 public class UserService {
     private UserDao userDao = new UserDao();
-    public User findById(String userId) {
+
+    public User findById(String id) {
         SqlSession session = getSqlSession();
-        User user = userDao.findById(session, userId);
+        User user = userDao.findById(session, id);
         session.close();
         return user;
     }
@@ -29,7 +30,6 @@ public class UserService {
         }finally {
             session.close();
         }
-
         return result;
     }
 
@@ -40,16 +40,16 @@ public class UserService {
         return users;
     }
 
-    public List<User> findByName(String userName) {
+    public List<User> findByName(String name) {
         SqlSession session = getSqlSession();
-        List<User> users = userDao.findByName(session, userName);
+        List<User> users = userDao.findByName(session, name);
         session.close();
         return users;
     }
 
-    public List<User> findByGender(String userGender) {
+    public List<User> findByGender(String gender) {
         SqlSession session = getSqlSession();
-        List<User> users = userDao.findByGender(session, userGender);
+        List<User> users = userDao.findByGender(session, gender);
         session.close();
         return users;
     }
@@ -66,7 +66,7 @@ public class UserService {
         }finally {
             session.close();
         }
-        return  result;
+        return result;
     }
 
     public int updateUserPassword(User user) {
@@ -99,11 +99,11 @@ public class UserService {
         return result;
     }
 
-    public int deleteUser(String userId) {
+    public int deleteUser(String id) {
         int result = 0;
         SqlSession session = getSqlSession();
         try{
-            result = userDao.deleteUSer(session, userId);
+            result = userDao.deleteUser(session, id);
             session.commit();
         }catch (Exception e){
             session.rollback();

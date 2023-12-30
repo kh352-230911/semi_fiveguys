@@ -10,20 +10,20 @@ public class UserDao {
         return session.insert("user.insertUser" , user);
     }
 
-    public User findById(SqlSession session, String userId) {
-        return session.selectOne("user.findById", userId);
+    public User findById(SqlSession session, String id) {
+        return session.selectOne("user.findById", id);
     }
 
     public List<User> findAll(SqlSession session) {
         return session.selectList("user.findAll");
     }
 
-    public List<User> findByName(SqlSession session, String userName) {
-        return session.selectList("user.findByName" , userName);
+    public List<User> findByName(SqlSession session, String name) {
+        return session.selectList("user.findByName" , name);
     }
 
-    public List<User> findByGender(SqlSession session, String userGender) {
-        return session.selectList("user.findByGender", userGender);
+    public List<User> findByGender(SqlSession session, String gender) {
+        return session.selectList("user.findByGender", gender);
     }
 
     public int updateUser(SqlSession session, User user) {
@@ -38,7 +38,7 @@ public class UserDao {
         return session.update("user.updateUserRole", user);
     }
 
-    public int deleteUSer(SqlSession session, String userId) {
-        return session.delete("user.deleteUser", userId);
+    public int deleteUser(SqlSession session, String id) {
+        return session.delete("user.deleteUser", id);
     }
 }
