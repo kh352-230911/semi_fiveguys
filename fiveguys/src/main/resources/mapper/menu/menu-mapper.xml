@@ -76,7 +76,7 @@
     </select>
 
     <!-- 페이지 별 게시물 조회 - 정호 -->
-    <select id="findAll" resultMap="menuVoMap">
+    <select id="findAllPage" resultMap="menuVoMap">
         select
             m.*,
             p.no pic_no,
