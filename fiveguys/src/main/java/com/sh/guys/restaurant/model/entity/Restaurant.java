@@ -4,159 +4,149 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 public class Restaurant {
-    private String restNo;
-    private String userNo;
-    private String restName;
-    private String restAddress;
-    private String restContent;
-    private String restPhone;
-    private String restCategory;
-    private String restOpenTime;
-    private String restCloseTime;
-    private Reservation restReserv;
-    private String restReservTime;
-    private double restTotalStar;
-    private LocalDateTime restCreatedDate;
+    private String no;
+    private String usersNo;
+    private String name;
+    private String address;
+    private String content;
+    private String phone;
+    private String category;
+    private String openTime;
+    private String closeTime;
+    private Reservation reservPossible;
+    private double totalStar;
+    private LocalDateTime regDate;
 
     public Restaurant() {
     }
 
-    public Restaurant(String restNo, String userNo, String restName, String restAddress, String restContent, String restPhone, String restCategory, String restOpenTime, String restCloseTime, Reservation restReserv, String restReservTime, double restTotalStar, LocalDateTime restCreatedDate) {
-        this.restNo = restNo;
-        this.userNo = userNo;
-        this.restName = restName;
-        this.restAddress = restAddress;
-        this.restContent = restContent;
-        this.restPhone = restPhone;
-        this.restCategory = restCategory;
-        this.restOpenTime = restOpenTime;
-        this.restCloseTime = restCloseTime;
-        this.restReserv = restReserv;
-        this.restReservTime = restReservTime;
-        this.restTotalStar = restTotalStar;
-        this.restCreatedDate = restCreatedDate;
+    public Restaurant(String no, String usersNo, String name, String address, String content, String phone, String category, String openTime, String closeTime, Reservation reservPossible, double totalStar, LocalDateTime regDate) {
+        this.no = no;
+        this.usersNo = usersNo;
+        this.name = name;
+        this.address = address;
+        this.content = content;
+        this.phone = phone;
+        this.category = category;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.reservPossible = reservPossible;
+        this.totalStar = totalStar;
+        this.regDate = regDate;
     }
 
-    public String getRestNo() {
-        return restNo;
+    public String getNo() {
+        return no;
     }
 
-    public void setRestNo(String restNo) {
-        this.restNo = restNo;
+    public void setNo(String no) {
+        this.no = no;
     }
 
-    public String getUserNo() {
-        return userNo;
+    public String getUsersNo() {
+        return usersNo;
     }
 
-    public void setUserNo(String userNo) {
-        this.userNo = userNo;
+    public void setUsersNo(String usersNo) {
+        this.usersNo = usersNo;
     }
 
-    public String getRestName() {
-        return restName;
+    public String getName() {
+        return name;
     }
 
-    public void setRestName(String restName) {
-        this.restName = restName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRestAddress() {
-        return restAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setRestAddress(String restAddress) {
-        this.restAddress = restAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getRestContent() {
-        return restContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setRestContent(String restContent) {
-        this.restContent = restContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getRestPhone() {
-        return restPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setRestPhone(String restPhone) {
-        this.restPhone = restPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getRestCategory() {
-        return restCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setRestCategory(String restCategory) {
-        this.restCategory = restCategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public String getRestOpenTime() {
-        return restOpenTime;
+    public String getOpenTime() {
+        return openTime;
     }
 
-    public void setRestOpenTime(String restOpenTime) {
-        this.restOpenTime = restOpenTime;
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
     }
 
-    public String getRestCloseTime() {
-        return restCloseTime;
+    public String getCloseTime() {
+        return closeTime;
     }
 
-    public void setRestCloseTime(String restCloseTime) {
-        this.restCloseTime = restCloseTime;
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
     }
 
-    public Reservation getRestReserv() {
-        return restReserv;
+    public Reservation getReservPossible() {
+        return reservPossible;
     }
 
-    public void setRestReserv(Reservation restReserv) {
-        this.restReserv = restReserv;
+    public void setReservPossible(Reservation reservPossible) {
+        this.reservPossible = reservPossible;
     }
 
-    public String getRestReservTime() {
-        return restReservTime;
+    public double getTotalStar() {
+        return totalStar;
     }
 
-    public void setRestReservTime(String restReservTime) {
-        this.restReservTime = restReservTime;
+    public void setTotalStar(double totalStar) {
+        this.totalStar = totalStar;
     }
 
-    public double getRestTotalStar() {
-        return restTotalStar;
+    public LocalDateTime getRegDate() {
+        return regDate;
     }
 
-    public void setRestTotalStar(double restTotalStar) {
-        this.restTotalStar = restTotalStar;
-    }
-
-    public LocalDateTime getRestCreatedDate() {
-        return restCreatedDate;
-    }
-
-    public void setRestCreatedDate(LocalDateTime restCreatedDate) {
-        this.restCreatedDate = restCreatedDate;
+    public void setRegDate(LocalDateTime regDate) {
+        this.regDate = regDate;
     }
 
     @Override
     public String toString() {
         return "Restaurant{" +
-                "restNo='" + restNo + '\'' +
-                ", userNo='" + userNo + '\'' +
-                ", restName='" + restName + '\'' +
-                ", restAddress='" + restAddress + '\'' +
-                ", restContent='" + restContent + '\'' +
-                ", restPhone='" + restPhone + '\'' +
-                ", restCategory='" + restCategory + '\'' +
-                ", restOpenTime='" + restOpenTime + '\'' +
-                ", restCloseTime='" + restCloseTime + '\'' +
-                ", restReserv=" + restReserv +
-                ", restReservTime='" + restReservTime + '\'' +
-                ", restTotalStar=" + restTotalStar +
-                ", restCreatedDate=" + restCreatedDate +
+                "no='" + no + '\'' +
+                ", usersNo='" + usersNo + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", content='" + content + '\'' +
+                ", phone='" + phone + '\'' +
+                ", category='" + category + '\'' +
+                ", openTime='" + openTime + '\'' +
+                ", closeTime='" + closeTime + '\'' +
+                ", reservPossible=" + reservPossible +
+                ", totalStar=" + totalStar +
+                ", regDate=" + regDate +
                 '}';
     }
 }
+

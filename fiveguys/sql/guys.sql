@@ -31,6 +31,11 @@ create sequence seq_users_no;
 
 select * from users;
 
+-- 우진 회원 테이블에 샘플 데이터 추가
+insert into users values(
+    ('users' || lpad(seq_users_no.nextval,3,0)), 'woojin', '1234a@', '오우진', '우지', 'M', 'woojin@naver.com', '010-1231-1211', 'M', null, default
+);
+
 -- 식당 테이블
 create table restaurant (
     no varchar2(30),
@@ -53,6 +58,11 @@ create table restaurant (
 create sequence seq_restaurant_no;
 
 select * from restaurant;
+
+-- 우진 식당 테이블에 샘플 데이터 추가
+insert into restaurant values(
+     ('rest' || lpad(seq_restaurant_no.nextval,3,0)), 'users001', '캐치마인드', '강남구 테헤란로', '바뀐 데이터베이스에 샘플코드 넣는중', '02-3391-4991', 'it', '9:00', '18:00', default, 5, default
+);
 
 -- 메뉴 테이블
 create table menu (
