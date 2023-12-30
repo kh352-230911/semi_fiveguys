@@ -35,11 +35,11 @@ public class MenuDaoTest {
     @ParameterizedTest
     @ValueSource(strings = "rest002")
     @Order(1)
-    void test1(String restNo) {
+    void test1(String no) {
         // given
         // when
         Menu menu = new Menu();
-        menu.setRestNo(restNo);
+        menu.setRestNo(no);
         menu.setName("순대");
         menu.setContent("아침에 먹어도 맛있는 순대, 점심에 먹어도 맛있는 순대, 저녁에 먹어도 맛있는 순대, 냉장고에 넣었다 꺼내도 맛있는 순대, 차갑게 먹어도 맛있는 순대, 뜨거울때 먹어도 맛있는 순대, 새해에 먹는 맛있는 순대");
         menu.setPrice(3500);
@@ -47,13 +47,13 @@ public class MenuDaoTest {
         int result = menuDao.insertMenu(session, menu);
         System.out.println(result);
 
-        String menuNo = menu.getNo();
-        Menu menuInserted = menuDao.findByMenuNo(session, menuNo);
+        String noInserted = menu.getNo();
+        Menu menuInserted = menuDao.findByNo(session, noInserted);
         System.out.println(menuInserted);
 
         // then
         assertThat(result).isGreaterThan(0);
-        assertThat(menuNo).isNotNull();
+        assertThat(noInserted).isNotNull();
         assertThat(menuInserted).satisfies((m) -> {
             assertThat(m.getRestNo()).isNotNull();
             assertThat(m.getName()).isNotNull();
@@ -68,9 +68,9 @@ public class MenuDaoTest {
     @ParameterizedTest
     @ValueSource(strings = "menu001")
     @Order(2)
-    void test2(String menuNo) {
+    void test2(String no) {
         // given
-        Menu menu = menuDao.findByMenuNo(session, menuNo);
+        Menu menu = menuDao.findByNo(session, no);
         assertThat(menu).isNotNull();
         System.out.println(menu);
 
@@ -82,7 +82,7 @@ public class MenuDaoTest {
 
         // then
         assertThat(result).isGreaterThan(0);
-        Menu menuUpdated = menuDao.findByMenuNo(session, menuNo);
+        Menu menuUpdated = menuDao.findByNo(session, no);
         assertThat(menuUpdated).satisfies((m) -> {
             assertThat(m.getRestNo()).isNotNull();
             assertThat(m.getName()).isNotNull();
@@ -97,19 +97,19 @@ public class MenuDaoTest {
     @ParameterizedTest
     @ValueSource(strings = "menu001")
     @Order(3)
-    void test3(String menuNo) {
+    void test3(String no) {
         // given
-        Menu menu = menuDao.findByMenuNo(session, menuNo);
+        Menu menu = menuDao.findByNo(session, no);
         assertThat(menu).isNotNull();
         System.out.println(menu);
 
         // when
-        int result = menuDao.deleteMenu(session, menuNo);
+        int result = menuDao.deleteMenu(session, no);
 
         // then
         assertThat(result).isGreaterThan(0);
         System.out.println(result);
-        Menu menuDeleted = menuDao.findByMenuNo(session, menuNo);
+        Menu menuDeleted = menuDao.findByNo(session, no);
         assertThat(menuDeleted).isNull();
         System.out.println(menuDeleted);
     }
@@ -117,7 +117,7 @@ public class MenuDaoTest {
     // menuNo를 순차적으로 공급해주는 메소드(메뉴 수정, 삭제 시 사용) - 재준
     public static Stream<Arguments> menuNoProvider() {
         MenuDao menuDao = new MenuDao();
-        List<Menu> menus = menuDao.findMenuAll(getSqlSession());
+        List<Menu> menus = menuDao.findAll(getSqlSession());
         return Stream.of(
                 Arguments.arguments(menus.get(0).getNo()),
                 Arguments.arguments(menus.get(1).getNo())

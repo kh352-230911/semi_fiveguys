@@ -4,138 +4,137 @@ package com.sh.guys.user.model.entity;
 import java.time.LocalDate;
 
 public class User {
-    private  String userNo;
-    private  String userId;
-    private  String userPassword;
-    private  String userName;
-    private  String userNickName;
-    private Gender userGender;
+    private String no;
+    private String id;
+    private String password;
+    private String name;
+    private String nickName;
+    private Gender gender;
 
-    private String userEmail;
-    private String userPhone;
-    private Role userRole;
-    private String userCategory;
-    private LocalDate userCreatedDate;
+    private String email;
+    private String phone;
+    private Role role;
+    private String category;
+    private LocalDate regDate;
 
     public User() {}
 
-    public User(String userNo, String userId, String userPassword, String userName, String userNickName, Gender userGender, String userEmail, String userPhone, Role userRole, String userCategory, LocalDate userCreatedDate) {
-        this.userNo = userNo;
-        this.userId = userId;
-        this.userPassword = userPassword;
-        this.userName = userName;
-        this.userNickName = userNickName;
-        this.userGender = userGender;
-        this.userEmail = userEmail;
-        this.userPhone = userPhone;
-        this.userRole = userRole;
-        this.userCategory = userCategory;
-        this.userCreatedDate = userCreatedDate;
+    public User(String no, String id, String password, String name, String nickName, Gender gender, String email, String phone, Role role, String category, LocalDate regDate) {
+        this.no = no;
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.nickName = nickName;
+        this.gender = gender;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+        this.category = category;
+        this.regDate = regDate;
     }
 
-    public String getUserNo() {
-        return userNo;
+    public String getNo() {
+        return no;
     }
 
-    public void setUserNo(String userNo) {
-        this.userNo = userNo;
+    public void setNo(String no) {
+        this.no = no;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserNickName() {
-        return userNickName;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setUserNickName(String userNickName) {
-        this.userNickName = userNickName;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
-    public Gender getUserGender() {
-        return userGender;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setUserGender(Gender userGender) {
-        this.userGender = userGender;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUserPhone() {
-        return userPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public Role getUserRole() {
-        return userRole;
+    public Role getRole() {
+        return role;
     }
 
-    public void setUserRole(Role userRole) {
-        this.userRole = userRole;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public String getUserCategory() {
-        return userCategory;
+    public String getCategory() {
+        return category;
     }
 
-    public void setUserCategory(String userCategory) {
-        this.userCategory = userCategory;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
-    public LocalDate getUserCreatedDate() {
-        return userCreatedDate;
+    public LocalDate getRegDate() {
+        return regDate;
     }
 
-    public void setUserCreatedDate(LocalDate userCreatedDate) {
-        this.userCreatedDate = userCreatedDate;
+    public void setRegDate(LocalDate regDate) {
+        this.regDate = regDate;
     }
 
     @Override
     public String toString() {
-        return "Member{" +
-                "userNo=" + userNo +
-                ", userId='" + userId + '\'' +
-                ", userPassword='" + userPassword + '\'' +
-                ", userName='" + userName + '\'' +
-                ", userNickName='" + userNickName + '\'' +
-                ", userGender=" + userGender +
-                ", userEmail='" + userEmail + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                ", userRole=" + userRole +
-                ", userCategory='" + userCategory + '\'' +
-                ", userCreatedDate=" + userCreatedDate +
+        return "User{" +
+                "no='" + no + '\'' +
+                ", id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", gender=" + gender +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", role=" + role +
+                ", category='" + category + '\'' +
+                ", regDate=" + regDate +
                 '}';
     }
 }
-

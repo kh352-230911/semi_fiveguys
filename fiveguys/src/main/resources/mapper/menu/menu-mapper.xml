@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
     <!-- 메뉴 전체 조회 - 재준 -->
-    <select id="findMenuAll" resultType="menu">
+    <select id="findAll" resultType="menu">
         select
             *
         from
@@ -12,7 +12,7 @@
     </select>
 
     <!-- 메뉴 식별번호로 메뉴 한개 조회 - 재준 -->
-    <select id="findByMenuNo" resultType="menu">
+    <select id="findByNo" resultType="menu">
         select
             *
         from
@@ -57,7 +57,7 @@
     </delete>
 
     <!-- 메뉴 이름으로 식당 식별번호 조회 - 재준 -->
-    <select id="findByMenuName" resultType="String">
+    <select id="findByName" resultType="String">
         select
             rest_no
         from
@@ -73,22 +73,5 @@
         from
             menu m join menu_picture p
                         on m.no = p.menu_no
-    </select>
-
-    <!-- 페이지 별 게시물 조회 - 정호 -->
-    <select id="findAll" resultMap="menuVoMap">
-        select
-            m.*,
-            p.no pic_no,
-            p.menu_no,
-            p.renamed_filename
-        from
-            menu m join menu_picture p
-                        on m.no = p.menu_no
-    </select>
-    <resultMap id="menuVoMap" type="menuVo">
-        <id column="no" property="no">
-
-        </id>
-    </resultMap>
+    </select>ss
 </mapper>

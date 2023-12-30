@@ -10,7 +10,7 @@
         from
         tb_user
         where
-        user_id = #{userId}
+        user = #{id}
     </select>
     <!--무진 -->
     <insert id="insertUser">

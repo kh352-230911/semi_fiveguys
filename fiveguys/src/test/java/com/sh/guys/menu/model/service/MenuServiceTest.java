@@ -39,7 +39,7 @@ public class MenuServiceTest {
     void test1() {
         // given
         // when
-        List<Menu> menus = menuService.findMenuAll();
+        List<Menu> menus = menuService.findAll();
         // then
         assertThat(menus)
                 .isNotNull()
@@ -58,9 +58,9 @@ public class MenuServiceTest {
     @Test
     void test2_1() {
         // given
-        String menuNo = "menu022";
+        String no = "menu022";
         // when
-        Menu menu = menuService.findByMenuNo(menuNo);
+        Menu menu = menuService.findByNo(no);
         // then
         assertThat(menu)
                 .isNotNull()
@@ -78,10 +78,10 @@ public class MenuServiceTest {
     @DisplayName("존재하지 않는 메뉴 한건 조회")
     @ParameterizedTest
     @ValueSource(strings = {"menu100000", "menu200000"})
-    void test2_2(String menuNo) {
+    void test2_2(String no) {
         // given
         // when
-        Menu menu = menuService.findByMenuNo(menuNo);
+        Menu menu = menuService.findByNo(no);
         //then
         assertThat(menu).isNull();
         System.out.println(menu);
@@ -93,10 +93,10 @@ public class MenuServiceTest {
     void test3() {
         // given
         // 사용자가 메뉴명(ex: 떡볶이)을 검색
-        String menuName = "떡볶이";
+        String name = "떡볶이";
 
         // when
-        List<String> restNos = menuService.findByMenuName(menuName);
+        List<String> restNos = menuService.findByName(name);
 
         // then
         assertThat(restNos)
