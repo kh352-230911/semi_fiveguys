@@ -44,14 +44,14 @@ public class UserServiceTest {
 
     @DisplayName("존재하지않는 회원이 NULL이 반환되어야 한다.")
     @Test
-    public void test2() {
+    public void test2(){
         User user = userService.findById("askdgasiudgisa");
         assertThat(user).isNull();
     }
 
     @DisplayName("회원 전체 조회")
     @Test
-    public void test3() {
+    public void test3(){
         List<User> users = userService.findAll();
         assertThat(users)
                 .isNotNull()
@@ -106,7 +106,4 @@ public class UserServiceTest {
         assertThat(loginuser.getId()).isEqualTo(id);
         assertThat(loginuser.getPassword()).isEqualTo(password);
     }
-
-
-
 }

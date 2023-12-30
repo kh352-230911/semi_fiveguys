@@ -9,11 +9,6 @@ import java.util.List;
 public class MenuVo extends Menu {
     private List<MenuPicture> menuPictures = new ArrayList<>();
 
-    public MenuVo(String no, String restNo, String name, String content, int price, List<MenuPicture> menuPictures) {
-        super(no, restNo, name, content, price);
-        this.menuPictures = menuPictures;
-    }
-
     public List<MenuPicture> getMenuPicture() {
         return menuPictures;
     }

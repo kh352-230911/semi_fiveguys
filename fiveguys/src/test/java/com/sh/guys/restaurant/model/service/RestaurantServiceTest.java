@@ -106,23 +106,24 @@ public class RestaurantServiceTest {
         @DisplayName("카테고리로 식당 조회")
         @Test
         public void test6 () {
-            List<Restaurant> restaurants = restaurantService.findByCategory("it");
-            assertThat(restaurants).isNotNull().isNotEmpty();
+          List<Restaurant> restaurants = restaurantService.findByCategory("it");
+          assertThat(restaurants).isNotNull().isNotEmpty();
 
-//        restaurants.forEach((restaurant) -> {
-//            System.out.println(restaurant);
-//            assertThat(restaurant.getRestNo()).isNotNull();
-//            assertThat(restaurant.getUserNo()).isNotNull();
-//            assertThat(restaurant.getRestName()).isNotNull();
-//            assertThat(restaurant.getRestAddress()).isNotNull();
-//            assertThat(restaurant.getRestCategory()).isNotNull();
-//            assertThat(restaurant.getRestPhone()).isNotNull();
-//            assertThat(restaurant.getRestOpenTime()).isNotNull();
-//            assertThat(restaurant.getRestCloseTime()).isNotNull();
-//            assertThat(restaurant.getRestReserv()).isNotNull();
-//            assertThat(restaurant.getRestReservTime()).isNotNull();
-//            assertThat(restaurant.getRestCreatedDate()).isNotNull();
-//       });
+          restaurants.forEach((restaurant) -> {
+            System.out.println(restaurant);
+            assertThat(restaurant.getNo()).isNotNull();
+            assertThat(restaurant.getUsersNo()).isNotNull();
+            assertThat(restaurant.getName()).isNotNull();
+            assertThat(restaurant.getAddress()).isNotNull();
+            assertThat(restaurant.getCategory()).isNotNull();
+            assertThat(restaurant.getPhone()).isNotNull();
+            assertThat(restaurant.getOpenTime()).isNotNull();
+            assertThat(restaurant.getCloseTime()).isNotNull();
+            assertThat(restaurant.getReservPossible()).isNotNull();
+            assertThat(restaurant.getRegDate()).isNotNull();
+        });
+
     }
+
 }
 

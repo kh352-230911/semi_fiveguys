@@ -16,13 +16,13 @@ import java.util.List;
 public class MenuDao {
 
     // 메뉴 전체 조회 - 재준
-    public List<Menu> findMenuAll(SqlSession session) {
-        return session.selectList("menu.findMenuAll");
+    public List<Menu> findAll(SqlSession session) {
+        return session.selectList("menu.findAll");
     }
 
     // 메뉴 식별번호로 메뉴 한개 조회 - 재준
-    public Menu findByMenuNo(SqlSession session, String menuNo) {
-        return session.selectOne("menu.findByMenuNo", menuNo);
+    public Menu findByNo(SqlSession session, String menuNo) {
+        return session.selectOne("menu.findByNo", menuNo);
     }
 
     // 메뉴 추가 - 재준
@@ -41,8 +41,8 @@ public class MenuDao {
     }
 
     // 메뉴 이름으로 식당 식별번호 조회 - 재준
-    public List<String> findByMenuName(SqlSession session, String menuName) {
-        return session.selectList("menu.findByMenuName", menuName);
+    public List<String> findByName(SqlSession session, String menuName) {
+        return session.selectList("menu.findByName", menuName);
     }
 
     // 전체 게시물 조회 - 정호

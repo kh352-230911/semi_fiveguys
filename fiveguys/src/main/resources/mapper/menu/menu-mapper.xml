@@ -4,33 +4,33 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
     <!-- 메뉴 전체 조회 - 재준 -->
-    <select id="findMenuAll" resultType="menu">
+    <select id="findAll" resultType="menu">
         select
             *
         from
-            tb_menu
+            menu
     </select>
 
     <!-- 메뉴 식별번호로 메뉴 한개 조회 - 재준 -->
-    <select id="findByMenuNo" resultType="menu">
+    <select id="findByNo" resultType="menu">
         select
             *
         from
-            tb_menu
+            menu
         where
-            menu_no = #{menuNo}
+            no = #{no}
     </select>
 
     <!-- 메뉴 추가 - 재준 -->
     <insert id="insertMenu">
         insert into
-            tb_menu
+            menu
         values (
-            ('menu' || lpad(seq_tb_menu_menu_no.nextval,3,0)), #{restNo}, #{menuName}, #{menuContent}, #{menuPrice}
+            ('menu' || lpad(seq_menu_no.nextval,3,0)), #{restNo}, #{name}, #{content}, #{price}
         )
-        <selectKey order="AFTER" resultType="string" keyProperty="menuNo">
+        <selectKey order="AFTER" resultType="string" keyProperty="no">
             select
-                ('menu' || lpad(seq_tb_menu_menu_no.currval,3,0))
+                ('menu' || lpad(seq_menu_no.currval,3,0))
             from
                 dual
         </selectKey>
@@ -39,31 +39,31 @@
     <!-- 메뉴 수정 - 재준 -->
     <update id="updateMenu">
         update
-            tb_menu
+            menu
         set
-            menu_name = #{menuName}
-            , menu_content = #{menuContent}
-            , menu_price = #{menuPrice}
+            name = #{name}
+            , content = #{content}
+            , price = #{price}
         where
-            menu_no = #{menuNo}
+            no = #{no}
     </update>
 
     <!-- 메뉴 삭제 -->
     <delete id="deleteMenu">
         delete from
-            tb_menu
+            menu
         where
-            menu_no = #{menuNo}
+            no = #{no}
     </delete>
 
     <!-- 메뉴 이름으로 식당 식별번호 조회 - 재준 -->
-    <select id="findByMenuName" resultType="String">
+    <select id="findByName" resultType="String">
         select
             rest_no
         from
-            tb_menu
+            menu
         where
-            menu_name = #{menuName}
+            name = #{name}
     </select>
 
     <!-- 전체 게시물 조회 - 정호 -->
@@ -75,7 +75,27 @@
                         on m.no = p.menu_no
     </select>
 
-
-
-
+    <!-- 페이지 별 게시물 조회 - 정호 -->
+    <select id="findAll" resultMap="menuVoMap">
+        select
+            m.*,
+            p.no pic_no,
+            p.menu_no,
+            p.renamed_filename
+        from
+            menu m left join menu_picture p
+                        on m.no = p.menu_no
+    </select>
+    <resultMap id="menuVoMap" type="menuVo">
+        <id column="no" property="no"/>
+        <result column="rest_no" property="restNo"/>
+        <result column="name" property="name"/>
+        <result column="content" property="content"/>
+        <result column="price" property="price"/>
+        <collection property="menuPictures" ofType="menuPicture">
+            <id column="pic_no" property="no"/>
+            <result column="menu_no" property="menuNo"/>
+            <result column="renamed_filename" property="renamedFilename"/>
+        </collection>
+    </resultMap>
 </mapper>

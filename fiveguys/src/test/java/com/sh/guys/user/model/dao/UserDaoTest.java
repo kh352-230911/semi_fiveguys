@@ -5,9 +5,11 @@ import com.sh.guys.user.model.entity.Gender;
 import com.sh.guys.user.model.entity.Role;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.service.UserService;
+import com.sh.guys.user.model.entity.Gender;
+import com.sh.guys.user.model.entity.Role;
+import com.sh.guys.user.model.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
-
 import java.util.List;
 
 import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
@@ -56,6 +58,7 @@ public class UserDaoTest {
         assertThat(user1.getPassword()).isEqualTo(password);
         assertThat(user1.getName()).isEqualTo(name);
     }
+
     @Disabled
     @Order(2)
     @DisplayName("회원가입시 오류 체크")
@@ -69,6 +72,7 @@ public class UserDaoTest {
         });
         assertThat(th).isInstanceOf(Exception.class);
     }
+
     @Disabled
     @Order(3)
     @DisplayName("회원정보 수정")
@@ -103,8 +107,8 @@ public class UserDaoTest {
         assertThat(user2.getPhone()).isEqualTo(newPhone);
         assertThat(user2.getNickName()).isEqualTo(newNickName);
     }
-    @Disabled
 
+    @Disabled
     @Order(4)
     @DisplayName("회원 비밀번호 수정")
     @Test
@@ -121,6 +125,7 @@ public class UserDaoTest {
         System.out.println(user2);
         assertThat(user2.getPassword()).isEqualTo(newPassword);
     }
+
     @Disabled
     @Order(5)
     @DisplayName("회원 권한 수정")
@@ -137,6 +142,7 @@ public class UserDaoTest {
         User user2 = userDao.findById(session, id);
         assertThat(user2.getRole().name()).isEqualTo(newRole.name());
     }
+  
     @Disabled
     @Order(6)
     @DisplayName("회원삭제")
