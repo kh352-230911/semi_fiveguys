@@ -8,17 +8,17 @@
         select
         *
         from
-        tb_user
+            users
         where
-        user = #{id}
+          id = #{id}
     </select>
     <!--무진 -->
     <insert id="insertUser">
         insert into
-        tb_user
+            users
         values (
-        ('user' || lpad(seq_tb_user_user_no.nextval,3,0)),#{userId}, #{userPassword}, #{userName},#{userNickName}, #{userGender},#{userEmail}, #{userPhone}, #{userRole} ,
-        #{userCategory}, default
+        ('user' || lpad(seq_tb_user_user_no.nextval,3,0)),#{id}, #{password}, #{name},#{nickName}, #{gender},#{email}, #{phone}, #{role} ,
+        #{category}, default
         )
     </insert>
 
@@ -26,63 +26,67 @@
         select
             *
         from
-            tb_user
+            users
         order by
-         user_no
+            no
     </select>
 
     <select id="findByName" resultType="user">
         select
             *
         from
-            tb_user
+            users
         where
-        user_name like '%' || #{userName} || '%'
+        name like '%' || #{name} || '%'
     </select>
     <select id="findByGender" resultType="user">
         select
             *
         from
-            tb_user
+            users
         where
-            user_gender = #{userGender}
+            gender = #{gender}
     </select>
     <update id="updateUser">
         update
-            tb_user
+            users
         set
-            user_name = #{userName},
-            user_gender = #{userGender},
-            user_email = #{userEmail},
-            user_phone = #{userPhone},
-            user_nickname = #{userNickName}
+            name = #{name},
+            gender = #{gender},
+            email = #{email},
+            phone = #{phone},
+            nickname = #{nickName}
         where
-            user_id = #{userId}
+            id = #{id}
     </update>
 
     <update id="updateUserPassword">
         update
-            tb_user
+            users
         set
-            user_password = #{userPassword}
+            password = #{password}
         where
-        user_id = #{userId}
+        id = #{id}
     </update>
 
     <update id="updateUserRole" >
         update
-            tb_user
+            users
         set
-            user_role = #{userRole}
+            role = #{role}
         where
-            user_id = #{userId}
+            id = #{id}
     </update>
 
     <delete id="deleteUser">
         delete from
-        tb_user
+        users
         where
-        user_id = #{userId}
+        id = #{id}
     </delete>
+
+
+
+
 
 </mapper>
