@@ -8,9 +8,9 @@
         select
             *
         from
-            tb_restaurant
+            restaurant
         where
-            rest_no = #{restNo}
+            no = #{no}
     </select>
 
     <!-- 식당 여러 건 조회 - 우진 -->
@@ -18,7 +18,7 @@
         select
             *
         from
-            tb_restaurant
+            restaurant
     </select>
 
     <!-- 식당 이름으로 식당 조회 - 우진 -->
@@ -26,9 +26,9 @@
         select
             *
         from
-            tb_restaurant
+            restaurant
         where
-            rest_name like '%' || #{restName} || '%'
+            name like '%' || #{name} || '%'
     </select>
 
     <!-- 식당 카테고리로 식당 조회 - 우진 -->
@@ -36,33 +36,32 @@
         select
             *
         from
-            tb_restaurant
+            restaurant
         where
-            rest_category = #{restCategory}
+            category = #{category}
     </select>
 
     <!-- 식당 등록 - 우진 -->
     <insert id="insertRestaurant">
         insert into
-            tb_restaurant
+            restaurant
         values(
-                ('rest' || lpad(seq_tb_rest_no.nextval,3,0)),
-                #{userNo},
-                #{restName},
-                #{restAddress},
-                #{restContent},
-                #{restPhone},
-                #{restCategory},
-                #{restOpenTime},
-                #{restCloseTime},
+                ('rest' || lpad(seq_restaurant_no.nextval,3,0)),
+                #{no},
+                #{name},
+                #{address},
+                #{content},
+                #{phone},
+                #{category},
+                #{openTime},
+                #{closeTime},
                 default,
-                #{restReservTime},
-                #{restTotalStar},
+                #{totalStar},
                 default
               )
-        <selectKey order="AFTER" resultType="String" keyProperty="restNo">
+        <selectKey order="AFTER" resultType="String" keyProperty="no">
             select
-                ('rest' || lpad(seq_tb_rest_no.currval,3,0))
+                ('rest' || lpad(seq_restaurant_no.currval,3,0))
             from
                 dual
         </selectKey>
@@ -71,22 +70,22 @@
     <!-- 식당 내용을 수정 할 수 있다.(식당 이름, 주소, 내용, 번호) - 우진 -->
     <update id="updateRestaurant">
         update
-            tb_restaurant
+            restaurant
         set
-            rest_name = #{restName},
-            rest_address = #{restAddress},
-            rest_content = #{restContent},
-            rest_phone = #{restPhone}
+            name = #{name},
+            address = #{address},
+            content = #{content},
+            phone = #{phone}
         where
-            rest_no = #{restNo}
+            no = #{no}
     </update>
 
     <!-- 식당 삭제 - 우진 -->
     <delete id="deleteRestaurant">
         delete
         from
-            tb_restaurant
+            restaurant
         where
-            rest_no = #{restNo}
+            no = #{no}
     </delete>
 </mapper>

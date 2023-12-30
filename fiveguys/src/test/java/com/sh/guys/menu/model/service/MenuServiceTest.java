@@ -40,6 +40,7 @@ public class MenuServiceTest {
         // given
         // when
         List<Menu> menus = menuService.findAll();
+        System.out.println(menus);
         // then
         assertThat(menus)
                 .isNotNull()

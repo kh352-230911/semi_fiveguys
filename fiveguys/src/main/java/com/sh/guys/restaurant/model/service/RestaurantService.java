@@ -12,9 +12,9 @@ public class RestaurantService {
     private RestaurantDao restaurantDao = new RestaurantDao();
 
     // 식당 한건 조회 - 우진
-    public Restaurant findByNo(String restNo) {
+    public Restaurant findByNo(String no) {
         SqlSession session = getSqlSession();
-        Restaurant restaurant = restaurantDao.findByNo(session, restNo);
+        Restaurant restaurant = restaurantDao.findByNo(session, no);
         session.close();
         return restaurant;
     }
@@ -28,17 +28,17 @@ public class RestaurantService {
     }
 
     // 식당 이름으로 식당 조회 - 우진
-    public List<Restaurant> findByName(String restName) {
+    public List<Restaurant> findByName(String name) {
         SqlSession session = getSqlSession();
-        List<Restaurant> restaurants = restaurantDao.findByName(session, restName);
+        List<Restaurant> restaurants = restaurantDao.findByName(session, name);
         session.close();
         return restaurants;
     }
 
     // 카테고리로 식당 조회 - 우진
-    public List<Restaurant> findByCategory(String restCategory) {
+    public List<Restaurant> findByCategory(String category) {
         SqlSession session = getSqlSession();
-        List<Restaurant> restaurants = restaurantDao.findByCategory(session, restCategory);
+        List<Restaurant> restaurants = restaurantDao.findByCategory(session, category);
         session.close();
         return restaurants;
     }
