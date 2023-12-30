@@ -47,9 +47,9 @@ public class MenuService {
     }
 
     // 페이지 별 게시물 조회 - 정호
-    public List<MenuVo> findAll(Map<String, Integer> param) {
+    public List<MenuVo> findAllPage(Map<String, Integer> param) {
         SqlSession session = getSqlSession();
-        List<MenuVo> menus = menuDao.findAll(session, param);
+        List<MenuVo> menus = menuDao.findAllPage(session, param);
         session.close();
         return menus;
     }

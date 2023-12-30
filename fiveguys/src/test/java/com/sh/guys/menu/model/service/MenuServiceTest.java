@@ -123,7 +123,7 @@ public class MenuServiceTest {
         assertThat(page).isNotZero();
 
         Map<String, Integer> param = Map.of("page", page, "limit", LIMIT);
-        List<MenuVo> menus = menuService.findAll(param);
+        List<MenuVo> menus = menuService.findAllPage(param);
         System.out.println(menus);
 
 //        assertThat(menus)
