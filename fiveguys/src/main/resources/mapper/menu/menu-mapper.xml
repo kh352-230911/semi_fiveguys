@@ -75,20 +75,4 @@
                         on m.no = p.menu_no
     </select>
 
-    <!-- 페이지 별 게시물 조회 - 정호 -->
-    <select id="findAll" resultMap="menuVoMap">
-        select
-            m.*,
-            p.no pic_no,
-            p.menu_no,
-            p.renamed_filename
-        from
-            menu m join menu_picture p
-                        on m.no = p.menu_no
-    </select>
-    <resultMap id="menuVoMap" type="menuVo">
-        <id column="no" property="no">
-
-        </id>
-    </resultMap>
 </mapper>
