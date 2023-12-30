@@ -23,15 +23,15 @@
 <body>
 <div class="3xl:container">
     <header>
-        <nav class="bg-white border-gray-200">
+        <nav class="bg-white rounded-lg shadow m-4 dark:bg-gray-800">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-                fiveGuys
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap">Five Guys</span>
-                <div class="flex items-center space-x-6 rtl:space-x-reverse">
-                        <a href="#" class="text-md text-gray-600 hover:underline">로그인</a>
-                        <a href="#" class="text-md text-gray-500 hover:underline">회원가입</a>
+                <!-- drawer init and show -->
+                <div class="text-center">
+                    <button class="text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
+                        <img src="${pageContext.request.contextPath}/images/free-icon-font-rectangle-list-10742331.png" alt="">
+                    </button>
                 </div>
-                <div class="flex md:order-2">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap">Five Guys</span>
                     <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="false" class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 me-1">
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
@@ -50,12 +50,8 @@
             </div>
         </nav>
 
-        <!-- drawer init and show -->
-        <div class="text-center">
-            <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
-                Show navigation
-            </button>
-        </div>
+
+
 
         <!-- drawer component -->
         <div id="drawer-navigation" class="fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-navigation-label">
@@ -130,17 +126,5 @@
                 </ul>
             </div>
         </div>
-
-        <nav class="bg-gray-50">
-            <div class="max-w-screen-xl px-4 py-3 mx-auto">
-                <div class="flex items-center">
-                    <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-                        <li>
-                            <a href="${pageContext.request.contextPath}" class="text-gray-900 hover:underline" aria-current="page">Home</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
     </header>
     <main class="w-full min-h-[80vh]">
