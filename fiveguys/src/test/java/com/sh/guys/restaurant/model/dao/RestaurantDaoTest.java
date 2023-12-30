@@ -1,4 +1,4 @@
-package com.sh.guys.restaurant.dao;
+package com.sh.guys.restaurant.model.dao;
 
 import com.sh.guys.restaurant.model.dao.RestaurantDao;
 import com.sh.guys.restaurant.model.entity.Restaurant;

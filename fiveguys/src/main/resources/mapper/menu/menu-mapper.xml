@@ -83,12 +83,19 @@
             p.menu_no,
             p.renamed_filename
         from
-            menu m join menu_picture p
+            menu m left join menu_picture p
                         on m.no = p.menu_no
     </select>
     <resultMap id="menuVoMap" type="menuVo">
-        <id column="no" property="no">
-
-        </id>
+        <id column="no" property="no"/>
+        <result column="rest_no" property="restNo"/>
+        <result column="name" property="name"/>
+        <result column="content" property="content"/>
+        <result column="price" property="price"/>
+        <collection property="menuPictures" ofType="menuPicture">
+            <id column="pic_no" property="no"/>
+            <result column="menu_no" property="menuNo"/>
+            <result column="renamed_filename" property="renamedFilename"/>
+        </collection>
     </resultMap>
 </mapper>
