@@ -4,12 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
     <!-- 메뉴 전체 조회 - 재준 -->
-    <select id="findAll" resultType="menu">
-        select
-            *
-        from
-            menu
-    </select>
+<!--    <select id="findAll" resultType="menu">-->
+<!--        select-->
+<!--            *-->
+<!--        from-->
+<!--            menu-->
+<!--    </select>-->
 
     <!-- 메뉴 식별번호로 메뉴 한개 조회 - 재준 -->
     <select id="findByNo" resultType="menu">
@@ -76,29 +76,6 @@
     </select>
 
     <!-- 페이지 별 게시물 조회 - 정호 -->
-<!--    <select id="findAllPage" resultMap="menuVoMap">-->
-<!--        select-->
-<!--            m.*,-->
-<!--            p.no pic_no,-->
-<!--            p.menu_no,-->
-<!--            p.renamed_filename-->
-<!--        from-->
-<!--            menu m left join menu_picture p-->
-<!--                        on m.no = p.menu_no-->
-<!--    </select>-->
-<!--    <resultMap id="menuVoMap" type="menuVo">-->
-<!--        <id column="no" property="no"/>-->
-<!--        <result column="rest_no" property="restNo"/>-->
-<!--        <result column="name" property="name"/>-->
-<!--        <result column="content" property="content"/>-->
-<!--        <result column="price" property="price"/>-->
-<!--        <collection property="menuPictures" ofType="menuPicture">-->
-<!--            <id column="pic_no" property="no"/>-->
-<!--            <result column="menu_no" property="menuNo"/>-->
-<!--            <result column="renamed_filename" property="renamedFilename"/>-->
-<!--        </collection>-->
-<!--    </resultMap>-->
-
     <select id="findAllPage" resultMap="restaurantVoMap">
         select
             r.no,

@@ -121,7 +121,7 @@ public class MenuServiceTest {
     @MethodSource("pageProvider")
     public void test5(int page) {
         assertThat(page).isNotZero();
-
+      
         Map<String, Object> param = Map.of("page", page, "limit", LIMIT);
         List<MenuVo> menus = menuService.findAllPage(param);
         System.out.println(menus);
