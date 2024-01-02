@@ -53,5 +53,9 @@
     <mapper resource="mapper/menu/menu-mapper.xml"/>
     <mapper resource="mapper/user/user-mapper.xml"/>
     <mapper resource="mapper/admin/admin-mapper.xml"/>
+    <mapper resource="mapper/notification/notification-mapper.xml"/>
+    <mapper resource="mapper/user/userDel-mapper.xml"/>
+    <mapper resource="mapper/reservation/cancelReservation-mapper.xml"/>
+    <mapper resource="mapper/reservation/reservation-mapper.xml"/>
   </mappers>
 </configuration>

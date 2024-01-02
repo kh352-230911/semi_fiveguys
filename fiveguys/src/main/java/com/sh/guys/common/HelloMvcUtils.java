@@ -1,5 +1,10 @@
 package com.sh.guys.common;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
+
 public class HelloMvcUtils {
 
     static String previous = """
@@ -51,7 +56,7 @@ public class HelloMvcUtils {
         StringBuilder pagebar = new StringBuilder();
         // /mvc/admin/memberList
         // /mvc/admin/searchMember?search-type=xxx&search-keyword=yyyy
-        url += (url.contains("?"))? "&page=" : "?page=";
+        url += (url.contains("?")) ? "&page=" : "?page=";
 
         // 전체 페이지 수
         int totalPage = (int) Math.ceil((double) totalCount / limit);
@@ -93,5 +98,24 @@ public class HelloMvcUtils {
             pagebar.append(next.formatted(url + pageNo)); // /mvc/admin/memberList?page=5
         }
         return pagebar.toString();
+    }
+
+    public static String getEncryptedPassword(String password, String salt) {
+        String encryptedPassword = null;
+        try {
+            // 1. 암호화 (hashing)
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            byte[] input = password.getBytes("UTF-8");
+            byte[] saltInput = salt.getBytes("UTF-8");
+            md.update(saltInput);
+            byte[] output = md.digest(input); // 이진데이터
+
+            // 2. 인코딩 (64개문자 - 영대소문자(52), 숫자(10), +, /) + padding(=)
+            Base64.Encoder encoder = Base64.getEncoder();
+            encryptedPassword = encoder.encodeToString(output);
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        return encryptedPassword;
     }
 }

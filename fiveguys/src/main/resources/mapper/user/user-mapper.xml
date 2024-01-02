@@ -17,9 +17,8 @@
         insert into
             users
         values (
-        ('user' || lpad(seq_tb_user_user_no.nextval,3,0)),#{id}, #{password}, #{name},#{nickName}, #{gender},#{email}, #{phone}, #{role} ,
-        #{category}, default
-        )
+        ('user' || lpad(seq_tb_user_user_no.nextval,3,0)),#{id}, #{password}, #{name}, #{nickName}, #{gender}, #{email}, #{phone}, #{role} ,
+        #{category}, default )
     </insert>
 
     <select id="findAll" resultType="user">
@@ -80,9 +79,9 @@
 
     <delete id="deleteUser">
         delete from
-        users
+            users
         where
-        id = #{id}
+            id = #{id}
     </delete>
 
 

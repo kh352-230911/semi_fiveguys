@@ -51,7 +51,7 @@ public class MenuDao {
     }
 
     // 페이지 별 게시물 조회 - 정호
-    public List<MenuVo> findAllPage(SqlSession session, Map<String, Integer> param) {
+    public List<MenuVo> findAllPage(SqlSession session, Map<String, Object> param) {
         int page = (int) param.get("page");
         int limit = (int) param.get("limit");
         int offset = (page - 1) * limit;
