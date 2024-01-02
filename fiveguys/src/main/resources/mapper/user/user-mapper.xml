@@ -79,9 +79,9 @@
 
     <delete id="deleteUser">
         delete from
-        users
+            users
         where
-        id = #{id}
+            id = #{id}
     </delete>
 
 

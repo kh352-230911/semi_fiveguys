@@ -76,25 +76,28 @@
     </select>
 
     <!-- 페이지 별 게시물 조회 - 정호 -->
-    <select id="findAllPage" resultMap="menuVoMap">
+    <select id="findAllPage" resultMap="restaurantVoMap">
         select
-            m.*,
-            p.no pic_no,
-            p.menu_no,
+            r.no,
+            r.name,
+            r.address,
+            r.category,
             p.renamed_filename
         from
-            menu m left join menu_picture p
-                        on m.no = p.menu_no
+            restaurant r left join menu m
+                on r.no = m.rest_no
+                    left join menu_picture p
+                           on m.no = p.menu_no
+        order by
+            no desc
     </select>
-    <resultMap id="menuVoMap" type="menuVo">
+    <resultMap id="restaurantVoMap" type="restaurantVo">
         <id column="no" property="no"/>
-        <result column="rest_no" property="restNo"/>
         <result column="name" property="name"/>
-        <result column="content" property="content"/>
-        <result column="price" property="price"/>
+        <result column="address" property="address"/>
+        <result column="category" property="category"/>
         <collection property="menuPictures" ofType="menuPicture">
             <id column="pic_no" property="no"/>
-            <result column="menu_no" property="menuNo"/>
             <result column="renamed_filename" property="renamedFilename"/>
         </collection>
     </resultMap>

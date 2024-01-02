@@ -1,16 +1,10 @@
 package com.sh.guys.user.model.dao;
 
-import com.sh.guys.menu.model.dao.MenuDao;
-import com.sh.guys.user.model.entity.Gender;
-import com.sh.guys.user.model.entity.Role;
-import com.sh.guys.user.model.entity.User;
-import com.sh.guys.user.model.service.UserService;
 import com.sh.guys.user.model.entity.Gender;
 import com.sh.guys.user.model.entity.Role;
 import com.sh.guys.user.model.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
-import java.util.List;
 
 import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
 import static org.assertj.core.api.Assertions.assertThat;
