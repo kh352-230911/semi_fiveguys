@@ -1,6 +1,7 @@
 package com.sh.guys.user.model.dao;
 
 import com.sh.guys.user.model.entity.User;
+import com.sh.guys.user.model.entity.UserDel;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -43,5 +44,7 @@ public class UserDao {
     }
 
 
-
+    public List<UserDel> userDelFindAll(SqlSession session) {
+        return session.selectList("userDel.userDelFindAll");
+    }
 }
