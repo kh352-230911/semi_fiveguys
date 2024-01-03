@@ -16,6 +16,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/10d89693f5.js" crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/js/tailwind.config.js"></script>
     <script
             src="https://code.jquery.com/jquery-3.7.1.js"

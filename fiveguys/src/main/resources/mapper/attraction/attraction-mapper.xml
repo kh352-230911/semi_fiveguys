@@ -17,4 +17,10 @@
         where
             users_no = #{usersNo}
     </select>
+    <insert id="insertAttraction">
+        insert into
+            attraction
+        values
+            (#{usersNo}, #{restNo})
+    </insert>
 </mapper>
