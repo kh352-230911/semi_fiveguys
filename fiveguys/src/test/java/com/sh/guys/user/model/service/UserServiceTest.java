@@ -81,6 +81,7 @@ public class UserServiceTest {
         users.forEach((user) -> assertThat(user.getName()).contains(keyword));
     }
 
+
     @DisplayName("성별 검색")
     @Test
     public void test5() {

@@ -11,8 +11,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
-    <div class="w-full bg-white rounded-lg shadow my-4 sm:max-w-md xl:p-0 relative">
+
+<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 w-screen">
+    <div class="w-full bg-white rounded-lg shadow my-4 sm:max-w-full xl:p-0 relative">
         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ml-[-20px] absolute top-4">
             my page
         </h1>
@@ -21,84 +22,148 @@
                 class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 absolute top-6 right-4">
             정보 변경
         </button>
-        <br><br><br><br><br><br><br><br><br><br>
 
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-center">
-            <table class="inline-block text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        가게 이름
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        색상
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        카테고리
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        가격
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        <span class="sr-only">편집</span>
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        내가 찜한 가게 1
-                    </th>
-                    <td class="px-6 py-4">
-                        Red
-                    </td>
-                    <td class="px-6 py-4">
-                        음식점
-                    </td>
-                    <td class="px-6 py-4">
-                        $20
-                    </td>
-                    <td class="px-6 py-4 text-right">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">편집</a>
-                    </td>
-                </tr>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        내가 찜한 가게 2
-                    </th>
-                    <td class="px-6 py-4">
-                        Blue
-                    </td>
-                    <td class="px-6 py-4">
-                        카페
-                    </td>
-                    <td class="px-6 py-4">
-                        $15
-                    </td>
-                    <td class="px-6 py-4 text-right">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">편집</a>
-                    </td>
-                </tr>
-                <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        내가 찜한 가게 3
-                    </th>
-                    <td class="px-6 py-4">
-                        Green
-                    </td>
-                    <td class="px-6 py-4">
-                        편의점
-                    </td>
-                    <td class="px-6 py-4">
-                        $10
-                    </td>
-                    <td class="px-6 py-4 text-right">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">편집</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+
+        <div class="container">
+            <!-- 예약한 가게 목록 -->
+            <div class="section">
+                <h2>예약한 가게 목록</h2>
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-center">
+                    <table class="inline-block text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                가게 이름
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                색상
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                카테고리
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                가격
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                <span class="sr-only">편집</span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+<%--                        <c:forEach var="store" items="${reservationList}">--%>
+<%--                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">--%>
+<%--                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">--%>
+<%--                                        ${store.name}--%>
+<%--                                </td>--%>
+<%--                                <td class="px-6 py-4">--%>
+<%--                                        ${store.color}--%>
+<%--                                </td>--%>
+<%--                                <td class="px-6 py-4">--%>
+<%--                                        ${store.category}--%>
+<%--                                </td>--%>
+<%--                                <td class="px-6 py-4">--%>
+<%--                                        ${store.price}--%>
+<%--                                </td>--%>
+<%--                                <td class="px-6 py-4 text-right">--%>
+<%--                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">편집</a>--%>
+<%--                                </td>--%>
+<%--                            </tr>--%>
+<%--                        </c:forEach>--%>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+            <div class="container">
+                <div class="section">
+                    <div class="flex">
+                        <!-- 찜한 가게 목록 -->
+                        <div class="w-1/2 pr-4">
+                            <h2>찜한 가게 목록</h2>
+                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-center">
+                                <table class="inline-block text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            가게 이름
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            색상
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            카테고리
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            가격
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            <span class="sr-only">편집</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+<%--                                    <c:forEach var="store" items="${wishList}">--%>
+<%--                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">--%>
+<%--                                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${store.name}</td>--%>
+<%--                                            <td class="px-6 py-4">${store.color}</td>--%>
+<%--                                            <td class="px-6 py-4">${store.category}</td>--%>
+<%--                                            <td class="px-6 py-4">${store.price}</td>--%>
+<%--                                            <td class="px-6 py-4 text-right">--%>
+<%--                                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">편집</a>--%>
+<%--                                            </td>--%>
+<%--                                        </tr>--%>
+<%--                                    </c:forEach>--%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 내가 쓴 리뷰 목록 -->
+                        <div class="w-1/2 pl-4">
+                            <h2>내가 쓴 리뷰 목록</h2>
+                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-center">
+                                <table class="inline-block text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            가게 이름
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            색상
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            카테고리
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            가격
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            <span class="sr-only">편집</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+<%--                                    <c:forEach var="store" items="${reviewList}">--%>
+<%--                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">--%>
+<%--                                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${store.name}</td>--%>
+<%--                                            <td class="px-6 py-4">${store.color}</td>--%>
+<%--                                            <td class="px-6 py-4">${store.category}</td>--%>
+<%--                                            <td class="px-6 py-4">${store.price}</td>--%>
+<%--                                            <td class="px-6 py-4 text-right">--%>
+<%--                                                <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">편집</a>--%>
+<%--                                            </td>--%>
+<%--                                        </tr>--%>
+<%--                                    </c:forEach>--%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
         <!-- 모달 -->
@@ -156,6 +221,7 @@
                             <label for="gender-F" class="block ms-2 text-sm font-medium text-gray-900">여</label>
                         </div>
                     </fieldset>
+
                     <fieldset>
                         <legend class="mb-3">음식선택</legend>
                         <div class="inline-flex items-center mr-4">
@@ -212,7 +278,8 @@
                         </button>
                      </form>
                     </fieldset>
-
+            </div>
+        </div>
                 <form action="${pageContext.request.contextPath}/user/userDelete" method="post" name="userDeleteFrm"></form>
 
                 <script src="${pageContext.request.contextPath}/js/user/userDetail.js"></script>
@@ -239,6 +306,5 @@
                     </script>
 
 
-
-                    <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     

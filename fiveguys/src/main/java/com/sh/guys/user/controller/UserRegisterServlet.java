@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+
 
 @WebServlet("/user/userRegister")
 public class UserRegisterServlet extends HttpServlet {
@@ -39,13 +38,11 @@ public class UserRegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String phone = req.getParameter("phone");
         String[] _category = req.getParameterValues("category");
-        System.out.println(id + ", " + password + ", " + name + ", " +nickName + ", " + _gender  + ", " + email + ", " + phone + ", " );
-
+        System.out.println(id + ", " + password + ", " + name + ", " +nickName + ", " + _gender  + ", " + email + ", " + phone + ", " +_category + ", ");
 
         Gender gender = _gender != null ? Gender.valueOf(_gender) : null;
-
-
-       List<String> category = _category != null ? Arrays.asList(_category) : null;
+        List<String> category = _category != null ? Arrays.asList(_category) : null;
+        System.out.println(id + ", " + password + ", " + name + ", " + nickName + ", " + gender  + ", " + email + ", " + phone + ", " +category);
 
 
         User user = new User(null, id, password, name, nickName, gender,email,phone,

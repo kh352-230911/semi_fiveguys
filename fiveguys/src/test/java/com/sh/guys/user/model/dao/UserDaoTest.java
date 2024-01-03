@@ -6,6 +6,8 @@ import com.sh.guys.user.model.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
 
+import java.util.Arrays;
+
 import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -35,12 +37,12 @@ public class UserDaoTest {
     @Test
     public void test1(){
         String no = null;
-        String id = "cjsanwls";
+        String id = "cjsanwls111";
         String password = "1234";
         String name = "무진";
 
         User user = new User(no, id, password, name, "무딘", Gender.M,"cmj0276@naver.com","01012341234",
-                Role.U,null, null );
+                Role.U, Arrays.asList("한식", "중식"), null );
 
         int result = userDao.insertUser(session, user);
         assertThat(result).isEqualTo(1);

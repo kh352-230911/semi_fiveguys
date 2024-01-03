@@ -280,7 +280,7 @@ insert into users
 insert into users
     values (('users' || lpad(seq_users_no.nextval,3,0)), 'jklm', '1234', '이주은', 'jklm', 'F', 'jklm@naver.com', '01044221112', default, null, default);  
 
-select * from users;
+select * from users order by no desc;
 
 create table restaurant (
     no varchar2(30),

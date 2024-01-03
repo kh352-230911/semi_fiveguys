@@ -139,4 +139,13 @@ public class UserService {
         session.close();
         return users;
     }
+
+    public User finByNickName(String nickName) {
+        SqlSession session = getSqlSession();
+        User user = userDao.findByNickName(session, nickName);
+        session.close();
+        return user;
+    }
+
+
 }
