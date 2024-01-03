@@ -40,6 +40,11 @@
             </div>
         </form>
     </div>
+<%--    <div class="col-lg-6">--%>
+<%--        <div class="flex justify-center">--%>
+<%--            <img src="${pageContext.request.contextPath}/images/fiveguys.jpg" alt="이미지 설명" class="mt-4 max-w-full max-h-full" />--%>
+<%--        </div>--%>
+<%--    </div>--%>
 </div>
 
 <script src="${pageContext.request.contextPath}/js/user/userLogin.js"></script>
