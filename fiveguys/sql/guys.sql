@@ -218,15 +218,26 @@ select
     r.no,
     r.name,
     r.address,
+    r.category,
     p.renamed_filename
 from
     restaurant r left join menu m 
         on r.no = m.rest_no
             left join menu_picture p
                 on m.no = p.menu_no
+where
+    category like '%일식%';
 order by
     no;
-
+select
+    count(*)
+from
+    restaurant r left join menu m 
+        on r.no = m.rest_no
+            left join menu_picture p
+                on m.no = p.menu_no
+where
+    category like '%분%';
    
 
 select

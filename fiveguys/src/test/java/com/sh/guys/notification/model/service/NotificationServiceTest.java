@@ -53,7 +53,7 @@ public class NotificationServiceTest {
         // given
         assertThat(usersId).isNotNull();
         // when
-        List<Notification> notifications = notificatonService.findById(usersId);
+        List<Notification> notifications = notificatonService.findByUserId(usersId);
         System.out.println(notifications);
         // then
         assertThat(notifications)

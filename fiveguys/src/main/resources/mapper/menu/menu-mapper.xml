@@ -71,8 +71,15 @@
         select
             count(*)
         from
-            menu m join menu_picture p
-                        on m.no = p.menu_no
+            restaurant r left join menu m
+                on r.no = m.rest_no
+            left join menu_picture p
+                on m.no = p.menu_no
+        <where>
+            <if test="searchKeyword != null and searchKeyword != ''">
+                category like '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
     </select>
 
     <!-- 페이지 별 게시물 조회 - 정호 -->
@@ -88,6 +95,11 @@
                 on r.no = m.rest_no
                     left join menu_picture p
                            on m.no = p.menu_no
+        <where>
+            <if test="searchKeyword != null and searchKeyword != ''">
+                    category like '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
         order by
             no desc
     </select>
@@ -101,4 +113,14 @@
             <result column="renamed_filename" property="renamedFilename"/>
         </collection>
     </resultMap>
+
+    <select id="getTotalCount1" resultType="_int">
+        select
+            count(*)
+        from
+            restaurant r left join menu m
+                on r.no = m.rest_no
+            left join menu_picture p
+                on m.no = p.menu_no
+    </select>
 </mapper>

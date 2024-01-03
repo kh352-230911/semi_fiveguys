@@ -26,9 +26,9 @@ public class NotificatonService {
         return result;
     }
 
-    public List<Notification> findById(String id) {
+    public List<Notification> findByUserId(String id) {
         SqlSession session = getSqlSession();
-        List<Notification> notifications = NotificationDao.findById(session, id);
+        List<Notification> notifications = notificationDao.findByUserId(session, id);
         session.close();
         return notifications;
     }

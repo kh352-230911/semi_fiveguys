@@ -20,7 +20,7 @@
         from
             notification
         where
-            users_id = #{usersId}
+            user_id = #{userId}
           and
             checked = 0
         order by

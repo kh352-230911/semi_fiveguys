@@ -23,6 +23,9 @@
     <script>
         const contextPath = '${pageContext.request.contextPath}';
     </script>
+    <c:if test="${loginUser != null}">
+        <script src="${pageContext.request.contextPath}/js/ws/ws.js"></script>
+    </c:if>
 </head>
 <body>
 <div class="3xl:container">
@@ -49,14 +52,14 @@
                                 <span class="sr-only">Search</span>
                             </button>
                             <div class="relative hidden md:block">
-                                <form id="searchFrm" method="get" action="">
+                                <form name="searchFrm" method="get">
                                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                         </svg>
                                         <span class="sr-only">Search icon</span>
                                     </div>
-                                    <input type="text" id="search-navbar1" name="search" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-200 focus:border-sky-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...">
+                                    <input type="text" id="searchKeyword" name="searchKeyword" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-sky-200 focus:border-sky-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...">
                                 </form>
                             </div>
 <%--                            <button data-collapse-toggle="navbar-search" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-search" aria-expanded="false">--%>
@@ -86,6 +89,7 @@
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                 <span class="sr-only">Close menu</span>
             </button>
+            <c:if test="${loginUser != null}">
             <div class="py-4 overflow-y-auto">
                 <ul class="space-y-2 font-medium">
                     <li>
@@ -98,24 +102,35 @@
                         </button>
                         <!-- Dropdown menu -->
                         <div id="dropdownBottom" class="z-10 m-4 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBottomButton">
-                                    <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
-                                        <a href="#" class="hover:underline text-blue-500">메리화이트크리스마스</a> 게시글에 새 댓글이 달렸습니다.
-                                    </li>
-                                    <li class="w-full px-4 py-2 border-b border-gray-200">
-                                        <a href="#" class="hover:underline text-blue-500">honggd</a>님이 <a href="#"
-                                                                                                          class="hover:underline text-blue-500">DM</a>을 보냈습니다.
-                                    </li>
-                                    <li class="w-full px-4 py-2 border-b border-gray-200">
-                                        <a href="#" class="hover:underline text-blue-500">honggd</a>님이 나를 팔로우하기 시작했습니다.
-                                    </li>
-                                    <li class="w-full px-4 py-2 rounded-b-lg">
-                                        <a href="#" class="hover:underline text-blue-500">겨울독감</a>님이 <a href="#"
-                                                                                                        class="hover:underline text-blue-500">팥죽</a>게시글을 좋아합니다.
-                                    </li>
+                                <ul id="notification-container" class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBottomButton">
+                                    <c:if test="${notifications != null}">
+                                        <c:forEach items="${notifications}" var="noti">
+                                            <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
+                                                <a href="#" class="hover:underline text-blue-500">${noti.content}</a>
+                                            </li>
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${notifications == null}">
+                                        <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
+                                            새로운 알림이 없습니다.
+                                        </li>
+                                    </c:if>
+
+<%--                                    <li class="w-full px-4 py-2 border-b border-gray-200">--%>
+<%--                                        <a href="#" class="hover:underline text-blue-500">honggd</a>님이 <a href="#"--%>
+<%--                                                                                                          class="hover:underline text-blue-500">DM</a>을 보냈습니다.--%>
+<%--                                    </li>--%>
+<%--                                    <li class="w-full px-4 py-2 border-b border-gray-200">--%>
+<%--                                        <a href="#" class="hover:underline text-blue-500">honggd</a>님이 나를 팔로우하기 시작했습니다.--%>
+<%--                                    </li>--%>
+<%--                                    <li class="w-full px-4 py-2 rounded-b-lg">--%>
+<%--                                        <a href="#" class="hover:underline text-blue-500">겨울독감</a>님이 <a href="#"--%>
+<%--                                                                                                        class="hover:underline text-blue-500">팥죽</a>게시글을 좋아합니다.--%>
+<%--                                    </li>--%>
                                 </ul>
-                        </div>
-                    </li>
+                            </div>
+                        </li>
+                    </c:if>
                     <li>
                         <a href="${pageContext.request.contextPath}/user/userDetail" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
