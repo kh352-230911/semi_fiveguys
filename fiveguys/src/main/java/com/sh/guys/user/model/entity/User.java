@@ -2,6 +2,7 @@ package com.sh.guys.user.model.entity;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class User {
     private String no;
@@ -14,12 +15,12 @@ public class User {
     private String email;
     private String phone;
     private Role role;
-    private String category;
+    private List<String> category;
     private LocalDate regDate;
 
     public User() {}
 
-    public User(String no, String id, String password, String name, String nickName, Gender gender, String email, String phone, Role role, String category, LocalDate regDate) {
+    public User(String no, String id, String password, String name, String nickName, Gender gender, String email, String phone, Role role, List<String> category, LocalDate regDate) {
         this.no = no;
         this.id = id;
         this.password = password;
@@ -105,11 +106,11 @@ public class User {
         this.role = role;
     }
 
-    public String getCategory() {
-        return category;
+    public List<String> getCategory() {return category;
+
     }
 
-    public void setCategory(String category) {
+    public void setCategory(List<String> category) {
         this.category = category;
     }
 

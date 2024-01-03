@@ -1,5 +1,6 @@
 package com.sh.guys.user.controller;
 
+import com.sh.guys.common.HelloMvcUtils;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.service.UserService;
 
@@ -31,11 +32,10 @@ public class UserLoginServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //0. 사용자입력값 인코딩처리
 
         //1. 사용자입력값 가져오기
         String id = req.getParameter("id");
-        String password = req.getParameter("password");
+        String password = HelloMvcUtils.getEncryptedPassword(req.getParameter("password"), id);
 
         User user = userService.findById(id);
         System.out.println(user);
@@ -59,6 +59,5 @@ public class UserLoginServlet extends HttpServlet {
             session.setAttribute("msg", "아이디가 존재하지 않거나, 비밀번호가 틀립니다");
             resp.sendRedirect(req.getContextPath() + "/user/userLogin");
         }
-
     }
 }
