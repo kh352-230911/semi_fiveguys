@@ -1,7 +1,9 @@
 package com.sh.guys.restaurant.model.service;
 
+import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.dao.RestaurantDao;
 import com.sh.guys.restaurant.model.entity.Restaurant;
+import com.sh.guys.restaurant.model.vo.RestaurantVo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -12,11 +14,11 @@ public class RestaurantService {
     private RestaurantDao restaurantDao = new RestaurantDao();
 
     // 식당 한건 조회 - 우진
-    public Restaurant findByNo(String no) {
+    public RestaurantVo findByNo(String no) {
         SqlSession session = getSqlSession();
-        Restaurant restaurant = restaurantDao.findByNo(session, no);
+        RestaurantVo restaurantVo = restaurantDao.findByNo(session, no);
         session.close();
-        return restaurant;
+        return restaurantVo;
     }
 
     // 식당 여러 건 조회 - 우진
@@ -41,5 +43,12 @@ public class RestaurantService {
         List<Restaurant> restaurants = restaurantDao.findByCategory(session, category);
         session.close();
         return restaurants;
+    }
+
+    public List<ConvenienceVo> findConven(String no) {
+        SqlSession session = getSqlSession();
+        List<ConvenienceVo> convenienceVos = restaurantDao.findConven(session, no);
+        session.close();
+        return convenienceVos;
     }
 }

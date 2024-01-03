@@ -21,18 +21,20 @@ const getPicture = (page) => {
             // 내용 출력
             container.innerHTML += menuPictures.reduce((html, picture) => {
                 console.log(picture);
-                const {address, menuPictures: [{renamedFilename}], name} = picture;
-                return `${html}
-                       <div>
-                            <img
-                                class="h-auto max-w-full rounded-lg"
-                                src="${contextPath}/upload/picture/${renamedFilename}"
-                                alt="" />
-                            <div class="p-5">
-                                <h5 class="mb-2 inline text-sm font-bold tracking-tight text-gray-900">${name}</h5>
-                                <img src="${contextPath}/images/icons8-point.gif" alt=""><p class="mb-3 font-bold text-gray-700">${address}</p>
-                          </div>
-                       </div>`;
+               const {address, menuPictures : [{renamedFilename}], name, no} = picture;
+               return `${html}
+               <div>
+                <a href="${contextPath}/restaurant/restaurantDetail?no=${no}">
+                    <img 
+                        class="h-auto max-w-full rounded-lg" 
+                        src="${contextPath}/upload/picture/${renamedFilename}" 
+                        alt="" />
+                </a>
+                    <div class="p-5">
+                        <h5 class="mb-2 inline text-sm font-bold tracking-tight text-gray-900">${name}</h5>
+                        <img src="${contextPath}/images/icons8-point.gif" alt=""><p class="mb-3 font-bold text-gray-700">${address}</p>
+                  </div>
+               </div>`;
             }, '');
 
             // totalPage 처리
