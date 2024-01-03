@@ -13,4 +13,8 @@ public class AttractionDao {
     public List<Attraction> findByUserNo(SqlSession session, String userNo) {
         return session.selectList("attraction.findByUserNo", userNo);
     }
+
+    public int insetAttraction(SqlSession session, Attraction attraction) {
+        return session.insert("attraction.insertAttraction", attraction);
+    }
 }

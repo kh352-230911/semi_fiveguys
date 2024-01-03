@@ -73,4 +73,16 @@ public class AttractionDaoTest {
                     assertThat(attraction.getRestNo()).isNotNull();
                 });
     }
+
+    @DisplayName("사용자는 하나의 캠핑장을 찜할 수 있습니다.")
+    @Test
+    public void test3() {
+        String restNo = "restaurant043";
+        String usersNo = "users001";
+        Attraction attraction = new Attraction(usersNo, restNo);
+
+        int result = attractionDao.insetAttraction(session, attraction);
+        assertThat(result).isGreaterThan(0);
+
+    }
 }
