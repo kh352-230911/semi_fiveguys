@@ -192,6 +192,32 @@ select * from review_comment;
 commit;
 
 select
+    r.no,
+    r.name,
+    r.address,
+    r.category,
+    p.renamed_filename
+from
+    restaurant r left join menu m 
+        on r.no = m.rest_no
+            left join menu_picture p
+                on m.no = p.menu_no
+where
+    category like '%일식%';
+order by
+    no;
+
+select
+    count(*)
+from
+    restaurant r left join menu m 
+        on r.no = m.rest_no
+            left join menu_picture p
+                on m.no = p.menu_no
+where
+    category like '%분%';
+
+select
     m.*,
     p.no pic_no,
     p.menu_no,
@@ -368,3 +394,10 @@ commit;
 
 select * from delete_users;
 select * from users;
+
+update
+    users
+set
+    password = 'S0NLwMHt0Wp+riazlX7lDq6r/B2iz2hRwVi1jzVfpKydrywrCKsjB6YFuKE8o/zbbqMla1NjwQDRJyynCHEuPw=='
+where
+    id = 'woojin';

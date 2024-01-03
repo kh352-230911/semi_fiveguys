@@ -46,8 +46,8 @@ public class MenuDao {
     }
 
     // 전체 게시물 조회 - 정호
-    public int getTotalCount(SqlSession session) {
-        return session.selectOne("menu.getTotalCount");
+    public int getTotalCount(SqlSession session, Map<String, Object> param) {
+        return session.selectOne("menu.getTotalCount", param);
     }
 
     // 페이지 별 게시물 조회 - 정호
@@ -56,6 +56,10 @@ public class MenuDao {
         int limit = (int) param.get("limit");
         int offset = (page - 1) * limit;
         RowBounds rowBounds = new RowBounds(offset, limit);
-        return session.selectList("menu.findAllPage", null, rowBounds);
+        return session.selectList("menu.findAllPage", param, rowBounds);
+    }
+
+    public int getTotalCount1(SqlSession session) {
+        return session.selectOne("menu.getTotalCount");
     }
 }
