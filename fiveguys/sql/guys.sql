@@ -394,3 +394,10 @@ commit;
 
 select * from delete_users;
 select * from users;
+
+update
+    users
+set
+    password = 'S0NLwMHt0Wp+riazlX7lDq6r/B2iz2hRwVi1jzVfpKydrywrCKsjB6YFuKE8o/zbbqMla1NjwQDRJyynCHEuPw=='
+where
+    id = 'woojin';

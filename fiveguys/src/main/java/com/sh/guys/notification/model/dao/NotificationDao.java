@@ -11,7 +11,7 @@ public class NotificationDao {
         return session.insert("notification.insertNotification", notification);
     }
 
-    public List<Notification> findByUserId(SqlSession session, String id) {
-        return session.selectList("notification.findByUserId", id);
+    public List<Notification> findByUserId(SqlSession session, String userId) {
+        return session.selectList("notification.findByUserId", userId);
     }
 }

@@ -38,7 +38,7 @@ public class UserLoginServlet extends HttpServlet {
         String password = HelloMvcUtils.getEncryptedPassword(req.getParameter("password"), id);
 
         User user = userService.findById(id);
-        System.out.println(user);
+        System.out.println(id + " " + password);
 
         //세셔생성/ 가져오기
         HttpSession session = req.getSession();

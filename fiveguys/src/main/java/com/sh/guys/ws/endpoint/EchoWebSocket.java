@@ -67,13 +67,13 @@ public class EchoWebSocket {
     public void open(EndpointConfig config, Session session) {
         System.out.print("[open] ");
         Map<String, Object> props = config.getUserProperties();
-        String memberId = (String) props.get("memberId");
-        System.out.println(memberId + "님이 접속했습니다.");
-        addToClientMap(memberId, session);
+        String userId = (String) props.get("userId");
+        System.out.println(userId + "님이 접속했습니다.");
+        addToClientMap(userId, session);
 
         // 연결해제시 map에서 사용자제거를 위해 session의 내부맵에도 사용자id를 등록
         Map<String, Object> sessionProps = session.getUserProperties();
-        sessionProps.put("memberId", memberId);
+        sessionProps.put("userId", userId);
     }
 
     @OnMessage
@@ -99,8 +99,8 @@ public class EchoWebSocket {
     public void close(Session session) {
         System.out.print("[close] ");
         Map<String, Object> sessionProps = session.getUserProperties();
-        String memberId = (String) sessionProps.get("memberId");
-        System.out.println(memberId + "님이 접속해제했습니다.");
-        removeFromClientMap(memberId);
+        String userId = (String) sessionProps.get("userId");
+        System.out.println(userId + "님이 접속해제했습니다.");
+        removeFromClientMap(userId);
     }
 }

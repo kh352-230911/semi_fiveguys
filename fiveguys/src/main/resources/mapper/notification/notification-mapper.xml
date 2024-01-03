@@ -14,13 +14,13 @@
                    default,
                    default)
     </insert>
-    <select id="findByUsersId" resultType="notification">
+    <select id="findByUserId" resultType="notification">
         select
             *
         from
             notification
         where
-            user_id = #{userId}
+            users_id = #{userId}
           and
             checked = 0
         order by

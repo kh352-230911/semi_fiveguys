@@ -24,22 +24,23 @@ public class MenuPictureListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 사용자 입력 값 처리
         // 2. 업무 로직
-        int page = 1;
-        int limit = 5;
-        try{
-            page = Integer.parseInt(req.getParameter("page"));
-        } catch (NumberFormatException ignore){}
-
-        Map<String, Object> param = new HashMap<>();
-        param.put("page", page);
-        param.put("limit", limit);
-
-        int totalCount = menuService.getTotalCount(param);
-        int totalPage = (int) Math.ceil((double) totalCount / limit);
-        System.out.println(totalPage);
-        req.setAttribute("totalPage", totalPage);
+//        int page = 1;
+//        int limit = 5;
+//        try{
+//            page = Integer.parseInt(req.getParameter("page"));
+//        } catch (NumberFormatException ignore){}
+//
+//        Map<String, Object> param = new HashMap<>();
+//        param.put("page", page);
+//        param.put("limit", limit);
+//
+//        int totalCount = menuService.getTotalCount(param);
+//        int totalPage = (int) Math.ceil((double) totalCount / limit);
+//        System.out.println(totalPage);
+//        req.setAttribute("totalPage", totalPage);
 
         User loginUser = (User) req.getSession().getAttribute("loginUser");
+        System.out.println(loginUser);
         if(loginUser != null) {
             List<Notification> notifications = notificatonService.findByUserId(loginUser.getId());
             req.setAttribute("notifications", notifications);

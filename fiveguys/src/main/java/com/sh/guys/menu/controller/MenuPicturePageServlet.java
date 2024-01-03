@@ -39,13 +39,13 @@ public class MenuPicturePageServlet extends HttpServlet {
         List<MenuVo> menus = menuService.findAllPage(param);
         System.out.println(menus);
 
-        int totalCount = menuService.getTotalCount(param);
-        int totalPage = (int) Math.ceil((double) totalCount / limit);
+//        int totalCount = menuService.getTotalCount(param);
+//        int totalPage = (int) Math.ceil((double) totalCount / limit);
 
-        Map<String, Object> menuPage = new HashMap<>();
-        menuPage.put("menus", menus);
-        menuPage.put("totalPage", totalPage);
-        System.out.println(menuPage);
+//        Map<String, Object> menuPage = new HashMap<>();
+//        menuPage.put("menus", menus);
+//        menuPage.put("totalPage", totalPage);
+//        System.out.println(menuPage);
 
         // 3. json 응답처리
         resp.setContentType("application/json; charset=utf-8");
@@ -56,11 +56,13 @@ public class MenuPicturePageServlet extends HttpServlet {
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, GsonConverter.LOCAL_DATE_TIME_SERIALIZER);
         gsonBuilder.registerTypeAdapter(LocalDateTime.class, GsonConverter.LOCAL_DATE_TIME_DESERIALIZER);
         Gson gson = gsonBuilder.create();
-        if(searchKeyword == null || searchKeyword == "") {
-            gson.toJson(menus, resp.getWriter());
+        if(page != 1) {
+            gson.toJson(Map.of("menus", menus), resp.getWriter());
         }
         else {
-            gson.toJson(menuPage, resp.getWriter());
+            int totalCount = menuService.getTotalCount(param);
+            int totalPage = (int) Math.ceil((double) totalCount / limit);
+            gson.toJson(Map.of("menus", menus, "totalPage", totalPage), resp.getWriter());
         }
     }
 }
