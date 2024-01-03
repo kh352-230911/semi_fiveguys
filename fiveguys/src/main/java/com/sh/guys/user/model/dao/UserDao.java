@@ -47,4 +47,8 @@ public class UserDao {
     public List<UserDel> userDelFindAll(SqlSession session) {
         return session.selectList("userDel.userDelFindAll");
     }
+
+    public User findByNickName(SqlSession session, String nickName) {
+        return session.selectOne("user.userfindByNickName", nickName);
+    }
 }
