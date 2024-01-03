@@ -7,12 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 @WebServlet("/user/userDetail")
 public class UserDetailServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.getRequestDispatcher("/WEB-INF/views/user/userDetail.jsp");
+        req.getRequestDispatcher("/WEB-INF/views/user/userDetail.jsp")
+                .forward(req, resp);
     }
 }

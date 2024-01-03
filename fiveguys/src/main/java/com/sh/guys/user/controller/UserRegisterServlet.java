@@ -49,7 +49,7 @@ public class UserRegisterServlet extends HttpServlet {
 
 
         User user = new User(null, id, password, name, nickName, gender,email,phone,
-                Role.U, null, null );
+                Role.U, category, null );
 
         System.out.println(user);
 
