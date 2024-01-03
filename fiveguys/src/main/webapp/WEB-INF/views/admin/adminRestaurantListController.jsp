@@ -10,21 +10,27 @@
     <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
         <ul class="flex flex-wrap -mb-px">
             <li class="me-2">
-                <a href="${pageContext.request.contextPath}/admin/adminUsersList" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">회원 정보 관리</a>
+                <a href="${pageContext.request.contextPath}/admin/adminUsersList"
+                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">회원
+                    정보 관리</a>
             </li>
             <li class="me-2">
-                <a href="${pageContext.request.contextPath}/admin/adminRoleUpList" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 승인 관리</a>
+                <a href="${pageContext.request.contextPath}/admin/adminRoleUpList"
+                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당
+                    승인 관리</a>
             </li>
             <li class="me-2">
-                <a href="${pageContext.request.contextPath}/admin/adminRestaurantListController" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 정보 관리</a>
+                <a href="${pageContext.request.contextPath}/admin/adminRestaurantListController"
+                   class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500"
+                   aria-current="page">식당 정보 관리</a>
             </li>
             <li class="me-2">
-                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">예약 정보 관리</a>
+                <a href="#"
+                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">예약
+                    정보 관리</a>
             </li>
         </ul>
     </div>
-
-    <%-- 검색바 --%>
     <form name="memberSearchFrm">
         <div class="p-4 bg-white flex">
             <select id="search-type" name="search-type" required
@@ -47,73 +53,92 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-6 py-3">
-                No
+                식당 번호
             </th>
             <th scope="col" class="px-6 py-3">
-                Id
+                회원 아이디
             </th>
             <th scope="col" class="px-6 py-3">
-                Name
+                회원 이름
             </th>
             <th scope="col" class="px-6 py-3">
-                Nickname
+                식당 이름
             </th>
             <th scope="col" class="px-6 py-3">
-                Gender
+                식당 주소
             </th>
             <th scope="col" class="px-6 py-3">
-                Email
+                식당 소개
             </th>
             <th scope="col" class="px-6 py-3">
-                Phone
+                전화번호
             </th>
             <th scope="col" class="px-6 py-3">
-                Role
+                카테고리
             </th>
             <th scope="col" class="px-6 py-3">
-                Category
+                오픈 타임
             </th>
             <th scope="col" class="px-6 py-3">
-                RegDate
+                클로즈 타임
             </th>
             <th scope="col" class="px-6 py-3">
-                Option
+                예약 가능 여부
+            </th>
+            <th scope="col" class="px-6 py-3">
+                별점
+            </th>
+            <th scope="col" class="px-6 py-3">
+                등록일자
+            </th>
+            <th scope="col" class="px-6 py-3">
+                옵션
             </th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${users}" var="user">
+        <c:forEach items="${usersVO}" var="userVO">
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        ${user.no}
+                        ${userVO.restaurant.no}
                 </th>
                 <td class="px-6 py-4">
-                        ${user.id}
+                        ${userVO.id}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.name}
+                        ${userVO.name}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.nickName}
+                        ${userVO.restaurant.name}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.gender}
+                        ${userVO.restaurant.address}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.email}
+                        ${userVO.restaurant.content}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.phone}
+                        ${userVO.restaurant.phone}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.role}
+                        ${userVO.restaurant.category}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.category}
+                        ${userVO.restaurant.openTime}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.regDate}
-                    <fmt:parseDate value="${user.regDate}" pattern="yyyy-MM-dd" var="regDate" scope="page"/>
+                        ${userVO.restaurant.closeTime}
+                </td>
+                <td class="px-6 py-4">
+                        ${userVO.restaurant.reservPossible}
+                </td>
+                <td class="px-6 py-4">
+                        ${userVO.restaurant.totalStar}
+                </td>
+                <td class="px-6 py-4">
+                        ${userVO.restaurant.regDate}
+                    <fmt:parseDate value="${userVO.restaurant.regDate}" pattern="yyyy-MM-dd" var="regDate"
+                                   scope="page"/>
                     <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
                 </td>
                 <td class="px-6 py-4">

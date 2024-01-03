@@ -8,7 +8,7 @@ grant connect, resource to guys;
 alter user guys quota unlimited on user;
 
 -- 회원테이블
-create table user (
+create table users (
     no varchar2(30),
     id varchar2(30) not null,
     password varchar2(30) not null,
@@ -29,7 +29,7 @@ create table user (
 );
 create sequence seq_users_no;
 
-select * from user;
+select * from users;
 
 -- 우진 회원 테이블에 샘플 데이터 추가
 insert into user values(

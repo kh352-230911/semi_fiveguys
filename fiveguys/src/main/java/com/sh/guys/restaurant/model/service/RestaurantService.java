@@ -1,10 +1,13 @@
 package com.sh.guys.restaurant.model.service;
 
+import com.sh.guys.admin.model.vo.UserVO;
 import com.sh.guys.restaurant.model.dao.RestaurantDao;
 import com.sh.guys.restaurant.model.entity.Restaurant;
+import com.sh.guys.user.model.entity.User;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
 
@@ -41,5 +44,20 @@ public class RestaurantService {
         List<Restaurant> restaurants = restaurantDao.findByCategory(session, category);
         session.close();
         return restaurants;
+    }
+
+
+    public List<UserVO> findAllByAdmin(Map<String, Object> param) {
+        SqlSession session = getSqlSession();
+        List<UserVO> usersVO = restaurantDao.findAllByAdmin(session, param);
+        session.close();
+        return usersVO;
+    }
+
+    public int getTotalCount(Map<String, Object> param) {
+        SqlSession session = getSqlSession();
+        int totalCount = restaurantDao.getTotalCount(session);
+        session.close();
+        return totalCount;
     }
 }

@@ -1,7 +1,8 @@
 package com.sh.guys.admin.model.service;
 
+import com.mchange.io.impl.LazyReadOnlyMemoryFileImpl;
 import com.sh.guys.admin.model.dao.AdminDao;
-import com.sh.guys.menu.model.vo.MenuVo;
+import com.sh.guys.admin.model.vo.UserVO;
 import com.sh.guys.user.model.entity.User;
 import org.apache.ibatis.session.SqlSession;
 
@@ -13,19 +14,18 @@ import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
 public class AdminService {
     private AdminDao adminDao = new AdminDao();
 
-    // 전체 게시물 수 조회 - 재준
-    public int getTotalCount(Map<String, Object> param) {
+    public int getTotalCountRollUp(Map<String, Object> param) {
         SqlSession session = getSqlSession();
-        int totalCount = adminDao.getTotalCount(session);
+        int totalCount = adminDao.getTotalCountRollUp(session);
         session.close();
         return totalCount;
     }
 
     // 페이지 별 게시물 조회 - 재준
-    public List<User> findAllPage(Map<String, Object> param) {
+    public List<UserVO> findAllPageRollUp(Map<String, Object> param) {
         SqlSession session = getSqlSession();
-        List<User> users = adminDao.findAllPage(session, param);
+        List<UserVO> usersVO = adminDao.findAllPageRollUp(session, param);
         session.close();
-        return users;
+        return usersVO;
     }
 }

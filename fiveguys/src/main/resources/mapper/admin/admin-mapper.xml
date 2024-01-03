@@ -4,27 +4,52 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
     <!-- 전체 게시물 조회 - 재준 -->
-    <select id="getTotalCount" resultType="_int">
+    <select id="getTotalCountRollUp" resultType="_int">
         select
             count(*)
         from
-            users
+            users u right join restaurant r
+                on u.no = r.users_no
     </select>
 
     <!-- 페이지 별 게시물 조회 - 재준 -->
-    <select id="findAllPage" resultType="user">
+    <select id="findAllPageRollUp" resultMap="usersVOMap">
         select
-            no
-            , id
-            , name
-            , nickname
-            , gender
-            , email
-            , phone
-            , role
-            , category
-            , reg_date
+            u.no users_no
+            , u.id
+            , r.name restaurant_name
+            , r.address
+            , r.content
+            , r.phone
+            , r.category
+            , r.open_time
+            , r.close_time
+            , r.reserv_possible
+            , r.reg_date
         from
-            users
+            users u right join restaurant r
+                on u.no = r.users_no
+        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+        where
+            ${searchType} like '%' || #{searchKeyword} || '%'
+        </if>
+        order by
+            reg_date desc
     </select>
+    <resultMap id="usersVOMap" type="userVO">
+        <id column="users_no" property="no"/>
+        <result column="id" property="id"/>
+        <association property="restaurant" javaType="restaurant">
+            <id column="no" property="no"/>
+            <result column="restaurant_name" property="name"/>
+            <result column="address" property="address"/>
+            <result column="content" property="content"/>
+            <result column="phone" property="phone"/>
+            <result column="category" property="category"/>
+            <result column="open_time" property="openTime"/>
+            <result column="close_time" property="closeTime"/>
+            <result column="reserv_possible" property="reservPossible"/>
+            <result column="reg_date" property="regDate"/>
+        </association>
+    </resultMap>
 </mapper>

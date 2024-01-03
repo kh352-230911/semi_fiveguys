@@ -10,10 +10,10 @@
     <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
         <ul class="flex flex-wrap -mb-px">
             <li class="me-2">
-                <a href="${pageContext.request.contextPath}/admin/adminUsersList" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">회원 정보 관리</a>
+                <a href="${pageContext.request.contextPath}/admin/adminUsersList" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">회원 정보 관리</a>
             </li>
             <li class="me-2">
-                <a href="${pageContext.request.contextPath}/admin/adminRoleUpList" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 승인 관리</a>
+                <a href="${pageContext.request.contextPath}/admin/adminRoleUpList" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">식당 승인 관리</a>
             </li>
             <li class="me-2">
                 <a href="${pageContext.request.contextPath}/admin/adminRestaurantListController" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 정보 관리</a>
@@ -23,18 +23,15 @@
             </li>
         </ul>
     </div>
-
-    <%-- 검색바 --%>
     <form name="memberSearchFrm">
         <div class="p-4 bg-white flex">
             <select id="search-type" name="search-type" required
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5">
                 <option value="" disabled selected>검색</option>
                 <option value="id" ${param['search-type'] eq 'id' ? 'selected' : ''}>아이디</option>
-                <option value="name" ${param['search-type'] eq 'name' ? 'selected' : ''}>이름</option>
-                <option value="nickName" ${param['search-type'] eq 'nickName' ? 'selected' : ''}>닉네임</option>
-                <option value="email" ${param['search-type'] eq 'email' ? 'selected' : ''}>이메일</option>
-                <option value="phone" ${param['search-type'] eq 'phone' ? 'selected' : ''}>전화번호</option>
+                <option value="r.name" ${param['search-type'] eq 'r.name' ? 'selected' : ''}>식당 이름</option>
+                <option value="r.address" ${param['search-type'] eq 'r.address' ? 'selected' : ''}>식당 주소</option>
+                <option value="r.phone" ${param['search-type'] eq 'r.phone' ? 'selected' : ''}>전화번호</option>
             </select>
             <div class="ml-1">
                 <input type="search" id="search-keyword" name="search-keyword" placeholder="검색어를 입력하세요..."
@@ -47,76 +44,82 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-6 py-3">
-                No
+                회원 번호
             </th>
             <th scope="col" class="px-6 py-3">
-                Id
+                회원 아이디
             </th>
             <th scope="col" class="px-6 py-3">
-                Name
+                식당 이름
             </th>
             <th scope="col" class="px-6 py-3">
-                Nickname
+                식당 주소
             </th>
             <th scope="col" class="px-6 py-3">
-                Gender
+                식당 소개
             </th>
             <th scope="col" class="px-6 py-3">
-                Email
+                전화번호
             </th>
             <th scope="col" class="px-6 py-3">
-                Phone
+                카테고리
             </th>
             <th scope="col" class="px-6 py-3">
-                Role
+                오픈 타임
             </th>
             <th scope="col" class="px-6 py-3">
-                Category
+                클로즈 타임
             </th>
             <th scope="col" class="px-6 py-3">
-                RegDate
+                예약 가능 여부
             </th>
             <th scope="col" class="px-6 py-3">
-                Option
+                등록일자
+            </th>
+            <th scope="col" class="px-6 py-3">
+                옵션
             </th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${users}" var="user">
+        <c:forEach items="${usersVO}" var="userVO">
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        ${user.no}
+                        ${userVO.no}
                 </th>
                 <td class="px-6 py-4">
-                        ${user.id}
+                        ${userVO.id}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.name}
+                        ${userVO.restaurant.name}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.nickName}
+                        ${userVO.restaurant.address}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.gender}
+                        ${userVO.restaurant.content}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.email}
+                        ${userVO.restaurant.phone}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.phone}
+                        ${userVO.restaurant.category}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.role}
+                        ${userVO.restaurant.openTime}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.category}
+                        ${userVO.restaurant.closeTime}
                 </td>
                 <td class="px-6 py-4">
-                        ${user.regDate}
-                    <fmt:parseDate value="${user.regDate}" pattern="yyyy-MM-dd" var="regDate" scope="page"/>
+                        ${userVO.restaurant.reservPossible}
+                </td>
+                <td class="px-6 py-4">
+                    ${userVO.restaurant.regDate}
+                    <fmt:parseDate value="${userVO.restaurant.regDate}" pattern="yyyy-MM-dd" var="regDate" scope="page"/>
                     <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
                 </td>
-                <td class="px-6 py-4">
+                <td id="btn-edit" class="px-6 py-4">
                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                 </td>
             </tr>
@@ -124,5 +127,9 @@
         </tbody>
     </table>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script>
+    const contextPath = '${pageContext.request.contextPath}';
+</script>
+<script src="${pageContext.request.contextPath}/js/"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

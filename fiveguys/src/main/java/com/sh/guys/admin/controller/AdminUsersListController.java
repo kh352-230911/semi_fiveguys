@@ -1,6 +1,5 @@
 package com.sh.guys.admin.controller;
 
-import com.sh.guys.admin.model.service.AdminService;
 import com.sh.guys.common.HelloMvcUtils;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.service.UserService;
@@ -16,8 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 @WebServlet("/admin/adminUsersList")
-public class AdminUsersList extends HttpServlet {
-    private AdminService adminService = new AdminService();
+public class AdminUsersListController extends HttpServlet {
+    private UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,11 +40,12 @@ public class AdminUsersList extends HttpServlet {
 
         // 2. 업무로직
         // a. content 영역 : 전체조회 쿼리 + RowBounds | Top-n 분석 쿼리
-        List<User> users = adminService.findAllPage(param);
+        List<User> users = userService.findAllPage(param);
+        System.out.println(users);
         req.setAttribute("users", users);
 
         // b. pagebar 영역
-        int totalCount = adminService.getTotalCount(param); // 검색조건에 맞는 총 회원수
+        int totalCount = userService.getTotalCount(param); // 검색조건에 맞는 총 회원수
         String url = req.getRequestURI();
         if (searchType != null && searchKeyword != null) {
             url += "?search-type=" + searchType + "&search-keyword=" + searchKeyword;

@@ -1,9 +1,12 @@
 package com.sh.guys.restaurant.model.dao;
 
+import com.sh.guys.admin.model.vo.UserVO;
 import com.sh.guys.restaurant.model.entity.Restaurant;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 public class RestaurantDao {
     // 식당 한건 조회 - 우진
@@ -37,5 +40,17 @@ public class RestaurantDao {
 
     public int deleteRestaurant(SqlSession session, String no) {
         return session.delete("restaurant.deleteRestaurant", no);
+    }
+
+    public List<UserVO> findAllByAdmin(SqlSession session, Map<String, Object> param) {
+        int page = (int) param.get("page");
+        int limit = (int) param.get("limit");
+        int offset = (page - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        return session.selectList("restaurant.findAllByAdmin", param, rowBounds);
+    }
+
+    public int getTotalCount(SqlSession session) {
+        return session.selectOne("restaurant.getTotalCount");
     }
 }
