@@ -60,6 +60,11 @@ create table restaurant (
 );
 create sequence seq_restaurant_no;
 
+-- 재준 식당 테이블에 식당 승인 컬럼 추가
+--alter table restaurant add approval char(1) default 'N' not null;
+--alter table restaurant add constraint ck_restaurant_approval check(approval in ('Y', 'N'));
+--alter table restaurant drop column approval;
+
 select * from restaurant;
 
 -- 우진 식당 테이블에 샘플 데이터 추가

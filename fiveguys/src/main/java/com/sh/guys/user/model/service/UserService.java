@@ -140,20 +140,4 @@ public class UserService {
         session.close();
         return users;
     }
-
-    // 전체 게시물 수 조회 - 재준
-    public int getTotalCount(Map<String, Object> param) {
-        SqlSession session = getSqlSession();
-        int totalCount = userDao.getTotalCount(session);
-        session.close();
-        return totalCount;
-    }
-
-    // 페이지 별 게시물 조회 - 재준
-    public List<User> findAllPage(Map<String, Object> param) {
-        SqlSession session = getSqlSession();
-        List<User> users = userDao.findAllPage(session, param);
-        session.close();
-        return users;
-    }
 }

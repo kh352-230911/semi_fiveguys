@@ -45,19 +45,4 @@ public class RestaurantService {
         session.close();
         return restaurants;
     }
-
-
-    public List<UserVO> findAllByAdmin(Map<String, Object> param) {
-        SqlSession session = getSqlSession();
-        List<UserVO> usersVO = restaurantDao.findAllByAdmin(session, param);
-        session.close();
-        return usersVO;
-    }
-
-    public int getTotalCount(Map<String, Object> param) {
-        SqlSession session = getSqlSession();
-        int totalCount = restaurantDao.getTotalCount(session);
-        session.close();
-        return totalCount;
-    }
 }

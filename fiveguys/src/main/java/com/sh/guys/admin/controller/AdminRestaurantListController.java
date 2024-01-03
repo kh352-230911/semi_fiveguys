@@ -1,5 +1,6 @@
 package com.sh.guys.admin.controller;
 
+import com.sh.guys.admin.model.service.AdminService;
 import com.sh.guys.admin.model.vo.UserVO;
 import com.sh.guys.common.HelloMvcUtils;
 import com.sh.guys.restaurant.model.service.RestaurantService;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @WebServlet("/admin/adminRestaurantListController")
 public class AdminRestaurantListController extends HttpServlet {
-    private RestaurantService restaurantService = new RestaurantService();
+    private AdminService adminService = new AdminService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,12 +41,12 @@ public class AdminRestaurantListController extends HttpServlet {
 
         // 2. 업무로직
         // a. content 영역 : 전체조회 쿼리 + RowBounds | Top-n 분석 쿼리
-        List<UserVO> usersVO = restaurantService.findAllByAdmin(param);
+        List<UserVO> usersVO = adminService.findAllPageRestaurantList(param);
         System.out.println(usersVO);
         req.setAttribute("usersVO", usersVO);
 
         // b. pagebar 영역
-        int totalCount = restaurantService.getTotalCount(param); // 검색조건에 맞는 총 회원수
+        int totalCount = adminService.getTotalCountRestaurantList(param); // 검색조건에 맞는 총 회원수
         String url = req.getRequestURI();
         if (searchType != null && searchKeyword != null) {
             url += "?search-type=" + searchType + "&search-keyword=" + searchKeyword;

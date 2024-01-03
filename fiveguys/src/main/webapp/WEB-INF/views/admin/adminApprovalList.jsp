@@ -13,7 +13,7 @@
                 <a href="${pageContext.request.contextPath}/admin/adminUsersList" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">회원 정보 관리</a>
             </li>
             <li class="me-2">
-                <a href="${pageContext.request.contextPath}/admin/adminRoleUpList" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">식당 승인 관리</a>
+                <a href="${pageContext.request.contextPath}/admin/adminApprovalList" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">식당 승인 관리</a>
             </li>
             <li class="me-2">
                 <a href="${pageContext.request.contextPath}/admin/adminRestaurantListController" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 정보 관리</a>
@@ -29,6 +29,7 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5">
                 <option value="" disabled selected>검색</option>
                 <option value="id" ${param['search-type'] eq 'id' ? 'selected' : ''}>아이디</option>
+                <option value="id" ${param['search-type'] eq 'name' ? 'selected' : ''}>이름</option>
                 <option value="r.name" ${param['search-type'] eq 'r.name' ? 'selected' : ''}>식당 이름</option>
                 <option value="r.address" ${param['search-type'] eq 'r.address' ? 'selected' : ''}>식당 주소</option>
                 <option value="r.phone" ${param['search-type'] eq 'r.phone' ? 'selected' : ''}>전화번호</option>
@@ -44,10 +45,10 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-6 py-3">
-                회원 번호
+                회원 아이디
             </th>
             <th scope="col" class="px-6 py-3">
-                회원 아이디
+                회원 이름
             </th>
             <th scope="col" class="px-6 py-3">
                 식당 이름
@@ -85,10 +86,10 @@
         <c:forEach items="${usersVO}" var="userVO">
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        ${userVO.no}
+                        ${userVO.id}
                 </th>
                 <td class="px-6 py-4">
-                        ${userVO.id}
+                        ${userVO.name}
                 </td>
                 <td class="px-6 py-4">
                         ${userVO.restaurant.name}
@@ -120,16 +121,75 @@
                     <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
                 </td>
                 <td id="btn-edit" class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <a data-no="${userVO.no}"
+                       data-id="${userVO.id}"
+                       data-name="${userVO.name}"
+                       data-role="${userVO.role}"
+                       data-rName="${userVO.restaurant.name}"
+                       data-rAddress="${userVO.restaurant.address}"
+                       data-rContent="${userVO.restaurant.content}"
+                       data-rPhone="${userVO.restaurant.phone}"
+                       data-rCategory="${userVO.restaurant.category}"
+                       data-rOpenTime="${userVO.restaurant.openTime}"
+                       data-rCloseTime="${userVO.restaurant.closeTime}"
+                       data-rReservPossible="${userVO.restaurant.reservPossible}"
+                       data-rRegDate="${userVO.restaurant.regDate}"
+                            <fmt:parseDate value="${userVO.restaurant.regDate}" pattern="yyyy-MM-dd" var="regDate" scope="page"/>
+                            <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
+                       class="openModal font-medium text-blue-600 dark:text-blue-500 hover:underline">More</a>
                 </td>
             </tr>
+
+            <!-- 모달 -->
+            <div id="userDetailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                <div class="bg-white p-8 rounded-lg">
+                    <h2 class="text-2xl font-bold mb-4">식당 승인 정보</h2>
+                    <form name="ApprovalFrm" id="ApprovalFrm"
+                          class="space-y-4 md:space-y-6">
+                        <div class="w-full p-6 bg-white border border-gray-200 rounded-lg shadow">
+                            <h5 name="rName" class="rName mb-2 text-2xl font-semibold tracking-tight text-gray-900 "></h5>
+                            <p name="id" class="id mb-3 font-normal text-gray-500"></p>
+                            <p name="rAddress" class="rAddress mb-3 font-normal text-gray-700"></p>
+                            <p name="rContent" class="rContent mb-3 font-normal text-gray-700"></p>
+                            <p name="rPhone" class="rPhone mb-3 font-normal text-gray-700"></p>
+                            <p name="rCategory" class="rCategory mb-3 font-normal text-gray-700"></p>
+                            <p name="rOpenTime" class="rOpenTime mb-3 font-normal text-gray-700"></p>
+                            <p name="rCloseTime" class="rCloseTime mb-3 font-normal text-gray-700"></p>
+                            <p name="rReservPossible" class="rReservPossible mb-3 font-normal text-gray-700"></p>
+                            <p name="rTotalStar" class="rTotalStar mb-3 font-normal text-gray-700"></p>
+                            <div class="text-sm mt-2 font-medium text-gray-400">
+                                등록일자
+                            </div>
+                            <p name="rRegDate" class="rRegDate mb-3 font-normal text-gray-700"></p>
+                        </div>
+                        <div>
+                            <button id="approvalBtn" type="button"
+                                    onclick="location.href = '${pageContext.request.contextPath}admin/adminApprovalOk?id=${board.id}';"
+                                    class="bg-green-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-green active:bg-green-700">
+                                승인
+                            </button>
+                            <button type="button"
+                                    class="closeUserDetailModalBtn bg-gray-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-gray active:bg-gray-700">
+                                거절
+                            </button>
+                            <button type="button"
+                                    class="closeUserDetailModalBtn bg-gray-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-gray active:bg-gray-700">
+                                닫기
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </c:forEach>
         </tbody>
     </table>
 </div>
+
+<form action="${pageContext.request.contextPath}/user/userDelete" method="post" name="userDeleteFrm"></form>
+
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script>
     const contextPath = '${pageContext.request.contextPath}';
 </script>
-<script src="${pageContext.request.contextPath}/js/"></script>
+<script src="${pageContext.request.contextPath}/js/admin/adminApprovalList.js"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

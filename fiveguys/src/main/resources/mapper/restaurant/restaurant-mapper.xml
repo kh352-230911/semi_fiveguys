@@ -88,49 +88,4 @@
         where
             no = #{no}
     </delete>
-
-    <!-- 전체 게시물 조회 - 재준 -->
-    <select id="getTotalCount" resultType="_int">
-        select
-            count(*)
-        from
-            restaurant
-    </select>
-
-    <!-- 페이지 별 게시물 조회 - 재준 -->
-    <select id="findAllByAdmin" resultMap="usersVOMap">
-        select
-            u.no users_no
-            , u.id
-            , u.name users_name
-            , r.*
-        from
-            users u right join restaurant r
-                on u.no = r.users_no
-        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
-            where
-            ${searchType} like '%' || #{searchKeyword} || '%'
-        </if>
-        order by
-            r.reg_date desc
-    </select>
-    <resultMap id="usersVOMap" type="userVO">
-        <id column="users_no" property="no"/>
-        <result column="id" property="id"/>
-        <result column="users_name" property="name"/>
-        <association property="restaurant" javaType="restaurant">
-            <id column="no" property="no"/>
-            <result column="users_no" property="usersNo"/>
-            <result column="name" property="name"/>
-            <result column="address" property="address"/>
-            <result column="content" property="content"/>
-            <result column="phone" property="phone"/>
-            <result column="category" property="category"/>
-            <result column="open_time" property="openTime"/>
-            <result column="close_time" property="closeTime"/>
-            <result column="reserv_possible" property="reservPossible"/>
-            <result column="total_star" property="totalStar"/>
-            <result column="reg_date" property="regDate"/>
-        </association>
-    </resultMap>
 </mapper>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="com.sh.guys.user.model.entity.*" %>
+<%@ page import="java.util.Arrays" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -15,9 +16,9 @@
                     정보 관리</a>
             </li>
             <li class="me-2">
-                <a href="${pageContext.request.contextPath}/admin/adminRoleUpList"
-                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당
-                    승인 관리</a>
+                <a href="${pageContext.request.contextPath}/admin/adminApprovalList"
+                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                    식당 승인 관리</a>
             </li>
             <li class="me-2">
                 <a href="${pageContext.request.contextPath}/admin/adminRestaurantListController"
@@ -26,8 +27,8 @@
             </li>
             <li class="me-2">
                 <a href="#"
-                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">예약
-                    정보 관리</a>
+                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                    예약 정보 관리</a>
             </li>
         </ul>
     </div>
@@ -142,7 +143,8 @@
                     <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
                 </td>
                 <td class="px-6 py-4">
-                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <a href="openRollUpDetailModal"
+                       class="font-medium text-blue-600 dark:text-blue-500 hover:underline">More</a>
                 </td>
             </tr>
         </c:forEach>

@@ -83,35 +83,4 @@
         where
             id = #{id}
     </delete>
-
-    <!-- 전체 게시물 조회 - 재준 -->
-    <select id="getTotalCount" resultType="_int">
-        select
-        count(*)
-        from
-        users
-    </select>
-
-    <!-- 페이지 별 게시물 조회 - 재준 -->
-    <select id="findAllPage" resultType="user">
-        select
-        no
-        , id
-        , name
-        , nickname
-        , gender
-        , email
-        , phone
-        , role
-        , category
-        , reg_date
-        from
-        users
-        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
-            where
-            ${searchType} like '%' || #{searchKeyword} || '%'
-        </if>
-        order by
-        reg_date desc
-    </select>
 </mapper>

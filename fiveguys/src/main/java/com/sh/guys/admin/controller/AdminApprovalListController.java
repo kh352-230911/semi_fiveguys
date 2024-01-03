@@ -3,7 +3,6 @@ package com.sh.guys.admin.controller;
 import com.sh.guys.admin.model.service.AdminService;
 import com.sh.guys.admin.model.vo.UserVO;
 import com.sh.guys.common.HelloMvcUtils;
-import com.sh.guys.user.model.entity.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,8 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/admin/adminRoleUpList")
-public class AdminRoleUpListController extends HttpServlet {
+@WebServlet("/admin/adminApprovalList")
+public class AdminApprovalListController extends HttpServlet {
     private AdminService adminService = new AdminService();
 
     @Override
@@ -41,12 +40,12 @@ public class AdminRoleUpListController extends HttpServlet {
 
         // 2. 업무로직
         // a. content 영역 : 전체조회 쿼리 + RowBounds | Top-n 분석 쿼리
-        List<UserVO> usersVO = adminService.findAllPageRollUp(param);
+        List<UserVO> usersVO = adminService.findAllPageApprovalList(param);
         System.out.println(usersVO);
         req.setAttribute("usersVO", usersVO);
 
         // b. pagebar 영역
-        int totalCount = adminService.getTotalCountRollUp(param); // 검색조건에 맞는 총 회원수
+        int totalCount = adminService.getTotalCountApprovalList(param); // 검색조건에 맞는 총 회원수
         String url = req.getRequestURI();
         if (searchType != null && searchKeyword != null) {
             url += "?search-type=" + searchType + "&search-keyword=" + searchKeyword;
@@ -55,6 +54,6 @@ public class AdminRoleUpListController extends HttpServlet {
         req.setAttribute("pagebar", pagebar);
 
         // 3. view단 처리
-        req.getRequestDispatcher("/WEB-INF/views/admin/adminRoleUpList.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/admin/adminApprovalList.jsp").forward(req, resp);
     }
 }
