@@ -39,9 +39,9 @@ public class MenuService {
     }
 
     // 전체 게시물 수 조회 - 정호
-    public int getTotalCount() {
+    public int getTotalCount(Map<String, Object> param) {
         SqlSession session = getSqlSession();
-        int totalCount = menuDao.getTotalCount(session);
+        int totalCount = menuDao.getTotalCount(session, param);
         session.close();
         return totalCount;
     }
@@ -52,5 +52,12 @@ public class MenuService {
         List<MenuVo> menus = menuDao.findAllPage(session, param);
         session.close();
         return menus;
+    }
+
+    public int getTotalCount1() {
+        SqlSession session = getSqlSession();
+        int totalCount = menuDao.getTotalCount1(session);
+        session.close();
+        return totalCount;
     }
 }

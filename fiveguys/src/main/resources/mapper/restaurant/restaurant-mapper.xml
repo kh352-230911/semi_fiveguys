@@ -4,14 +4,91 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="restaurant">
     <!-- 식당 식별번호로 식당 한건 조회 - 우진 -->
-    <select id="findByNo" resultType="restaurant">
+    <select id="findByNo" resultMap="restaurantVoMap">
         select
-            *
+            r.*,
+            m.no menu_no,
+            m.rest_no,
+            m.name menu_name,
+            m.content menu_content,
+            m.price,
+            p.no pic_no,
+            p.menu_no menuNo,
+            p.renamed_filename
         from
-            restaurant
+            restaurant r join menu m
+                  on r.no = m.rest_no
+             join menu_picture p
+                  on m.no = p.menu_no
         where
-            no = #{no}
+            r.no = #{no}
     </select>
+
+    <resultMap id="restaurantVoMap" type="restaurantVo">
+        <id column="no" property="no"/>
+        <result column="users_no" property="usersNo"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="content" property="content"/>
+        <result column="phone" property="phone"/>
+        <result column="category" property="category"/>
+        <result column="open_time" property="openTime"/>
+        <result column="close_time" property="closeTime"/>
+        <result column="reserv_possible" property="reservPossible"/>
+        <result column="total_star" property="totalStar"/>
+        <result column="reg_date" property="regDate"/>
+        <collection property="menus" ofType="menu">
+            <id column="menu_no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="menu_name" property="name"/>
+            <result column="menu_content" property="content"/>
+            <result column="price" property="price"/>
+        </collection>
+        <collection property="menuPictures" ofType="menuPicture">
+            <id column="pic_no" property="no"/>
+            <result column="menuNo" property="menuNo"/>
+            <result column="renamed_filename" property="renamedFilename"/>
+        </collection>
+    </resultMap>
+
+    <!-- 편의 시설 조회 - 우진 -->
+    <select id="findConven" resultMap="convenienceVoMap">
+        select
+            r.*,
+            rc.rest_no,
+            rc.conven_no,
+            conven.no convenience_no,
+            conven.kind,
+            conven.convenience_pic
+        from
+            restaurant r join restaurant_convenience rc
+                              on r.no = rc.rest_no
+                         join convenience conven
+                              on rc.conven_no = conven.no
+        where
+            r.no = #{no}
+    </select>
+    <resultMap id="convenienceVoMap" type="convenienceVo">
+        <id column="no" property="no"/>
+        <result column="users_no" property="usersNo"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="content" property="content"/>
+        <result column="phone" property="phone"/>
+        <result column="category" property="category"/>
+        <result column="open_time" property="openTime"/>
+        <result column="close_time" property="closeTime"/>
+        <result column="reserv_possible" property="reservPossible"/>
+        <result column="total_star" property="totalStar"/>
+        <result column="reg_date" property="regDate"/>
+        <result column="rest_no" property="restNo"/>
+        <result column="conven_no" property="convenNo"/>
+        <collection property="conveniences" ofType="convenience">
+            <id column="convenience_no" property="no"/>
+            <result column="kind" property="kind"/>
+            <result column="convenience_pic" property="conveniencePic"/>
+        </collection>
+    </resultMap>
 
     <!-- 식당 여러 건 조회 - 우진 -->
     <select id="findAll" resultType="restaurant">

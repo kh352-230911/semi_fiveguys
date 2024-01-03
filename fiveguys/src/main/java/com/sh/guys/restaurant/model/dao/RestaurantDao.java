@@ -1,8 +1,8 @@
 package com.sh.guys.restaurant.model.dao;
 
-import com.sh.guys.admin.model.vo.UserVO;
 import com.sh.guys.restaurant.model.entity.Restaurant;
-import org.apache.ibatis.session.RowBounds;
+import com.sh.guys.convenience.model.vo.ConvenienceVo;
+import com.sh.guys.restaurant.model.vo.RestaurantVo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class RestaurantDao {
     // 식당 한건 조회 - 우진
-    public Restaurant findByNo(SqlSession session, String no) {
+    public RestaurantVo findByNo(SqlSession session, String no) {
         return session.selectOne("restaurant.findByNo", no);
     }
 
@@ -40,5 +40,9 @@ public class RestaurantDao {
 
     public int deleteRestaurant(SqlSession session, String no) {
         return session.delete("restaurant.deleteRestaurant", no);
+    }
+
+    public List<ConvenienceVo> findConven(SqlSession session, String no) {
+        return session.selectList("restaurant.findConven", no);
     }
 }

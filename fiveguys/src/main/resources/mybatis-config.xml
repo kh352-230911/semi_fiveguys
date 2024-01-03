@@ -57,5 +57,6 @@
     <mapper resource="mapper/user/userDel-mapper.xml"/>
     <mapper resource="mapper/reservation/cancelReservation-mapper.xml"/>
     <mapper resource="mapper/reservation/reservation-mapper.xml"/>
+    <mapper resource="mapper/attraction/attraction-mapper.xml"/>
   </mappers>
 </configuration>

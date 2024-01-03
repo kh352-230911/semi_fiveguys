@@ -28,23 +28,22 @@ public class RestaurantServiceTest {
     @DisplayName("존재하는 식당이 정상적으로 조회된다.")
     @Test
     public void test2() {
-        Restaurant restaurant = restaurantService.findByNo("rest002");
+        Restaurant restaurant = restaurantService.findByNo("restaurant014");
         System.out.println(restaurant);
         // 객체
         assertThat(restaurant).isNotNull();
         // 필드
-//        assertThat(restaurant.getRestNo()).isNotNull();
-//        assertThat(restaurant.getUserNo()).isNotNull();
-//        assertThat(restaurant.getRestName()).isNotNull();
-//        assertThat(restaurant.getRestAddress()).isNotNull();
-//        assertThat(restaurant.getRestCategory()).isNotNull();
-//        assertThat(restaurant.getRestPhone()).isNotNull();
-//        assertThat(restaurant.getRestOpenTime()).isNotNull();
-//        assertThat(restaurant.getRestCloseTime()).isNotNull();
-//        assertThat(restaurant.getRestReserv()).isNotNull();
-//        assertThat(restaurant.getRestReservTime()).isNotNull();
-//        assertThat(restaurant.getRestCreatedDate()).isNotNull();
-//
+        assertThat(restaurant.getNo()).isNotNull();
+        assertThat(restaurant.getUsersNo()).isNotNull();
+        assertThat(restaurant.getName()).isNotNull();
+        assertThat(restaurant.getAddress()).isNotNull();
+        assertThat(restaurant.getCategory()).isNotNull();
+        assertThat(restaurant.getPhone()).isNotNull();
+        assertThat(restaurant.getOpenTime()).isNotNull();
+        assertThat(restaurant.getCloseTime()).isNotNull();
+        assertThat(restaurant.getReservPossible()).isNotNull();
+        assertThat(restaurant.getRegDate()).isNotNull();
+
     }
 
         // 식당 존재하지 않는 값 조회x - 우진
@@ -62,20 +61,19 @@ public class RestaurantServiceTest {
             List<Restaurant> restaurants = restaurantService.findAll();
             assertThat(restaurants).isNotEmpty().isNotNull();
 
-//        restaurants.forEach((restaurant) -> {
-//            System.out.println(restaurant);
-//            assertThat(restaurant.getRestNo()).isNotNull();
-//            assertThat(restaurant.getUserNo()).isNotNull();
-//            assertThat(restaurant.getRestName()).isNotNull();
-//            assertThat(restaurant.getRestAddress()).isNotNull();
-//            assertThat(restaurant.getRestCategory()).isNotNull();
-//            assertThat(restaurant.getRestPhone()).isNotNull();
-//            assertThat(restaurant.getRestOpenTime()).isNotNull();
-//            assertThat(restaurant.getRestCloseTime()).isNotNull();
-//            assertThat(restaurant.getRestReserv()).isNotNull();
-//            assertThat(restaurant.getRestReservTime()).isNotNull();
-//            assertThat(restaurant.getRestCreatedDate()).isNotNull();
-//        });
+        restaurants.forEach((restaurant) -> {
+            System.out.println(restaurant);
+            assertThat(restaurant.getNo()).isNotNull();
+            assertThat(restaurant.getUsersNo()).isNotNull();
+            assertThat(restaurant.getName()).isNotNull();
+            assertThat(restaurant.getAddress()).isNotNull();
+            assertThat(restaurant.getCategory()).isNotNull();
+            assertThat(restaurant.getPhone()).isNotNull();
+            assertThat(restaurant.getOpenTime()).isNotNull();
+            assertThat(restaurant.getCloseTime()).isNotNull();
+            assertThat(restaurant.getReservPossible()).isNotNull();
+            assertThat(restaurant.getRegDate()).isNotNull();
+        });
 
         }
 
@@ -83,23 +81,22 @@ public class RestaurantServiceTest {
         @DisplayName("식당 이름으로 식당을 검색 할 수 있다.")
         @Test
         public void test5 () {
-            List<Restaurant> restaurants = restaurantService.findByName("샘플");
+            List<Restaurant> restaurants = restaurantService.findByName("캐치");
             assertThat(restaurants).isNotNull().isNotEmpty();
 
-//        restaurants.forEach((restaurant) -> {
-//            System.out.println(restaurant);
-//            assertThat(restaurant.getRestNo()).isNotNull();
-//            assertThat(restaurant.getUserNo()).isNotNull();
-//            assertThat(restaurant.getRestName()).isNotNull();
-//            assertThat(restaurant.getRestAddress()).isNotNull();
-//            assertThat(restaurant.getRestCategory()).isNotNull();
-//            assertThat(restaurant.getRestPhone()).isNotNull();
-//            assertThat(restaurant.getRestOpenTime()).isNotNull();
-//            assertThat(restaurant.getRestCloseTime()).isNotNull();
-//            assertThat(restaurant.getRestReserv()).isNotNull();
-//            assertThat(restaurant.getRestReservTime()).isNotNull();
-//            assertThat(restaurant.getRestCreatedDate()).isNotNull();
-//        });
+        restaurants.forEach((restaurant) -> {
+            System.out.println(restaurant);
+            assertThat(restaurant.getNo()).isNotNull();
+            assertThat(restaurant.getUsersNo()).isNotNull();
+            assertThat(restaurant.getName()).isNotNull();
+            assertThat(restaurant.getAddress()).isNotNull();
+            assertThat(restaurant.getCategory()).isNotNull();
+            assertThat(restaurant.getPhone()).isNotNull();
+            assertThat(restaurant.getOpenTime()).isNotNull();
+            assertThat(restaurant.getCloseTime()).isNotNull();
+            assertThat(restaurant.getReservPossible()).isNotNull();
+            assertThat(restaurant.getRegDate()).isNotNull();
+        });
         }
 
         // 카테고리로 식당 조회 - 우진
