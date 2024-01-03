@@ -1,4 +1,4 @@
-const foodEtc = document.querySelector("#food-etc");
+const foodEtc = document.querySelector("#category-etc");
 foodEtc.addEventListener('keyup', (e) => {
     // 엔터를 누른 경우, 입력완료로 간주한다.
     if(e.keyCode === 13){
