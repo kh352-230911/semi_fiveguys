@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet("/admin/adminRestaurantListController")
+@WebServlet("/admin/adminRestaurantList")
 public class AdminRestaurantListController extends HttpServlet {
     private AdminService adminService = new AdminService();
 
@@ -55,6 +55,6 @@ public class AdminRestaurantListController extends HttpServlet {
         req.setAttribute("pagebar", pagebar);
 
         // 3. view단 처리
-        req.getRequestDispatcher("/WEB-INF/views/admin/adminRestaurantListController.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/admin/adminRestaurantList.jsp").forward(req, resp);
     }
 }

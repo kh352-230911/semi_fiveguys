@@ -431,6 +431,9 @@ select * from menu_picture;
 
 commit;
 
+
+select * from delete_users;
+
 -- 회원 삭제 트리거 테이블
 create table delete_users
 as
@@ -461,7 +464,6 @@ as
 select no, rest_no, users_no, reserv_name, reserv_date, reserv_time, reg_date
 from reservation
 where
-<<<<<<< HEAD
     id = 'woojin';
     
 select * from attraction;
@@ -493,10 +495,8 @@ from
          on r.no = a.rest_no
 where
     r.no = 'restaurant014';
-=======
- 0 = 1;
  
- create or replace trigger trig_cancel_reservation
+create or replace trigger trig_cancel_reservation
     after
     delete on reservation
     for each row
@@ -509,11 +509,11 @@ begin
 end;
 /
  
- select * from reservation;
- select * from cancel_reservation;
- commit;
+select * from reservation;
+select * from cancel_reservation;
+commit;
  
- insert into reservation
+insert into reservation
     values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '김안녕', sysdate, sysdate, default, null, default);
     
 select
@@ -527,21 +527,21 @@ where
     r.no = 'restaurant017';
     
 select
-            r.*,
-            m.*,
-            p.*,
-            m.no menu_no,
-            m.name menu_name,
-            m.content menu_content,
-            p.no pic_no,
-            p.renamed_filename
-        from
-            restaurant r  left join menu m
-                  on r.no = m.rest_no
-             join menu_picture p
-                  on m.no = p.menu_no
-        where
-            r.no = 'restaurant043';
+        r.*,
+        m.*,
+        p.*,
+        m.no menu_no,
+        m.name menu_name,
+        m.content menu_content,
+        p.no pic_no,
+        p.renamed_filename
+    from
+        restaurant r  left join menu m
+              on r.no = m.rest_no
+         join menu_picture p
+              on m.no = p.menu_no
+    where
+        r.no = 'restaurant043';
 
 -- 식당 테이블 샘플 데이터 추가 - 우진
 insert into restaurant values(

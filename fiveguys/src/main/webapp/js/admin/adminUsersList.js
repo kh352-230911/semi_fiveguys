@@ -110,12 +110,12 @@ document.querySelectorAll('.openModal').forEach((a) => {
                                            class="font-medium text-red-600 hover:underline">여기서 회원탈퇴하세요😭</a>
                 </p>
                 <button id="saveUserDetailBtn" type="button"
-                        onclick="close()"
+                        onclick="window.save();"
                         class="bg-green-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-green active:bg-green-700">
                     저장
                 </button>
                 <button id="closeUserDetailModalBtn" type="button"
-                        onclick="close()"
+                        onclick="window.close()"
                         class="bg-gray-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-gray active:bg-gray-700">
                     닫기
                 </button>
@@ -128,15 +128,15 @@ document.querySelectorAll('.openModal').forEach((a) => {
 });
 
 // 모달 닫기
-function close () {
+function close() {
     // 모달 숨기기
     document.getElementById('userDetailModal').classList.add('hidden');
 };
 
 // 저장 버튼 클릭 시 처리
-document.getElementById('saveUserDetailBtn').addEventListener('click', function () {
+function save() {
     // 수정된 정보를 서버로 전송하는 로직 추가
     document.getElementById('userUpdateFrm').submit();
     // 모달 닫기
     document.getElementById('userDetailModal').classList.add('hidden');
-});
+};
