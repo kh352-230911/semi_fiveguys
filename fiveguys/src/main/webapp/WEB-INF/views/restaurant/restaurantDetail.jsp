@@ -37,9 +37,15 @@
                 </div>
                 <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">4.8</span>
             </div>
-            <h6 class="inline text-base text-gray-500">좋아요</h6>
-            <span class="text-base text-gray-500">22</span>
-            <h6 class="like inline text-base cursor-pointer">🤍</h6><br>
+            <c:if test="${loginUser != null}">
+                <button type="button" class="attraction-btn like inline text-base cursor-pointer">좋아요</button>
+                <span class="text-base text-gray-500">22</span>
+                <i data-rest-no="${restaurantVo.no}" data-user-no="${loginUser.no}"></i>
+            </c:if>
+            <c:if test="${loginUser == null}">
+                <h6 class="inline text-base text-gray-500">좋아요</h6>
+                <span class="text-base text-gray-500">22</span>
+            </c:if>
             <p class="mb-3 font-sans text-gray-700">${restaurantVo.content}</p>
 
         </div>
@@ -141,4 +147,5 @@
         var rName = restaurantName;
     </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/restaurant/restaurantDetailMap.js"></script>
+    <script src="${pageContext.request.contextPath}/js/restaurant/restaurantDetail.js"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

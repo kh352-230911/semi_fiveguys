@@ -1,8 +1,8 @@
 package com.sh.guys.restaurant.model.service;
 
-import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.dao.RestaurantDao;
 import com.sh.guys.restaurant.model.entity.Restaurant;
+import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.vo.RestaurantVo;
 import org.apache.ibatis.session.SqlSession;
 

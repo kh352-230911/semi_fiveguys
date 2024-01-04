@@ -11,7 +11,6 @@ public class User {
     private String name;
     private String nickName;
     private Gender gender;
-
     private String email;
     private String phone;
     private Role role;

@@ -17,8 +17,8 @@
         insert into
             users
         values (
-        ('user' || lpad(seq_tb_user_user_no.nextval,3,0)),#{id}, #{password}, #{name}, #{nickName}, #{gender}, #{email}, #{phone}, #{role} ,
-        #{category}, default )
+        ('user' || lpad(seq_users_no.nextval,3,0)), #{id}, #{password}, #{name}, #{nickName}, #{gender}, #{email}, #{phone}, #{role},
+        #{category, typeHandler=listStringTypeHandler}, default)
     </insert>
 
     <select id="findAll" resultType="user">
@@ -54,7 +54,8 @@
             gender = #{gender},
             email = #{email},
             phone = #{phone},
-            nickname = #{nickName}
+            nickname = #{nickName},
+            category = #{category, typeHandler=listStringTypeHandler}
         where
             id = #{id}
     </update>
@@ -83,9 +84,12 @@
         where
             id = #{id}
     </delete>
-
-
-
-
-
+<!--    <select id="findByNickName" resultType="user">-->
+<!--        select-->
+<!--            *-->
+<!--        from-->
+<!--        users-->
+<!--        where-->
+<!--        nickName like '%' || #{nickName} || '%'-->
+<!--    </select>-->
 </mapper>

@@ -31,6 +31,9 @@ create sequence seq_users_no;
 
 select * from users;
 
+--alter table delete_users  modify (password varchar2(300));
+commit;
+
 -- 우진 회원 테이블에 샘플 데이터 추가
 insert into user values(
     ('user' || lpad(seq_users_no.nextval,3,0)), 'woojin', '1234a@', '오우진', '우지', 'M', 'woojin@naver.com', '010-1231-1211', 'M', null, default
@@ -57,11 +60,22 @@ create table restaurant (
 );
 create sequence seq_restaurant_no;
 
+-- 재준 식당 테이블에 식당 승인 컬럼 추가
+alter table restaurant add approval char(1) default 'N' not null;
+alter table restaurant add constraint ck_restaurant_approval check(approval in ('Y', 'N'));
+-- alter table restaurant drop column approval;
+-- commit;
+
 select * from restaurant;
 
 -- 우진 식당 테이블에 샘플 데이터 추가
 insert into restaurant values(
      ('rest' || lpad(seq_restaurant_no.nextval,3,0)), 'users001', '캐치마인드', '강남구 테헤란로', '바뀐 데이터베이스에 샘플코드 넣는중', '02-3391-4991', 'it', '9:00', '18:00', default, 5, default
+);
+
+-- 재준 식당 테이블에 샘플 데이터 추가
+insert into restaurant values(
+     ('rest' || lpad(seq_restaurant_no.nextval,3,0)), 'users001', '고에몬', '강남구 테헤란로', '바뀐 데이터베이스에 샘플코드 넣는중', '02-3391-4992', '양식', '9:00', '18:00', default, 5, default, default
 );
 
 -- 메뉴 테이블
@@ -283,7 +297,7 @@ insert into users
 insert into users
     values (('users' || lpad(seq_users_no.nextval,3,0)), 'jklm', '1234', '이주은', 'jklm', 'F', 'jklm@naver.com', '01044221112', default, null, default);
 
-select * from users;
+select * from users order by no desc;
 
 create table restaurant (
     no varchar2(30),

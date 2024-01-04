@@ -6,6 +6,7 @@ import com.sh.guys.user.model.entity.UserDel;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
 
@@ -139,4 +140,13 @@ public class UserService {
         session.close();
         return users;
     }
+
+    public User finByNickName(String nickName) {
+        SqlSession session = getSqlSession();
+        User user = userDao.findByNickName(session, nickName);
+        session.close();
+        return user;
+    }
+
+
 }

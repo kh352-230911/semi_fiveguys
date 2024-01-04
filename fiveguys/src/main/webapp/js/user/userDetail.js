@@ -1,5 +1,5 @@
-const foodEtc = document.querySelector("#category-etc");
-foodEtc.addEventListener('keyup', (e) => {
+const categoryEtc = document.querySelector("#category-etc");
+categoryEtc.addEventListener('keyup', (e) => {
     // 엔터를 누른 경우, 입력완료로 간주한다.
     if(e.keyCode === 13){
         // 자동으로 생겨난 <br><br>을 제거. blur처리
@@ -35,6 +35,7 @@ document.userUpdateFrm.addEventListener('submit', (e) => {
     const frm = e.target;
     const name = frm.name;
     const email = frm.email;
+    // const nickName =frm.nickName;
 
     // 이름 한글2글자 이상
     if(!/^[가-힣]{2,}$/.test(name.value)) {
