@@ -103,27 +103,27 @@
 <!--        </where>-->
 <!--        order by-->
 <!--            no desc-->
-        WITH RankedPictures AS (
-        SELECT
-        r.no AS restaurant_no,
-        r.name AS restaurant_name,
-        r.address AS restaurant_address,
-        r.category AS restaurant_category,
-        p.renamed_filename,
-        ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
-        FROM
+        with rankedpictures as (
+        select
+            r.no as restaurant_no,
+            r.name as restaurant_name,
+            r.address as restaurant_address,
+            r.category as restaurant_category,
+            p.renamed_filename,
+            row_number() over (partition by r.no order by p.renamed_filename) as rn
+        from
         restaurant r
-        LEFT JOIN menu m ON r.no = m.rest_no
-        LEFT JOIN menu_picture p ON m.no = p.menu_no
+            left join menu m on r.no = m.rest_no
+            left join menu_picture p on m.no = p.menu_no
         )
-        SELECT
-        restaurant_no AS no,
-        restaurant_name AS name,
-        restaurant_address AS address,
-        restaurant_category AS category,
-        renamed_filename
-        FROM
-        RankedPictures
+        select
+            restaurant_no as no,
+            restaurant_name as name,
+            restaurant_address as address,
+            restaurant_category as category,
+            renamed_filename
+        from
+            rankedpictures
         <where>
             rn = 1
             <if test="searchKeyword != null and searchKeyword != ''">
@@ -134,6 +134,7 @@
         ORDER BY
             no DESC, renamed_filename
     </select>
+
     <resultMap id="restaurantVoMap" type="restaurantVo">
         <id column="no" property="no"/>
         <result column="name" property="name"/>

@@ -21,7 +21,7 @@
                     식당 승인 관리</a>
             </li>
             <li class="me-2">
-                <a href="${pageContext.request.contextPath}/admin/adminRestaurantListController"
+                <a href="${pageContext.request.contextPath}/admin/adminRestaurantList"
                    class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
                     식당 정보 관리</a>
             </li>
@@ -153,9 +153,6 @@
 
 <form action="${pageContext.request.contextPath}/user/userDelete" method="post" name="userDeleteFrm"></form>
 
-<script>
-    const contextPath = '${pageContext.request.contextPath}';
-</script>
 <%--<script src="${pageContext.request.contextPath}/js/user/userDetail.js"></script>--%>
 <script src="${pageContext.request.contextPath}/js/admin/adminUsersList.js"></script>
 

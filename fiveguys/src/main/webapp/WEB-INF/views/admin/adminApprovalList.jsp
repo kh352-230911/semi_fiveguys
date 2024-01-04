@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="com.sh.guys.user.model.entity.*" %>
+<%@ page import="com.sh.guys.restaurant.model.entity.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -16,7 +17,7 @@
                 <a href="${pageContext.request.contextPath}/admin/adminApprovalList" class="inline-block p-4 text-blue-600 border-b-2 border-blue-600 rounded-t-lg active dark:text-blue-500 dark:border-blue-500" aria-current="page">식당 승인 관리</a>
             </li>
             <li class="me-2">
-                <a href="${pageContext.request.contextPath}/admin/adminRestaurantListController" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 정보 관리</a>
+                <a href="${pageContext.request.contextPath}/admin/adminRestaurantList" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 정보 관리</a>
             </li>
             <li class="me-2">
                 <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">예약 정보 관리</a>
@@ -84,6 +85,7 @@
         </thead>
         <tbody>
         <c:forEach items="${usersVO}" var="userVO">
+        <c:if test="${userVO.restaurant.approval == Approval.N}">
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         ${userVO.id}
@@ -169,16 +171,12 @@
                     </form>
                 </div>
             </div>
+        </c:if>
         </c:forEach>
         </tbody>
     </table>
 </div>
 
-<form action="${pageContext.request.contextPath}/user/userDelete" method="post" name="userDeleteFrm"></form>
-
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script>
-    const contextPath = '${pageContext.request.contextPath}';
-</script>
 <script src="${pageContext.request.contextPath}/js/admin/adminApprovalList.js"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

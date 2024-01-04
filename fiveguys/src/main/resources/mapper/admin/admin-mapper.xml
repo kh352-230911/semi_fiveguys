@@ -86,7 +86,16 @@
         u.no users_no
         , u.id
         , u.name users_name
-        , r.*
+        , r.no restaurant_no
+        , r.name restaurant_name
+        , r.address
+        , r.content
+        , r.phone
+        , r.category
+        , r.open_time
+        , r.close_time
+        , r.reserv_possible
+        , r.reg_date
         from
             users u right join restaurant r
                 on u.no = r.users_no
