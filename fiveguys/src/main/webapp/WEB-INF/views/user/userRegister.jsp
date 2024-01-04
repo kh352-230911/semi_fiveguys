@@ -65,19 +65,19 @@
                     <fieldset>
                         <legend class="mb-3">음식선택</legend>
                         <div class="inline-flex items-center mr-4">
-                            <input id="category-1" type="checkbox" name="food" value="한식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                            <input id="category-1" type="checkbox" name="category" value="한식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                             <label for="category-1" class="ms-2 text-sm font-medium text-gray-900">한식</label>
                         </div>
                         <div class="inline-flex items-center mr-4">
-                            <input id="category-2" type="checkbox" name="food" value="양식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                            <input id="category-2" type="checkbox" name="category" value="양식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                             <label for="category-2" class="ms-2 text-sm font-medium text-gray-900">양식</label>
                         </div>
                         <div class="inline-flex items-center mr-4">
-                            <input id="category-3" type="checkbox" name="food" value="중식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                            <input id="category-3" type="checkbox" name="category" value="중식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                             <label for="category-3" class="ms-2 text-sm font-medium text-gray-900">중식</label>
                         </div>
                         <div class="inline-flex items-center mr-4">
-                            <input id="category-4" type="checkbox" name="food" value="일식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
+                            <input id="category-4" type="checkbox" name="category" value="일식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
                             <label for="category-4" class="ms-2 text-sm font-medium text-gray-900">일식</label>
                         </div>
                         <div class="inline-flex items-center mr-4" id="category-etc-wrapper">

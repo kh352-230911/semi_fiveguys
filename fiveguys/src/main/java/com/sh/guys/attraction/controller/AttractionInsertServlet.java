@@ -1,5 +1,6 @@
 package com.sh.guys.attraction.controller;
 
+import com.sh.guys.attraction.model.entity.Attraction;
 import com.sh.guys.attraction.model.service.AttractionService;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,18 @@ public class AttractionInsertServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 1. 사용자 입력값 처리
+        String restNo = req.getParameter("restNo");
+        String userNo = req.getParameter("userNo");
+        System.out.println(restNo + " " + userNo);
 
+        // 2. 업무 로직
+        Attraction attraction = new Attraction();
+        attraction.setRestNo(restNo);
+        attraction.setUsersNo(userNo);
+        System.out.println(attraction);
+
+        int result = attractionService.insertAttraction(attraction);
+        System.out.println(result);
     }
 }
