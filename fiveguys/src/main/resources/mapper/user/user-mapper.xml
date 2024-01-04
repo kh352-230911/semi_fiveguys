@@ -84,7 +84,6 @@
         where
             id = #{id}
     </delete>
-
 <!--    <select id="findByNickName" resultType="user">-->
 <!--        select-->
 <!--            *-->
@@ -93,7 +92,4 @@
 <!--        where-->
 <!--        nickName like '%' || #{nickName} || '%'-->
 <!--    </select>-->
-
-
-
 </mapper>

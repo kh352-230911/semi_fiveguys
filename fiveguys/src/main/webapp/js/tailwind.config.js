@@ -39,5 +39,5 @@ tailwind.config = {
                 fontFamily: {
                     'sans': ['Rubik Doodle Shadow', 'sans-serif']
                 }
-        }
+            }
 }
