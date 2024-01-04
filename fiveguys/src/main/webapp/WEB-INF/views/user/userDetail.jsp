@@ -12,11 +12,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+<h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ml-[-20px] absolute top-4">
+    my page
+</h1>
 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 w-screen">
     <div class="w-full bg-white rounded-lg shadow my-4 sm:max-w-full xl:p-0 relative">
-        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ml-[-20px] absolute top-4">
-            my page
-        </h1>
+
 
         <button id="openUserDetailModalBtn" type="button"
                 class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 absolute top-6 right-4">
@@ -81,7 +82,7 @@
                     <div class="flex">
                         <!-- 찜한 가게 목록 -->
                         <div class="w-1/2 pr-4">
-                            <h2>찜한 가게 목록</h2>
+                            <h2>좋아하는 가게 목록</h2>
                             <div class="relative overflow-x-auto shadow-md sm:rounded-lg text-center">
                                 <table class="inline-block text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -304,7 +305,6 @@
                             document.getElementById('userDetailModal').classList.add('hidden');
                         });
                     </script>
-
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     
