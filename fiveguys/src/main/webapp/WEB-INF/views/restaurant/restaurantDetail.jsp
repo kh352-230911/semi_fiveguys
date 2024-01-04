@@ -4,7 +4,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <%-- 식당 디테일 페이지 우진 --%>
-<div id="photo-container" class="w-full flex flex-col items-center">
+<div id="photo-container" class="w-full flex flex-col items-center"
+     data-address="${restaurantVo.address}">
         <div class="my-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow hover:shadow-lg">
             <div class="bxslider">
                 <c:forEach items="${restaurantVo.menuPictures}" var="restaurantVo" begin="0" end="5" step="1">
@@ -77,7 +78,7 @@
 
             <c:forEach items="${restaurantVo.menus}" var="restaurantVo" begin="0" end="2">
                 <div class="font-bold">${restaurantVo.name}</div>
-                <div>${restaurantVo.price}</div>
+                <div>${restaurantVo.price}원</div>
                 <br>
                 <hr>
             </c:forEach>
@@ -104,7 +105,9 @@
             <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">매장 위치</h5><br>
             <hr>
             <br>
-            <img src="${pageContext.request.contextPath}/images/지도%20하드%20코딩%20샘플%20사진.png"/>
+<%--            <img src="${pageContext.request.contextPath}/images/지도%20하드%20코딩%20샘플%20사진.png"/>--%>
+            <%-- 카카오 api 적용 - 우진 --%>
+            <div id="map" style="width:340px;height:400px;"></div>
             <br>
             <p class="font-bold">주소</p>
             <hr>
@@ -131,13 +134,18 @@
         <div class="p-5">
             <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">리뷰</h5><br>
         </div>
-
-
     </div>
-
+</div>
     <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.js"></script>
     <script src="${pageContext.request.contextPath}/js/restaurant/restaurantPicture.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=095c604985806a4d1d1e9815c61b4627&libraries=services"></script>
+    <script language="JavaScript">
+        var restaurantAddress = "${restaurantVo.address}";
+        var address = restaurantAddress;
+        var restaurantName = "${restaurantVo.name}";
+        var rName = restaurantName;
+    </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/restaurant/restaurantDetailMap.js"></script>
     <script src="${pageContext.request.contextPath}/js/restaurant/restaurantDetail.js"></script>
-
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
