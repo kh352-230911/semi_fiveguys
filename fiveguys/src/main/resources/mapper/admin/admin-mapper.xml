@@ -49,6 +49,8 @@
             u.no users_no
             , u.id
             , u.name users_name
+            , u.role
+            , r.no restaurant_no
             , r.name restaurant_name
             , r.address
             , r.content
@@ -58,6 +60,7 @@
             , r.close_time
             , r.reserv_possible
             , r.reg_date
+            , r.approval
         from
             users u right join restaurant r
                 on u.no = r.users_no
@@ -83,11 +86,10 @@
         u.no users_no
         , u.id
         , u.name users_name
-        , u.role
         , r.*
         from
             users u right join restaurant r
-        on u.no = r.users_no
+                on u.no = r.users_no
         <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
             where
                 ${searchType} like '%' || #{searchKeyword} || '%'
@@ -101,7 +103,7 @@
         <result column="users_name" property="name"/>
         <result column="role" property="role"/>
         <association property="restaurant" javaType="restaurant">
-            <id column="no" property="no"/>
+            <id column="restaurant_no" property="no"/>
             <result column="users_no" property="usersNo"/>
             <result column="restaurant_name" property="name"/>
             <result column="address" property="address"/>
@@ -113,6 +115,7 @@
             <result column="reserv_possible" property="reservPossible"/>
             <result column="total_star" property="totalStar"/>
             <result column="reg_date" property="regDate"/>
+            <result column="approval" property="approval"/>
         </association>
     </resultMap>
 
@@ -126,10 +129,17 @@
     </update>
     <update id="updateApproval">
         update
-            users
+            restaurant
         set
-            role = #{role}
+            approval = #{approval}
         where
             no = #{no}
     </update>
+
+    <delete id="deleteApproval">
+        delete from
+            restaurant
+        where
+            no = #{no}
+    </delete>
 </mapper>

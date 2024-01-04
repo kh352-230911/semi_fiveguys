@@ -89,4 +89,19 @@ public class AdminService {
         }
         return result;
     }
+
+    public int deleteApproval(Restaurant restaurant) {
+        SqlSession session = getSqlSession();
+        int result = 0;
+        try {
+            result = adminDao.deleteApproval(session, restaurant);
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return result;
+    }
 }

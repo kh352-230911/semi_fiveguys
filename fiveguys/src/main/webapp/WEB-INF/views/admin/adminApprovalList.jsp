@@ -125,6 +125,7 @@
                        data-id="${userVO.id}"
                        data-name="${userVO.name}"
                        data-role="${userVO.role}"
+                       data-rNo="${userVO.restaurant.no}"
                        data-rName="${userVO.restaurant.name}"
                        data-rAddress="${userVO.restaurant.address}"
                        data-rContent="${userVO.restaurant.content}"
@@ -136,6 +137,7 @@
                        data-rRegDate="${userVO.restaurant.regDate}"
                             <fmt:parseDate value="${userVO.restaurant.regDate}" pattern="yyyy-MM-dd" var="regDate" scope="page"/>
                             <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
+                       data-rApproval="${userVO.restaurant.approval}"
                        class="openModal font-medium text-blue-600 dark:text-blue-500 hover:underline">More</a>
                 </td>
             </tr>
@@ -161,22 +163,9 @@
                                 등록일자
                             </div>
                             <p name="rRegDate" class="rRegDate mb-3 font-normal text-gray-700"></p>
+                            <input type="hidden" name="rApproval" class="rApproval">
                         </div>
-                        <div>
-                            <button id="approvalBtn" type="button"
-                                    onclick="location.href = '${pageContext.request.contextPath}admin/adminApprovalOk?id=${board.id}';"
-                                    class="bg-green-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-green active:bg-green-700">
-                                승인
-                            </button>
-                            <button type="button"
-                                    class="closeUserDetailModalBtn bg-gray-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-gray active:bg-gray-700">
-                                거절
-                            </button>
-                            <button type="button"
-                                    class="closeUserDetailModalBtn bg-gray-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-gray active:bg-gray-700">
-                                닫기
-                            </button>
-                        </div>
+                        <div class="btnWrapper"></div>
                     </form>
                 </div>
             </div>

@@ -59,4 +59,8 @@ public class AdminDao {
     public int updateApproval(SqlSession session, Restaurant restaurant) {
         return session.update("admin.updateApproval", restaurant);
     }
+
+    public int deleteApproval(SqlSession session, Restaurant restaurant) {
+        return session.delete("admin.deleteApproval", restaurant);
+    }
 }
