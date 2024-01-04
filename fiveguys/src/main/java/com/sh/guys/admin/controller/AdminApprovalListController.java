@@ -50,7 +50,7 @@ public class AdminApprovalListController extends HttpServlet {
         if (searchType != null && searchKeyword != null) {
             url += "?search-type=" + searchType + "&search-keyword=" + searchKeyword;
         }
-        String pagebar = HelloMvcUtils.getPagebar(page, limit, totalCount, url);
+        String pagebar = FiveGuysUtils.getPagebar(page, limit, totalCount, url);
         req.setAttribute("pagebar", pagebar);
 
         // 3. view단 처리

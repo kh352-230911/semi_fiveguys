@@ -113,8 +113,15 @@
                      tabindex="-1" aria-labelledby="drawer-navigation-label">
                     <h5 id="drawer-navigation-label"
                         class="text-base font-semibold text-gray-500 uppercase dark:text-gray-400">Menu</h5>
+
                     <c:if test="${loginUser != null}">
-                        <li>
+                        <ul class="space-y-2 font-medium">
+                            <a href="${pageContext.request.contextPath}/user/userDetail"
+                               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                    ${loginUser.id}님 안녕하세요
+                            </a>
+<%--                            <div class="py-4 overflow-y-auto">--%>
+<%--                                <ul class="space-y-2 font-medium">--%>
                             <button id="dropdownBottomButton" data-dropdown-toggle="dropdownBottom" data-dropdown-placement="bottom" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" type="button">
                                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
@@ -139,23 +146,16 @@
                                             새로운 알림이 없습니다.
                                         </li>
                                     </c:if>
-                                </ul>
                             </div>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/user/userLogout" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                <svg class="flex-shrink-0 w-6 h-6 transform rotate-180 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                </svg>
-                                <span class="flex-1 ms-3 whitespace-nowrap text-lg">Logout</span>
-                            </a>
-                        </li>
-
-                        <a href="${pageContext.request.contextPath}/user/userDetail"
-                           class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                                ${loginUser.id}님 안녕하세요
-                        </a>
-
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/user/userLogout" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                        <svg class="flex-shrink-0 w-6 h-6 transform rotate-180 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                        </svg>
+                                        <span class="flex-1 ms-3 whitespace-nowrap text-lg">Logout</span>
+                                    </a>
+                                </li>
+                        </ul>
                     </c:if>
                     <button type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -167,67 +167,8 @@
                         </svg>
                         <span class="sr-only">Close menu</span>
                     </button>
-
-<%--                    <div class="py-4 overflow-y-auto">--%>
-<%--                        <ul class="space-y-2 font-medium">--%>
-<%--                            <c:if test="${loginUser != null}">--%>
-<%--                                <li>--%>
-<%--                                    <button id="dropdownBottomButton" data-dropdown-toggle="dropdownBottom"--%>
-<%--                                            data-dropdown-placement="bottom"--%>
-<%--                                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"--%>
-<%--                                            type="button">--%>
-<%--                                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"--%>
-<%--                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"--%>
-<%--                                             viewBox="0 0 20 20">--%>
-<%--                                            <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>--%>
-<%--                                        </svg>--%>
-<%--                                        <span class="flex-1 ms-3 whitespace-nowrap">Inbox</span>--%>
-<%--                                        <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>--%>
-<%--                                    </button>--%>
-<%--                                    <!-- Dropdown menu -->--%>
-<%--                                    <div id="dropdownBottom"--%>
-<%--                                         class="z-10 m-4 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">--%>
-<%--                                        <ul id="notification-container"--%>
-<%--                                            class="py-2 text-sm text-gray-700 dark:text-gray-200"--%>
-<%--                                            aria-labelledby="dropdownBottomButton">--%>
-<%--                                            <c:if test="${notifications != null}">--%>
-<%--                                                <c:forEach items="${notifications}" var="noti">--%>
-<%--                                                    <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">--%>
-<%--                                                        <a href="#"--%>
-<%--                                                           class="hover:underline text-blue-500">${noti.content}</a>--%>
-<%--                                                    </li>--%>
-<%--                                                </c:forEach>--%>
-<%--                                            </c:if>--%>
-<%--                                            <c:if test="${notifications == null}">--%>
-<%--                                                <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">--%>
-<%--                                                    새로운 알림이 없습니다.--%>
-<%--                                                </li>--%>
-<%--                                            </c:if>--%>
-<%--                                        </ul>--%>
-<%--                                    </div>--%>
-<%--                                </li>--%>
-<%--                                <li>--%>
-<%--                                    <a href="${pageContext.request.contextPath}/user/userLogout"--%>
-<%--                                       class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">--%>
-<%--                                        <svg class="flex-shrink-0 w-6 h-6 transform rotate-180 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"--%>
-<%--                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"--%>
-<%--                                             viewBox="0 0 24 24" stroke="currentColor">--%>
-<%--                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"--%>
-<%--                                                  d="M14 5l7 7m0 0l-7 7m7-7H3"></path>--%>
-<%--                                        </svg>--%>
-<%--                                        <span class="flex-1 ms-3 whitespace-nowrap text-lg">Logout</span>--%>
-<%--                                    </a>--%>
-<%--                                </li>--%>
-<%--                            </c:if>--%>
-                            <%--                    <li>--%>
-                            <%--                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">--%>
-                            <%--                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">--%>
-                            <%--                                <path d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z"/>--%>
-                            <%--                            </svg>--%>
-                            <%--                            <span class="flex-1 ms-3 whitespace-nowrap">Products</span>--%>
-                            <%--                        </a>--%>
-                            <%--                    </li>--%>
-                            <c:if test="${loginUser == null}">
+                        <c:if test="${loginUser == null}">
+                            <ul class="space-y-2 font-medium">
                                 <li>
                                     <a href="${pageContext.request.contextPath}/user/userLogin"
                                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -239,7 +180,6 @@
                                                   d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/>
                                         </svg>
                                         <span class="flex-1 ms-3 whitespace-nowrap">Sign In</span>
-
                                     </a>
                                 </li>
                                 <li>
@@ -268,8 +208,8 @@
                                         <span class="flex-1 ms-3 whitespace-nowrap">Admin</span>
                                     </a>
                                 </li>
-                            </c:if>
-                        </ul>
+                            </ul>
+                        </c:if>
                     </div>
                 </div>
             </div>
