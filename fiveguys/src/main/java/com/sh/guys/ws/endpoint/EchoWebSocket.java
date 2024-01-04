@@ -2,6 +2,7 @@ package com.sh.guys.ws.endpoint;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sh.guys.common.FiveGuysUtils;
 import com.sh.guys.common.LocalDateTimeSerializer;
 import com.sh.guys.notification.model.entity.Notification;
 import com.sh.guys.ws.config.FiveGuysWebSocketConfigurator;
@@ -17,11 +18,12 @@ import java.util.Map;
 
 @ServerEndpoint(value = "/echo", configurator = FiveGuysWebSocketConfigurator.class)
 public class EchoWebSocket {
-    private static Gson gson;
-    static {
-        GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
-    }
+//    private static Gson gson;
+//    static {
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+//    }
+    private static Gson gson = FiveGuysUtils.getGson();
 
     /**
      * 웹소켓세션관리를 위한 맵객체

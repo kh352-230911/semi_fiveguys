@@ -461,6 +461,39 @@ as
 select no, rest_no, users_no, reserv_name, reserv_date, reserv_time, reg_date
 from reservation
 where
+<<<<<<< HEAD
+    id = 'woojin';
+    
+select * from attraction;
+
+select
+    r.no,
+    (select count(*) from attraction where rest_no = r.no) attraction_count
+from
+    restaurant r;
+    
+    
+select distinct
+    r.*,
+    m.no menu_no,
+    m.rest_no,
+    m.name menu_name,
+    m.content menu_content,
+    m.price,
+    p.no pic_no,
+    p.menu_no menuNo,
+    p.renamed_filename,
+    (select count(*) from attraction where rest_no = r.no) attraction_count
+from
+    restaurant r join menu m
+          on r.no = m.rest_no
+     join menu_picture p
+          on m.no = p.menu_no
+     join attraction a
+         on r.no = a.rest_no
+where
+    r.no = 'restaurant014';
+=======
  0 = 1;
  
  create or replace trigger trig_cancel_reservation
@@ -646,3 +679,4 @@ select
             r.no = 'restaurant043';
 commit;
 
+>>>>>>> 66b088dcabe16ce357478d7e70c8e9ed2eb61509

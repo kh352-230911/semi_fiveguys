@@ -11,7 +11,8 @@ ws.addEventListener('message', (e) => {
     const {no, usersId, content, type, checked, regDate} = JSON.parse(e.data);
     const html = `
         <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
-            <a href="#" class="hover:underline text-blue-500">${content}</a>
+<!--            <a href="#" class="hover:underline text-blue-500">${content}</a>-->
+            ${content}
         </li>`
     container.insertAdjacentHTML('afterbegin', html);
 });

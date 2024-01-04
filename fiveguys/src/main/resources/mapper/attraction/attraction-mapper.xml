@@ -23,4 +23,23 @@
         values
             (#{usersNo}, #{restNo})
     </insert>
+    <select id="findByUsersNoRestNo" resultType="attraction">
+        select
+            users_no,
+            rest_no
+        from
+            attraction
+        where
+            users_no = #{usersNo}
+          and
+            rest_no = #{restNo}
+    </select>
+    <delete id="deleteAttraction">
+        delete from
+               attraction
+        where
+            users_no = #{usersNo}
+          and
+            rest_no = #{restNo}
+    </delete>
 </mapper>

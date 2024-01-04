@@ -10,24 +10,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/attraction/attractionInsert")
-public class AttractionInsertServlet extends HttpServlet {
+@WebServlet("/attraction/attractionDelete")
+public class AttractionDeleteServlet extends HttpServlet {
     private AttractionService attractionService = new AttractionService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 1. 사용자 입력값 처리
-        String restNo = req.getParameter("restNo");
+        // 1. 사용자 입력 값 처리
         String usersNo = req.getParameter("usersNo");
+        String restNo = req.getParameter("restNo");
         System.out.println(restNo + " " + usersNo);
 
         // 2. 업무 로직
         Attraction attraction = new Attraction();
-        attraction.setRestNo(restNo);
         attraction.setUsersNo(usersNo);
-        System.out.println(attraction);
+        attraction.setRestNo(restNo);
 
-        int result = attractionService.insertAttraction(attraction);
+        int result = attractionService.deleteAttraction(attraction);
         System.out.println(result);
+
     }
 }

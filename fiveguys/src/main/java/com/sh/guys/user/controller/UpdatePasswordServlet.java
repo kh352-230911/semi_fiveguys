@@ -1,6 +1,6 @@
 package com.sh.guys.user.controller;
 
-import com.sh.guys.common.HelloMvcUtils;
+import com.sh.guys.common.FiveGuysUtils;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.service.UserService;
 
@@ -37,8 +37,8 @@ public class UpdatePasswordServlet extends HttpServlet {
         String msg = null;
 
         //1. 사용자 입력값 처리 :기본비밀번호/신규비밀번호 암호화처리 필수
-        String oldPassword = HelloMvcUtils.getEncryptedPassword(req.getParameter("oldPassword"), id);
-        String newPassword = HelloMvcUtils.getEncryptedPassword(req.getParameter("newPassword"), id);
+        String oldPassword = FiveGuysUtils.getEncryptedPassword(req.getParameter("oldPassword"), id);
+        String newPassword = FiveGuysUtils.getEncryptedPassword(req.getParameter("newPassword"), id);
 
         //2. 기존비밀번호 비교 : session의 loginUser객체 이용
         if (oldPassword.equals(loginUser.getPassword())) {

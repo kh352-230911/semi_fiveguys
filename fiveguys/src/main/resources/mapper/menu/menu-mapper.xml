@@ -68,13 +68,14 @@
 
     <!-- 전체 게시물 조회 - 정호 -->
     <select id="getTotalCount" resultType="_int">
-        select
+        select distinct
             count(*)
         from
-            restaurant r left join menu m
-                on r.no = m.rest_no
-            left join menu_picture p
-                on m.no = p.menu_no
+            restaurant
+--         r left join menu m
+--         on r.no = m.rest_no
+--         left join menu_picture p
+--         on m.no = p.menu_no
         <where>
             <if test="searchKeyword != null and searchKeyword != ''">
                 category like '%' || #{searchKeyword} || '%'
@@ -84,24 +85,54 @@
 
     <!-- 페이지 별 게시물 조회 - 정호 -->
     <select id="findAllPage" resultMap="restaurantVoMap">
-        select
-            r.no,
-            r.name,
-            r.address,
-            r.category,
-            p.renamed_filename
-        from
-            restaurant r left join menu m
-                on r.no = m.rest_no
-                    left join menu_picture p
-                           on m.no = p.menu_no
+<!--        select distinct-->
+<!--            r.no,-->
+<!--            r.name,-->
+<!--            r.address,-->
+<!--            r.category,-->
+<!--            p.renamed_filename-->
+<!--        from-->
+<!--            restaurant r left join menu m-->
+<!--                on r.no = m.rest_no-->
+<!--                    left join menu_picture p-->
+<!--                           on m.no = p.menu_no-->
+<!--        <where>-->
+<!--            <if test="searchKeyword != null and searchKeyword != ''">-->
+<!--                    category like '%' || #{searchKeyword} || '%'-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        order by-->
+<!--            no desc-->
+        WITH RankedPictures AS (
+        SELECT
+        r.no AS restaurant_no,
+        r.name AS restaurant_name,
+        r.address AS restaurant_address,
+        r.category AS restaurant_category,
+        p.renamed_filename,
+        ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
+        FROM
+        restaurant r
+        LEFT JOIN menu m ON r.no = m.rest_no
+        LEFT JOIN menu_picture p ON m.no = p.menu_no
+        )
+        SELECT
+        restaurant_no AS no,
+        restaurant_name AS name,
+        restaurant_address AS address,
+        restaurant_category AS category,
+        renamed_filename
+        FROM
+        RankedPictures
         <where>
+            rn = 1
             <if test="searchKeyword != null and searchKeyword != ''">
-                    category like '%' || #{searchKeyword} || '%'
+                and
+                restaurant_category like '%' || #{searchKeyword} || '%'
             </if>
         </where>
-        order by
-            no desc
+        ORDER BY
+            no DESC, renamed_filename
     </select>
     <resultMap id="restaurantVoMap" type="restaurantVo">
         <id column="no" property="no"/>
