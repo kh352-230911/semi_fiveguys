@@ -2,7 +2,7 @@ package com.sh.guys.admin.controller;
 
 import com.sh.guys.admin.model.service.AdminService;
 import com.sh.guys.admin.model.vo.UserVO;
-import com.sh.guys.common.HelloMvcUtils;
+import com.sh.guys.common.FiveGuysUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,7 +50,7 @@ public class AdminApprovalListController extends HttpServlet {
         if (searchType != null && searchKeyword != null) {
             url += "?search-type=" + searchType + "&search-keyword=" + searchKeyword;
         }
-        String pagebar = HelloMvcUtils.getPagebar(page, limit, totalCount, url);
+        String pagebar = FiveGuysUtils.getPagebar(page, limit, totalCount, url);
         req.setAttribute("pagebar", pagebar);
 
         // 3. view단 처리

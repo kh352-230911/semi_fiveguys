@@ -1,6 +1,6 @@
 package com.sh.guys.user.controller;
 
-import com.sh.guys.common.HelloMvcUtils;
+import com.sh.guys.common.FiveGuysUtils;
 import com.sh.guys.user.model.entity.Gender;
 import com.sh.guys.user.model.entity.Role;
 import com.sh.guys.user.model.entity.User;
@@ -31,7 +31,7 @@ public class UserRegisterServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         //2. 사용자입력값 가져오기
         String id = req.getParameter("id");
-        String password = HelloMvcUtils.getEncryptedPassword(req.getParameter("password"),id);
+        String password = FiveGuysUtils.getEncryptedPassword(req.getParameter("password"),id);
         String name = req.getParameter("name");
         String nickName = req.getParameter("nickName");
         String _gender = req.getParameter("gender");
