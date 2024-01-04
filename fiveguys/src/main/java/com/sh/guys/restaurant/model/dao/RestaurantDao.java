@@ -1,11 +1,12 @@
 package com.sh.guys.restaurant.model.dao;
 
-import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.entity.Restaurant;
+import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.vo.RestaurantVo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 public class RestaurantDao {
     // 식당 한건 조회 - 우진

@@ -32,7 +32,7 @@ public class RestaurantDaoTest {
     public void test1() {
         // pk : seq_tb_rest_no를 통해 채번
         Restaurant restaurant = new Restaurant(null, "user021", "식당 등록 테스트", "강남구 긴자료코","식당 등록 테스트입니다.",
-                "02-1111-2222", "일식", "10:00", "22:00", null,  0, null);
+                "02-1111-2222", "일식", "10:00", "22:00", null,  0, null, null);
         int result = restaurantDao.insertRestaurant(session, restaurant);
         System.out.println(restaurant);
 

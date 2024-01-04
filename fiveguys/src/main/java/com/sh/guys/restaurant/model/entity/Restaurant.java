@@ -16,11 +16,12 @@ public class Restaurant {
     private Reservation reservPossible;
     private double totalStar;
     private LocalDateTime regDate;
+    private Approval approval;
 
     public Restaurant() {
     }
 
-    public Restaurant(String no, String usersNo, String name, String address, String content, String phone, String category, String openTime, String closeTime, Reservation reservPossible, double totalStar, LocalDateTime regDate) {
+    public Restaurant(String no, String usersNo, String name, String address, String content, String phone, String category, String openTime, String closeTime, Reservation reservPossible, double totalStar, LocalDateTime regDate, Approval approval) {
         this.no = no;
         this.usersNo = usersNo;
         this.name = name;
@@ -33,6 +34,7 @@ public class Restaurant {
         this.reservPossible = reservPossible;
         this.totalStar = totalStar;
         this.regDate = regDate;
+        this.approval = approval;
     }
 
     public String getNo() {
@@ -131,6 +133,14 @@ public class Restaurant {
         this.regDate = regDate;
     }
 
+    public Approval getApproval() {
+        return approval;
+    }
+
+    public void setApproval(Approval approval) {
+        this.approval = approval;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +
@@ -146,6 +156,7 @@ public class Restaurant {
                 ", reservPossible=" + reservPossible +
                 ", totalStar=" + totalStar +
                 ", regDate=" + regDate +
+                ", approval=" + approval +
                 '}';
     }
 }
