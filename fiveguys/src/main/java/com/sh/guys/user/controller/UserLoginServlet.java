@@ -1,6 +1,6 @@
 package com.sh.guys.user.controller;
 
-import com.sh.guys.common.HelloMvcUtils;
+import com.sh.guys.common.FiveGuysUtils;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.service.UserService;
 
@@ -35,7 +35,7 @@ public class UserLoginServlet extends HttpServlet {
 
         //1. 사용자입력값 가져오기
         String id = req.getParameter("id");
-        String password = HelloMvcUtils.getEncryptedPassword(req.getParameter("password"), id);
+        String password = FiveGuysUtils.getEncryptedPassword(req.getParameter("password"), id);
 
         User user = userService.findById(id);
         System.out.println(id + " " + password);

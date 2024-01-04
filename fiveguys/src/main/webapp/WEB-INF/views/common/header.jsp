@@ -16,7 +16,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://kit.fontawesome.com/10d89693f5.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/c3a117ab33.js" crossorigin="anonymous"></script>
     <script src="${pageContext.request.contextPath}/js/tailwind.config.js"></script>
     <script
             src="https://code.jquery.com/jquery-3.7.1.js"
@@ -106,40 +106,42 @@
             <div class="py-4 overflow-y-auto">
                 <ul class="space-y-2 font-medium">
                     <c:if test="${loginUser != null}">
-                    <li>
-                        <button id="dropdownBottomButton" data-dropdown-toggle="dropdownBottom" data-dropdown-placement="bottom" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" type="button">
-                            <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
-                            </svg>
-                            <span class="flex-1 ms-3 whitespace-nowrap">Inbox</span>
-                            <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdownBottom" class="z-10 m-4 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                            <ul id="notification-container" class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBottomButton">
-                                <c:if test="${notifications != null}">
-                                    <c:forEach items="${notifications}" var="noti">
+                        <li>
+                            <button id="dropdownBottomButton" data-dropdown-toggle="dropdownBottom" data-dropdown-placement="bottom" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" type="button">
+                                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
+                                </svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Inbox</span>
+                                <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">3</span>
+                            </button>
+                            <!-- Dropdown menu -->
+                            <div id="dropdownBottom" class="z-10 m-4 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul id="notification-container" class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBottomButton">
+                                    <c:if test="${notifications != null}">
+                                        <c:forEach items="${notifications}" var="noti" varStatus="vs">
+                                            <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
+<%--                                                <a href="#" class="hover:underline text-blue-500">${noti.content}</a>--%>
+                                                ${noti.content.replaceAll("#([^#]+)§([^#]+)#", '<a href="##$2" class="hover:underline text-blue-500">$1</a>').replaceAll('##', pageContext.request.contextPath)}
+                                                        <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-sm text-[10px] px-1 leading-snug text-center">X</button>
+                                            </li>
+                                        </c:forEach>
+                                    </c:if>
+                                    <c:if test="${notifications == null}">
                                         <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
-                                            <a href="#" class="hover:underline text-blue-500">${noti.content}</a>
+                                            새로운 알림이 없습니다.
                                         </li>
-                                    </c:forEach>
-                                </c:if>
-                                <c:if test="${notifications == null}">
-                                    <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
-                                        새로운 알림이 없습니다.
-                                    </li>
-                                </c:if>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/user/userLogout" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg class="flex-shrink-0 w-6 h-6 transform rotate-180 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                            <span class="flex-1 ms-3 whitespace-nowrap text-lg">Logout</span>
-                        </a>
-                    </li>
+                                    </c:if>
+                                </ul>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/user/userLogout" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                                <svg class="flex-shrink-0 w-6 h-6 transform rotate-180 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                </svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap text-lg">Logout</span>
+                            </a>
+                        </li>
                     </c:if>
 <%--                    <li>--%>
 <%--                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">--%>

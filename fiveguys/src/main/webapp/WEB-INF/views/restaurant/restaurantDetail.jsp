@@ -38,12 +38,21 @@
             </div>
             <c:if test="${loginUser != null}">
                 <button type="button" class="attraction-btn like inline text-base cursor-pointer">좋아요</button>
-                <span class="text-base text-gray-500">22</span>
-                <i data-rest-no="${restaurantVo.no}" data-user-no="${loginUser.no}"></i>
+<%--                <span class="text-base text-gray-500"></span>--%>
+                <c:if test="${attractions != null}">
+                    <i data-rest-no="${restaurantVo.no}" data-users-no="${loginUser.no}"
+                            class="fa-solid fa-heart"></i>
+                </c:if>
+                <c:if test="${attractions == null}">
+                    <i data-rest-no="${restaurantVo.no}" data-users-no="${loginUser.no}"
+                            class="fa-regular fa-heart"></i>
+                </c:if>
             </c:if>
             <c:if test="${loginUser == null}">
                 <h6 class="inline text-base text-gray-500">좋아요</h6>
-                <span class="text-base text-gray-500">22</span>
+<%--                <span class="text-base text-gray-500">${restaurantVo.attractionCount}</span>--%>
+                <i data-rest-no="${restaurantVo.no}" data-users-no="${loginUser.no}"
+                   class="fa-regular fa-heart"></i>
             </c:if>
             <p class="mb-3 font-sans text-gray-700">${restaurantVo.content}</p>
 

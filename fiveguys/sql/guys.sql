@@ -401,3 +401,33 @@ set
     password = 'S0NLwMHt0Wp+riazlX7lDq6r/B2iz2hRwVi1jzVfpKydrywrCKsjB6YFuKE8o/zbbqMla1NjwQDRJyynCHEuPw=='
 where
     id = 'woojin';
+    
+select * from attraction;
+
+select
+    r.no,
+    (select count(*) from attraction where rest_no = r.no) attraction_count
+from
+    restaurant r;
+    
+    
+select distinct
+    r.*,
+    m.no menu_no,
+    m.rest_no,
+    m.name menu_name,
+    m.content menu_content,
+    m.price,
+    p.no pic_no,
+    p.menu_no menuNo,
+    p.renamed_filename,
+    (select count(*) from attraction where rest_no = r.no) attraction_count
+from
+    restaurant r join menu m
+          on r.no = m.rest_no
+     join menu_picture p
+          on m.no = p.menu_no
+     join attraction a
+         on r.no = a.rest_no
+where
+    r.no = 'restaurant014';

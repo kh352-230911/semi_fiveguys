@@ -1,12 +1,18 @@
 package com.sh.guys.common;
 
-import java.beans.Encoder;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import javax.servlet.ServletContext;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Base64;
 
-public class HelloMvcUtils {
+public class FiveGuysUtils {
+    public static ServletContext servletContext;
     /**
      * 암호화
      * 1.MessageDigest (암호화)
@@ -31,5 +37,20 @@ public class HelloMvcUtils {
             throw new RuntimeException(e);
         }
         return encryptedPassword;
+    }
+
+    public static Gson getGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, GsonConverter.LOCAL_DATE_SERIALIZER)
+                .registerTypeAdapter(LocalDate.class, GsonConverter.LOCAL_DATE_DESERIALIZER)
+                .registerTypeAdapter(LocalDateTime.class, GsonConverter.LOCAL_DATE_SERIALIZER)
+                .registerTypeAdapter(LocalDateTime.class, GsonConverter.LOCAL_DATE_DESERIALIZER)
+                .create();
+    }
+
+    public static String getNotification(String content, String url) {
+        url = servletContext.getContextPath() + url;
+        return "<a href=\"%s\" class=\"hover:underline text-blue-500\">%s</a>"
+                .formatted(url, content);
     }
 }
