@@ -71,10 +71,7 @@
         select
             count(*)
         from
-            restaurant r left join menu m
-                on r.no = m.rest_no
-            left join menu_picture p
-                on m.no = p.menu_no
+            restaurant
         <where>
             <if test="searchKeyword != null and searchKeyword != ''">
                 category like '%' || #{searchKeyword} || '%'
@@ -84,24 +81,31 @@
 
     <!-- 페이지 별 게시물 조회 - 정호 -->
     <select id="findAllPage" resultMap="restaurantVoMap">
+        with rankedpictures as (
         select
-            r.no,
-            r.name,
-            r.address,
-            r.category,
-            p.renamed_filename
+            r.no as restaurant_no,
+            r.name as restaurant_name,
+            r.address as restaurant_address,
+            r.category as restaurant_category,
+            p.renamed_filename,
+            row_number() over (partition by r.no order by p.renamed_filename) as rn
         from
-            restaurant r left join menu m
-                on r.no = m.rest_no
-                    left join menu_picture p
-                           on m.no = p.menu_no
-        <where>
-            <if test="searchKeyword != null and searchKeyword != ''">
-                    category like '%' || #{searchKeyword} || '%'
-            </if>
-        </where>
+            restaurant r
+                left join menu m on r.no = m.rest_no
+                left join menu_picture p on m.no = p.menu_no
+        )
+        select
+            restaurant_no as no,
+            restaurant_name as name,
+            restaurant_address as address,
+            restaurant_category as category,
+            renamed_filename
+        from
+            rankedpictures
+        where
+            rn = 1
         order by
-            no desc
+            no desc, renamed_filename
     </select>
     <resultMap id="restaurantVoMap" type="restaurantVo">
         <id column="no" property="no"/>

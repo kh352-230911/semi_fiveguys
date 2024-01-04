@@ -402,7 +402,6 @@ select * from menu_picture;
 
 commit;
 
-
 select * from delete_users;
 select * from users;
 
