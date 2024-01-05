@@ -3,6 +3,7 @@ package com.sh.guys.user.model.service;
 import com.sh.guys.user.model.dao.UserDao;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.entity.UserDel;
+import com.sh.guys.user.model.vo.UserAttractionVo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -149,4 +150,10 @@ public class UserService {
     }
 
 
+    public List<UserAttractionVo> findByNo(String no) {
+        SqlSession session = getSqlSession();
+        List<UserAttractionVo> userAttractionVo = userDao.findByNo(session, no);
+        session.close();
+        return userAttractionVo;
+    }
 }
