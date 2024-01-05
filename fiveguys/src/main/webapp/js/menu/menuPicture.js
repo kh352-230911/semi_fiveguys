@@ -6,27 +6,30 @@ document.searchFrm.addEventListener('submit', (e) => {
 });
 const getPicture = (page) => {
 
-    const searchKeyword = document.querySelector("#searchKeyword");
+    const searchType = document.querySelector("#search-type")
+    const searchKeyword = document.querySelector("#search-Keyword");
 
     $.ajax({
         url: `${contextPath}/picture/page`,
         data: {
             page,
-            searchKeyword: searchKeyword.value
+            searchKeyword: searchKeyword.value,
+            searchType: searchType.value
         },
         success(resultMap) {
             console.log(resultMap);
+            console.log(searchType.value, searchKeyword.value);
             const container = document.querySelector("#picture-container");
             const {menus: menuPictures, totalPage} = resultMap;
             // 내용 출력
             container.innerHTML += menuPictures.reduce((html, picture) => {
                 console.log(picture);
-               const {address, menuPictures : [{renamedFilename}], name, no} = picture;
-               return `${html}
-               <div>
+                const {address, menuPictures : [{renamedFilename}], name, no} = picture;
+                return `${html}
+               <div class="ml-32">
                 <a href="${contextPath}/restaurant/restaurantDetail?no=${no}">
                     <img 
-                        class="h-auto max-w-full rounded-lg" 
+                        class="h-96 w-96 object-cover rounded-lg"
                         src="${contextPath}/upload/picture/${renamedFilename}" 
                         alt="" />
                 </a>
