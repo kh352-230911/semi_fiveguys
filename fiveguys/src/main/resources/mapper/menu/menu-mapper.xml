@@ -85,24 +85,6 @@
 
     <!-- 페이지 별 게시물 조회 - 정호 -->
     <select id="findAllPage" resultMap="restaurantVoMap">
-<!--        select distinct-->
-<!--            r.no,-->
-<!--            r.name,-->
-<!--            r.address,-->
-<!--            r.category,-->
-<!--            p.renamed_filename-->
-<!--        from-->
-<!--            restaurant r left join menu m-->
-<!--                on r.no = m.rest_no-->
-<!--                    left join menu_picture p-->
-<!--                           on m.no = p.menu_no-->
-<!--        <where>-->
-<!--            <if test="searchKeyword != null and searchKeyword != ''">-->
-<!--                    category like '%' || #{searchKeyword} || '%'-->
-<!--            </if>-->
-<!--        </where>-->
-<!--        order by-->
-<!--            no desc-->
         WITH RankedPictures AS (
         SELECT
         r.no AS restaurant_no,
@@ -124,14 +106,6 @@
         renamed_filename
         FROM
         RankedPictures
-        select
-            restaurant_no as no,
-            restaurant_name as name,
-            restaurant_address as address,
-            restaurant_category as category,
-            renamed_filename
-        from
-            rankedpictures
         <where>
             rn = 1
             <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
@@ -141,6 +115,24 @@
         </where>
         ORDER BY
             no DESC, renamed_filename
+        <!--        select distinct-->
+        <!--            r.no,-->
+        <!--            r.name,-->
+        <!--            r.address,-->
+        <!--            r.category,-->
+        <!--            p.renamed_filename-->
+        <!--        from-->
+        <!--            restaurant r left join menu m-->
+        <!--                on r.no = m.rest_no-->
+        <!--                    left join menu_picture p-->
+        <!--                           on m.no = p.menu_no-->
+        <!--        <where>-->
+        <!--            <if test="searchKeyword != null and searchKeyword != ''">-->
+        <!--                    category like '%' || #{searchKeyword} || '%'-->
+        <!--            </if>-->
+        <!--        </where>-->
+        <!--        order by-->
+        <!--            no desc-->
     </select>
 
     <resultMap id="restaurantVoMap" type="restaurantVo">
