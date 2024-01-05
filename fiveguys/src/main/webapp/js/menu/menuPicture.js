@@ -6,16 +6,19 @@ document.searchFrm.addEventListener('submit', (e) => {
 });
 const getPicture = (page) => {
 
-    const searchKeyword = document.querySelector("#searchKeyword");
+    const searchType = document.querySelector("#search-type")
+    const searchKeyword = document.querySelector("#search-Keyword");
 
     $.ajax({
         url: `${contextPath}/picture/page`,
         data: {
             page,
-            searchKeyword: searchKeyword.value
+            searchKeyword: searchKeyword.value,
+            searchType: searchType.value
         },
         success(resultMap) {
             console.log(resultMap);
+            console.log(searchType.value, searchKeyword.value);
             const container = document.querySelector("#picture-container");
             const {menus: menuPictures, totalPage} = resultMap;
             // 내용 출력

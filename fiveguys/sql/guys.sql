@@ -210,6 +210,9 @@ create sequence seq_notification_no;
 
 select * from notification;
 
+insert into notification
+values (('noti' || lpad(seq_notification_no.nextval,3,0)), 'woojin', 'NEW_COMMENT', '<a href="#">fghi</a>님이 <a href="#">너무 맛있게 먹었어요</a> 게시글에 댓글을 작성했습니다', default, default);
+
 select 
     u.id,
     u.no,
@@ -454,6 +457,38 @@ select no, rest_no, users_no, reserv_name, reserv_date, reserv_time, reg_date
 from reservation
 where
  0 = 1;
+    id = 'woojin';
+    
+select * from attraction;
+
+select
+    r.no,
+    (select count(*) from attraction where rest_no = r.no) attraction_count
+from
+    restaurant r;
+    
+    
+select distinct
+    r.*,
+    m.no menu_no,
+    m.rest_no,
+    m.name menu_name,
+    m.content menu_content,
+    m.price,
+    p.no pic_no,
+    p.menu_no menuNo,
+    p.renamed_filename,
+    (select count(*) from attraction where rest_no = r.no) attraction_count
+from
+    restaurant r join menu m
+          on r.no = m.rest_no
+     join menu_picture p
+          on m.no = p.menu_no
+     join attraction a
+         on r.no = a.rest_no
+where
+    r.no = 'restaurant014';
+
  
  create or replace trigger trig_cancel_reservation
     after
@@ -714,6 +749,9 @@ WHERE
 ORDER BY
     no DESC;
     
+
+select * from review_comment;
+
 WITH RankedPictures AS (
     SELECT
         r.no AS restaurant_no,
@@ -728,14 +766,17 @@ WITH RankedPictures AS (
     LEFT JOIN menu_picture p ON m.no = p.menu_no
 )
 SELECT
-    restaurant_no AS no,
-    restaurant_name AS name,
-    restaurant_address AS address,
-    restaurant_category AS category,
+
+    restaurant_no no,
+    restaurant_name as name,
+    restaurant_address as address,
+    restaurant_category as category,
     renamed_filename
 FROM
     RankedPictures
 WHERE
     rn = 1
+    and 
+    restaurant_address like '%역삼%'
 ORDER BY
     no DESC, renamed_filename;

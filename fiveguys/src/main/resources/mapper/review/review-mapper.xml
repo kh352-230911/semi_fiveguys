@@ -6,5 +6,12 @@
 <!--    <select id="findaAll" resultType="review" >-->
 <!--        -->
 <!--    </select>-->
-  
+    <select id="findByNo" resultType="review">
+        select
+            *
+        from
+            review
+        where
+            no = #{no}
+    </select>
 </mapper>
