@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="menu">
     <!-- 메뉴 전체 조회 - 재준 -->
-<!--    <select id="findAll" resultType="menu">-->
-<!--        select-->
-<!--            *-->
-<!--        from-->
-<!--            menu-->
-<!--    </select>-->
+    <!--    <select id="findAll" resultType="menu">-->
+    <!--        select-->
+    <!--            *-->
+    <!--        from-->
+    <!--            menu-->
+    <!--    </select>-->
 
     <!-- 메뉴 식별번호로 메뉴 한개 조회 - 재준 -->
     <select id="findByNo" resultType="menu">
@@ -24,15 +24,15 @@
     <!-- 메뉴 추가 - 재준 -->
     <insert id="insertMenu">
         insert into
-            menu
+        menu
         values (
-            ('menu' || lpad(seq_menu_no.nextval,3,0)), #{restNo}, #{name}, #{content}, #{price}
+        ('menu' || lpad(seq_menu_no.nextval,3,0)), #{restNo}, #{name}, #{content}, #{price}
         )
         <selectKey order="AFTER" resultType="string" keyProperty="no">
             select
-                ('menu' || lpad(seq_menu_no.currval,3,0))
+            ('menu' || lpad(seq_menu_no.currval,3,0))
             from
-                dual
+            dual
         </selectKey>
     </insert>
 
@@ -42,8 +42,8 @@
             menu
         set
             name = #{name}
-            , content = #{content}
-            , price = #{price}
+          , content = #{content}
+          , price = #{price}
         where
             no = #{no}
     </update>
@@ -69,70 +69,70 @@
     <!-- 전체 게시물 조회 - 정호 -->
     <select id="getTotalCount" resultType="_int">
         select distinct
-            count(*)
+        count(*)
         from
-            restaurant
---         r left join menu m
---         on r.no = m.rest_no
---         left join menu_picture p
---         on m.no = p.menu_no
+        restaurant
+        --         r left join menu m
+        --         on r.no = m.rest_no
+        --         left join menu_picture p
+        --         on m.no = p.menu_no
         <where>
-            <if test="searchKeyword != null and searchKeyword != ''">
-                category like '%' || #{searchKeyword} || '%'
+            <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
+                ${searchType} like '%' || #{searchKeyword} || '%'
             </if>
         </where>
     </select>
 
     <!-- 페이지 별 게시물 조회 - 정호 -->
     <select id="findAllPage" resultMap="restaurantVoMap">
-<!--        select distinct-->
-<!--            r.no,-->
-<!--            r.name,-->
-<!--            r.address,-->
-<!--            r.category,-->
-<!--            p.renamed_filename-->
-<!--        from-->
-<!--            restaurant r left join menu m-->
-<!--                on r.no = m.rest_no-->
-<!--                    left join menu_picture p-->
-<!--                           on m.no = p.menu_no-->
-<!--        <where>-->
-<!--            <if test="searchKeyword != null and searchKeyword != ''">-->
-<!--                    category like '%' || #{searchKeyword} || '%'-->
-<!--            </if>-->
-<!--        </where>-->
-<!--        order by-->
-<!--            no desc-->
-        with rankedpictures as (
-        select
-            r.no as restaurant_no,
-            r.name as restaurant_name,
-            r.address as restaurant_address,
-            r.category as restaurant_category,
-            p.renamed_filename,
-            row_number() over (partition by r.no order by p.renamed_filename) as rn
-        from
+        WITH RankedPictures AS (
+        SELECT
+        r.no AS restaurant_no,
+        r.name AS name,
+        r.address AS address,
+        r.category AS category,
+        p.renamed_filename,
+        ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
+        FROM
         restaurant r
-            left join menu m on r.no = m.rest_no
-            left join menu_picture p on m.no = p.menu_no
+        left join menu m on r.no = m.rest_no
+        left join menu_picture p on m.no = p.menu_no
         )
-        select
-            restaurant_no as no,
-            restaurant_name as name,
-            restaurant_address as address,
-            restaurant_category as category,
-            renamed_filename
-        from
-            rankedpictures
+        SELECT
+        restaurant_no AS no,
+        name,
+        address,
+        category,
+        renamed_filename
+        FROM
+        RankedPictures
         <where>
             rn = 1
-            <if test="searchKeyword != null and searchKeyword != ''">
+            <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
                 and
-                restaurant_category like '%' || #{searchKeyword} || '%'
+                ${searchType} like '%' || #{searchKeyword} || '%'
             </if>
         </where>
         ORDER BY
-            no DESC, renamed_filename
+        no DESC, renamed_filename
+        <!--        select distinct-->
+        <!--            r.no,-->
+        <!--            r.name,-->
+        <!--            r.address,-->
+        <!--            r.category,-->
+        <!--            p.renamed_filename-->
+        <!--        from-->
+        <!--            restaurant r left join menu m-->
+        <!--                on r.no = m.rest_no-->
+        <!--                    left join menu_picture p-->
+        <!--                           on m.no = p.menu_no-->
+        <!--        <where>-->
+        <!--            <if test="searchKeyword != null and searchKeyword != ''">-->
+        <!--                    category like '%' || #{searchKeyword} || '%'-->
+        <!--            </if>-->
+        <!--        </where>-->
+        <!--        order by-->
+        <!--            no desc-->
     </select>
 
     <resultMap id="restaurantVoMap" type="restaurantVo">
@@ -151,8 +151,8 @@
             count(*)
         from
             restaurant r left join menu m
-                on r.no = m.rest_no
-            left join menu_picture p
-                on m.no = p.menu_no
+                                   on r.no = m.rest_no
+                         left join menu_picture p
+                                   on m.no = p.menu_no
     </select>
 </mapper>

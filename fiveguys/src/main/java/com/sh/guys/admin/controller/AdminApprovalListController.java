@@ -52,7 +52,7 @@ public class AdminApprovalListController extends HttpServlet {
         }
         String pagebar = FiveGuysUtils.getPagebar(page, limit, totalCount, url);
         req.setAttribute("pagebar", pagebar);
-
+        
         // 3. view단 처리
         req.getRequestDispatcher("/WEB-INF/views/admin/adminApprovalList.jsp").forward(req, resp);
     }

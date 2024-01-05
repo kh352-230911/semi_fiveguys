@@ -27,9 +27,11 @@ public class MenuPicturePageServlet extends HttpServlet {
         // 1. 사용자 입력 값 처리
         int page = Integer.parseInt(req.getParameter("page"));
         final int limit = 5;
+        String searchType = req.getParameter("searchType");
         String searchKeyword = req.getParameter("searchKeyword");
 
         Map<String, Object> param = new HashMap<>();
+        param.put("searchType", searchType);
         param.put("searchKeyword", searchKeyword);
         param.put("page", page);
         param.put("limit", limit);
