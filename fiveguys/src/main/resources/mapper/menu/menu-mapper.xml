@@ -77,8 +77,8 @@
 --         left join menu_picture p
 --         on m.no = p.menu_no
         <where>
-            <if test="searchKeyword != null and searchKeyword != ''">
-                category like '%' || #{searchKeyword} || '%'
+            <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
+                ${searchType} like '%' || #{searchKeyword} || '%'
             </if>
         </where>
     </select>
@@ -103,19 +103,27 @@
 <!--        </where>-->
 <!--        order by-->
 <!--            no desc-->
-        with rankedpictures as (
-        select
-            r.no as restaurant_no,
-            r.name as restaurant_name,
-            r.address as restaurant_address,
-            r.category as restaurant_category,
-            p.renamed_filename,
-            row_number() over (partition by r.no order by p.renamed_filename) as rn
-        from
+        WITH RankedPictures AS (
+        SELECT
+        r.no AS restaurant_no,
+        r.name AS name,
+        r.address AS address,
+        r.category AS category,
+        p.renamed_filename,
+        ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
+        FROM
         restaurant r
             left join menu m on r.no = m.rest_no
             left join menu_picture p on m.no = p.menu_no
         )
+        SELECT
+        restaurant_no AS no,
+        name,
+        address,
+        category,
+        renamed_filename
+        FROM
+        RankedPictures
         select
             restaurant_no as no,
             restaurant_name as name,
@@ -126,9 +134,9 @@
             rankedpictures
         <where>
             rn = 1
-            <if test="searchKeyword != null and searchKeyword != ''">
+            <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
                 and
-                restaurant_category like '%' || #{searchKeyword} || '%'
+                ${searchType} like '%' || #{searchKeyword} || '%'
             </if>
         </where>
         ORDER BY

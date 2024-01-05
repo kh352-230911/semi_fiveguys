@@ -218,6 +218,9 @@ create sequence seq_notification_no;
 
 select * from notification;
 
+insert into notification
+values (('noti' || lpad(seq_notification_no.nextval,3,0)), 'woojin', 'NEW_COMMENT', '<a href="#">fghi</a>님이 <a href="#">너무 맛있게 먹었어요</a> 게시글에 댓글을 작성했습니다', default, default);
+
 select 
     u.id,
     u.no,
@@ -431,9 +434,6 @@ select * from menu_picture;
 
 commit;
 
-
-select * from delete_users;
-
 -- 회원 삭제 트리거 테이블
 create table delete_users
 as
@@ -495,8 +495,9 @@ from
          on r.no = a.rest_no
 where
     r.no = 'restaurant014';
+
  
-create or replace trigger trig_cancel_reservation
+ create or replace trigger trig_cancel_reservation
     after
     delete on reservation
     for each row
@@ -509,11 +510,11 @@ begin
 end;
 /
  
-select * from reservation;
-select * from cancel_reservation;
-commit;
+ select * from reservation;
+ select * from cancel_reservation;
+ commit;
  
-insert into reservation
+ insert into reservation
     values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '김안녕', sysdate, sysdate, default, null, default);
     
 select
@@ -527,21 +528,21 @@ where
     r.no = 'restaurant017';
     
 select
-        r.*,
-        m.*,
-        p.*,
-        m.no menu_no,
-        m.name menu_name,
-        m.content menu_content,
-        p.no pic_no,
-        p.renamed_filename
-    from
-        restaurant r  left join menu m
-              on r.no = m.rest_no
-         join menu_picture p
-              on m.no = p.menu_no
-    where
-        r.no = 'restaurant043';
+            r.*,
+            m.*,
+            p.*,
+            m.no menu_no,
+            m.name menu_name,
+            m.content menu_content,
+            p.no pic_no,
+            p.renamed_filename
+        from
+            restaurant r  left join menu m
+                  on r.no = m.rest_no
+             join menu_picture p
+                  on m.no = p.menu_no
+        where
+            r.no = 'restaurant043';
 
 -- 식당 테이블 샘플 데이터 추가 - 우진
 insert into restaurant values(
@@ -679,4 +680,32 @@ select
             r.no = 'restaurant043';
 commit;
 
->>>>>>> 66b088dcabe16ce357478d7e70c8e9ed2eb61509
+select * from review_comment;
+
+WITH RankedPictures AS (
+    SELECT
+        r.no AS restaurant_no,
+        r.name AS restaurant_name,
+        r.address AS restaurant_address,
+        r.category AS restaurant_category,
+        p.renamed_filename,
+        ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
+    FROM
+        restaurant r
+    LEFT JOIN menu m ON r.no = m.rest_no
+    LEFT JOIN menu_picture p ON m.no = p.menu_no
+)
+SELECT
+    restaurant_no no,
+    restaurant_name as name,
+    restaurant_address as address,
+    restaurant_category as category,
+    renamed_filename
+FROM
+    RankedPictures
+WHERE
+    rn = 1
+    and 
+    restaurant_address like '%역삼%'
+ORDER BY
+    no DESC, renamed_filename;
