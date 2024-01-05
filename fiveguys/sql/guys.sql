@@ -218,6 +218,9 @@ create sequence seq_notification_no;
 
 select * from notification;
 
+insert into notification
+values (('noti' || lpad(seq_notification_no.nextval,3,0)), 'woojin', 'NEW_COMMENT', '<a href="#">fghi</a>님이 <a href="#">너무 맛있게 먹었어요</a> 게시글에 댓글을 작성했습니다', default, default);
+
 select 
     u.id,
     u.no,
@@ -461,7 +464,6 @@ as
 select no, rest_no, users_no, reserv_name, reserv_date, reserv_time, reg_date
 from reservation
 where
-<<<<<<< HEAD
     id = 'woojin';
     
 select * from attraction;
@@ -493,8 +495,7 @@ from
          on r.no = a.rest_no
 where
     r.no = 'restaurant014';
-=======
- 0 = 1;
+
  
  create or replace trigger trig_cancel_reservation
     after
@@ -679,4 +680,4 @@ select
             r.no = 'restaurant043';
 commit;
 
->>>>>>> 66b088dcabe16ce357478d7e70c8e9ed2eb61509
+select * from review_comment;

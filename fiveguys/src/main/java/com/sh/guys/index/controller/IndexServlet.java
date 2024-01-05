@@ -19,12 +19,12 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 사용자 입력 값 처리
         // 2. 업무 로직
-        User loginUser = (User) req.getSession().getAttribute("loginUser");
-        System.out.println(loginUser);
-        if(loginUser != null) {
-            List<Notification> notifications = notificationService.findByUserId(loginUser.getId());
-            req.setAttribute("notifications", notifications);
-        }
+//        User loginUser = (User) req.getSession().getAttribute("loginUser");
+//        System.out.println(loginUser);
+//        if(loginUser != null) {
+//            List<Notification> notifications = notificationService.findByUserId(loginUser.getId());
+//            req.setAttribute("notifications", notifications);
+//        }
 
         // 3. view단 처리
         req.getRequestDispatcher("/index.jsp").forward(req, resp);

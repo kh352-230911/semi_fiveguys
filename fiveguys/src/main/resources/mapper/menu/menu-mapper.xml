@@ -77,8 +77,8 @@
 --         left join menu_picture p
 --         on m.no = p.menu_no
         <where>
-            <if test="searchKeyword != null and searchKeyword != ''">
-                category like '%' || #{searchKeyword} || '%'
+            <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
+                ${searchType} like '%' || #{searchKeyword} || '%'
             </if>
         </where>
     </select>
@@ -106,9 +106,9 @@
         WITH RankedPictures AS (
         SELECT
         r.no AS restaurant_no,
-        r.name AS restaurant_name,
-        r.address AS restaurant_address,
-        r.category AS restaurant_category,
+        r.name AS name,
+        r.address AS address,
+        r.category AS category,
         p.renamed_filename,
         ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
         FROM
@@ -118,17 +118,17 @@
         )
         SELECT
         restaurant_no AS no,
-        restaurant_name AS name,
-        restaurant_address AS address,
-        restaurant_category AS category,
+        name,
+        address,
+        category,
         renamed_filename
         FROM
         RankedPictures
         <where>
             rn = 1
-            <if test="searchKeyword != null and searchKeyword != ''">
+            <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
                 and
-                restaurant_category like '%' || #{searchKeyword} || '%'
+                ${searchType} like '%' || #{searchKeyword} || '%'
             </if>
         </where>
         ORDER BY
