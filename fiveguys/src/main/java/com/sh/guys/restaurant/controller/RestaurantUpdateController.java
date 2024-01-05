@@ -39,6 +39,6 @@ public class RestaurantUpdateController extends HttpServlet {
         restaurant.setCloseTime(closetime);
         restaurant.setReservPossible(reservPossible);
 
-        
+
     }
 }
