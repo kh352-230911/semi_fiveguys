@@ -80,11 +80,14 @@ public class RestaurantService {
         try {
             result = restaurantDao.updateRestaurant(session, restaurant);
             session.commit();
+            System.out.println("try");
         } catch (Exception e) {
             session.rollback();
+            System.out.println("catch");
             throw e;
         } finally {
             session.close();
+            System.out.println("finally");
         }
         return result;
     }

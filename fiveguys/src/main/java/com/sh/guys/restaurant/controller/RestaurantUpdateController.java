@@ -30,6 +30,7 @@ public class RestaurantUpdateController extends HttpServlet {
         Reservation reservPossible = Reservation.valueOf(_reservPossible);
 
         Restaurant restaurant = new Restaurant();
+        System.out.println(restaurant);
         restaurant.setNo(no);
         restaurant.setName(name);
         restaurant.setAddress(address);
@@ -42,6 +43,7 @@ public class RestaurantUpdateController extends HttpServlet {
 
         // 2. 업무로직
         int result = restaurantService.updateRestaurant(restaurant);
+        System.out.println(result);
 
         // 3. redirect
         resp.sendRedirect(req.getContextPath() + "/oner/onerRestaurantList");
