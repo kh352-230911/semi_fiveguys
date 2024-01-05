@@ -102,9 +102,9 @@
                                 <div class="p-4 bg-white flex">
                                     <select id="search-type" name="search-type" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5">
                                         <option value="" disabled selected>검색</option>
-                                        <option value="category" ${param['search-type'] eq 'id' ? 'selected' : ''}>카테고리</option>
+                                        <option value="category" ${param['search-type'] eq 'category' ? 'selected' : ''}>카테고리</option>
                                         <option value="name" ${param['search-type'] eq 'name' ? 'selected' : ''}>식당이름</option>
-                                        <option value="address" ${param['search-type'] eq 'email' ? 'selected' : ''}>식당주소</option>
+                                        <option value="address" ${param['search-type'] eq 'address' ? 'selected' : ''}>식당주소</option>
                                     </select>
                                     <div class="relative hidden md:block">
                                         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -184,7 +184,7 @@
                                             <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
 <%--                                                <a href="#" class="hover:underline text-blue-500">${noti.content}</a>--%>
                                                 ${noti.content.replaceAll("#([^#]+)§([^#]+)#", '<a href="##$2" class="hover:underline text-blue-500">$1</a>').replaceAll('##', pageContext.request.contextPath)}
-                                                        <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-sm text-[10px] px-1 leading-snug text-center">X</button>
+<%--                                                        <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-sm text-[10px] px-1 leading-snug text-center">X</button>--%>
                                             </li>
                                         </c:forEach>
                                     </c:if>

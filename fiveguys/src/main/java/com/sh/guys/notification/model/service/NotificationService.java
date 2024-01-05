@@ -6,18 +6,23 @@ import com.sh.guys.notification.model.entity.Type;
 import com.sh.guys.review.model.entity.Review;
 import com.sh.guys.review.model.entity.ReviewComment;
 import com.sh.guys.review.model.service.ReviewService;
+import com.sh.guys.user.model.entity.User;
+import com.sh.guys.user.model.service.UserService;
 import com.sh.guys.ws.endpoint.EchoWebSocket;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
+import static com.sh.guys.common.FiveGuysUtils.getRecognizeNotification;
 import static com.sh.guys.common.FiveGuysUtils.getReviewCommentNotification;
 import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
 
 public class NotificationService {
     final String TEMPLATE_OF_NEW_REVIEW_COMMENT_NOTIFICATION = "%s님이 %s 게시글에 댓글을 작성했습니다.";
+    final String TEMPLATE_OF_NEW_RECOGNIZE_NOTIFICATION = "%s님이 승인요청을 보냈습니다.";
     private NotificationDao notificationDao = new NotificationDao();
     private ReviewService reviewService = new ReviewService();
+    private UserService userService = new UserService();
 
     public int insertNotification(Notification notification) {
         SqlSession session = getSqlSession();
@@ -58,6 +63,23 @@ public class NotificationService {
         // 1. 실시간 알림
         EchoWebSocket.sendNotification(noti);
         // 2. 알림 테이블 등록
+        return insertNotification(noti);
+    }
+
+    public int recognize(User user){
+        String userId = user.getId();
+        User user1 = userService.findById(userId);
+
+        Notification noti = new Notification();
+        noti.setUsersId(user1.getId());
+        String content = TEMPLATE_OF_NEW_RECOGNIZE_NOTIFICATION.formatted(
+                    getRecognizeNotification(user.getId(), "/admin/adminApprovalList")
+        );
+        noti.setContent(content);
+        noti.setType(Type.RECOGNIZE);
+
+        EchoWebSocket.sendNotification(noti);
+
         return insertNotification(noti);
     }
 }
