@@ -73,4 +73,22 @@ public class RestaurantService {
         session.close();
         return restaurant;
     }
+
+    public int updateRestaurant(Restaurant restaurant) {
+        SqlSession session = getSqlSession();
+        int result = 0;
+        try {
+            result = restaurantDao.updateRestaurant(session, restaurant);
+            session.commit();
+            System.out.println("try");
+        } catch (Exception e) {
+            session.rollback();
+            System.out.println("catch");
+            throw e;
+        } finally {
+            session.close();
+            System.out.println("finally");
+        }
+        return result;
+    }
 }

@@ -136,6 +136,7 @@
                 </td>
             <td id="btn-edit" class="px-6 py-4">
                 <a data-approval="${restaurant.approval}"
+                   data-no="${restaurant.no}"
                    data-name="${restaurant.name}"
                    data-address="${restaurant.address}"
                    data-content="${restaurant.content}"
