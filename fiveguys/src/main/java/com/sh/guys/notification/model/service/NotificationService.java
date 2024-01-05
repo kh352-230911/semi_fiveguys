@@ -5,6 +5,7 @@ import com.sh.guys.notification.model.entity.Notification;
 import com.sh.guys.notification.model.entity.Type;
 import com.sh.guys.review.model.entity.Review;
 import com.sh.guys.review.model.service.ReviewService;
+import com.sh.guys.user.model.entity.Role;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.service.UserService;
 import com.sh.guys.ws.endpoint.EchoWebSocket;
@@ -65,14 +66,11 @@ public class NotificationService {
 //        return insertNotification(noti);
 //    }
 
-    public int recognize(User user){
-        String userId = user.getId();
-        User user1 = userService.findById(userId);
-
+    public int recognize(String id){
         Notification noti = new Notification();
-        noti.setUsersId(user1.getId());
+        noti.setUsersId("woojin");
         String content = TEMPLATE_OF_NEW_RECOGNIZE_NOTIFICATION.formatted(
-                getRecognizeNotification(user.getId(), "/admin/adminApprovalList")
+                getRecognizeNotification(id, "/admin/adminApprovalList")
         );
         noti.setContent(content);
         noti.setType(Type.RECOGNIZE);

@@ -44,40 +44,40 @@
     </select>
 
     <!-- 페이지 별 게시물 조회 - 재준 -->
-    <select id="findAllPageApprovalList" resultMap="usersVOMap">
-        select
-            u.no users_no
-            , u.id
-            , u.name users_name
-            , u.role
-            , r.no restaurant_no
-            , r.name restaurant_name
-            , r.address
-            , r.content
-            , r.phone
-            , r.category
-            , r.open_time
-            , r.close_time
-            , r.reserv_possible
-            , r.reg_date
-            , r.approval
-        from
-            users u right join restaurant r
-                on u.no = r.users_no
-        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
-        where
-            ${searchType} like '%' || #{searchKeyword} || '%'
-        </if>
-        order by
-            reg_date desc
-    </select>
-
-    <!-- 전체 게시물 조회 - 재준 -->
     <select id="getTotalCountRestaurantList" resultType="_int">
         select
             count(*)
         from
             restaurant
+    </select>
+
+    <!-- 전체 게시물 조회 - 재준 -->
+    <select id="findAllPageApprovalList" resultMap="usersVOMap">
+        select
+        u.no users_no
+        , u.id
+        , u.name users_name
+        , u.role
+        , r.no restaurant_no
+        , r.name restaurant_name
+        , r.address
+        , r.content
+        , r.phone
+        , r.category
+        , r.open_time
+        , r.close_time
+        , r.reserv_possible
+        , r.reg_date
+        , r.approval
+        from
+        users u right join restaurant r
+        on u.no = r.users_no
+        <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+            where
+                ${searchType} like '%' || #{searchKeyword} || '%'
+        </if>
+        order by
+        reg_date desc
     </select>
 
     <!-- 페이지 별 게시물 조회 - 재준 -->
