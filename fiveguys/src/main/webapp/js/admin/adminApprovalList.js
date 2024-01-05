@@ -2,7 +2,7 @@ document.querySelectorAll('.openModal').forEach((a) => {
 
     a.addEventListener('click', function (e) {
         const info = e.target;
-        console.log(info);
+        // console.log(info);
         const {no, rname, id, name, role, rno, raddress, rcontent, rphone, rcategory, ropentime, rclosetime, rreservpossible, rtotalstar, rregdate, rapproval} = info.dataset;
         // console.log(ropentime);
         document.querySelector(".btnWrapper").innerHTML = null;
@@ -49,6 +49,5 @@ document.querySelectorAll('.openModal').forEach((a) => {
 });
 
 function close() {
-    console.log('close');
     document.getElementById('userDetailModal').classList.add('hidden');
 }

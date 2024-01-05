@@ -681,3 +681,31 @@ select
 commit;
 
 select * from review_comment;
+
+WITH RankedPictures AS (
+    SELECT
+        r.no AS restaurant_no,
+        r.name AS restaurant_name,
+        r.address AS restaurant_address,
+        r.category AS restaurant_category,
+        p.renamed_filename,
+        ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
+    FROM
+        restaurant r
+    LEFT JOIN menu m ON r.no = m.rest_no
+    LEFT JOIN menu_picture p ON m.no = p.menu_no
+)
+SELECT
+    restaurant_no no,
+    restaurant_name as name,
+    restaurant_address as address,
+    restaurant_category as category,
+    renamed_filename
+FROM
+    RankedPictures
+WHERE
+    rn = 1
+    and 
+    restaurant_address like '%역삼%'
+ORDER BY
+    no DESC, renamed_filename;
