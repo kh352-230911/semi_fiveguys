@@ -2,6 +2,7 @@ package com.sh.guys.user.model.dao;
 
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.entity.UserDel;
+import com.sh.guys.user.model.vo.UserAttractionVo;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
@@ -51,5 +52,9 @@ public class UserDao {
 
     public User findByNickName(SqlSession session, String nickName) {
         return session.selectOne("user.userfindByNickName", nickName);
+    }
+
+    public List<UserAttractionVo> findByNo(SqlSession session, String no) {
+        return session.selectList("user.findByNo", no);
     }
 }

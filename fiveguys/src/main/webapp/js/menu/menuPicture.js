@@ -26,10 +26,10 @@ const getPicture = (page) => {
                 console.log(picture);
                const {address, menuPictures : [{renamedFilename}], name, no} = picture;
                return `${html}
-               <div>
+               <div class="ml-32">
                 <a href="${contextPath}/restaurant/restaurantDetail?no=${no}">
                     <img 
-                        class="h-auto max-w-full rounded-lg" 
+                        class="h-96 w-96 object-cover rounded-lg"
                         src="${contextPath}/upload/picture/${renamedFilename}" 
                         alt="" />
                 </a>
