@@ -709,3 +709,12 @@ WHERE
     restaurant_address like '%역삼%'
 ORDER BY
     no DESC, renamed_filename;
+    
+update
+    restaurant
+set
+    total_star = 4.2
+where
+    name = '스시히로아키';
+    
+select * from notification;
