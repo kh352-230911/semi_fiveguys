@@ -687,4 +687,23 @@ select
             r.no = 'restaurant043';
 commit;
 
->>>>>>> 66b088dcabe16ce357478d7e70c8e9ed2eb61509
+select * from notification;
+
+insert into notification
+values (('noti' || lpad(seq_notification_no.nextval,3,0)), 'woojin', 'RECOGNIZE', '<a href = "${pageContext.request.contextPath}/admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다', default, default);
+
+update
+    notification
+set
+    content = '<a href = "admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다'
+where
+    content = '<a href = "${pageContext.request.contextPath}/admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다';
+    
+select
+    u.role,
+    n.*
+from
+    users u left join notification n
+        on u.id = n.users_id
+where
+    role = 'M';
