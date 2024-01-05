@@ -84,52 +84,12 @@
         where
             id = #{id}
     </delete>
-    <select id="findByNo" resultMap="userAttractionVoMap">
-        select
-            u.no,
-            u.id,
-            u.name,
-            u.nickname,
-            u.email,
-            u.phone,
-            u.category,
-            a.users_no,
-            a.rest_no,
-            r.no restaurant_no,
-            r.name restaurant_name,
-            r.address restaurant_address,
-            r.content,
-            r.phone restaurant_phone,
-            r.category restaurant_category,
-            r.approval
-        from
-            users u join attraction a
-                on u.no = a.users_no
-            join restaurant r
-                on a.rest_no = r.no
-        where
-            u.no = #{no}
-    </select>
-    <resultMap id="userAttractionVoMap" type="userAttractionVo">
-        <id column="no" property="no"/>
-        <result column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="nickname" property="nickName"/>
-        <result column="email" property="email"/>
-        <result column="phone" property="phone"/>
-        <result column="category" property="category"/>
-        <collection property="attractions" ofType="attraction">
-            <id column="users_no" property="usersNo"/>
-            <result column="rest_no" property="restNo"/>
-        </collection>
-        <collection property="restaurants" ofType="restaurant">
-            <id column="restaurant_no" property="no"/>
-            <result column="restaurant_name" property="name"/>
-            <result column="restaurant_address" property="address"/>
-            <result column="content" property="content"/>
-            <result column="restaurant_phone" property="phone"/>
-            <result column="restaurant_category" property="category"/>
-            <result column="approval" property="approval"/>
-        </collection>
-    </resultMap>
+<!--    <select id="findByNickName" resultType="user">-->
+<!--        select-->
+<!--            *-->
+<!--        from-->
+<!--        users-->
+<!--        where-->
+<!--        nickName like '%' || #{nickName} || '%'-->
+<!--    </select>-->
 </mapper>

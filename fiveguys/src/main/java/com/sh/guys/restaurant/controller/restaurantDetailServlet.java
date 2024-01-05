@@ -55,6 +55,9 @@ public class restaurantDetailServlet extends HttpServlet {
             }
         }
 
+        // 좋아요 카운트
+
+
         // 응답
         req.getRequestDispatcher("/WEB-INF/views/restaurant/restaurantDetail.jsp")
                 .forward(req, resp);

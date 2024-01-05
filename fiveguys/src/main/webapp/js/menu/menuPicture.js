@@ -6,19 +6,16 @@ document.searchFrm.addEventListener('submit', (e) => {
 });
 const getPicture = (page) => {
 
-    const searchType = document.querySelector("#search-type")
-    const searchKeyword = document.querySelector("#search-Keyword");
+    const searchKeyword = document.querySelector("#searchKeyword");
 
     $.ajax({
         url: `${contextPath}/picture/page`,
         data: {
             page,
-            searchKeyword: searchKeyword.value,
-            searchType: searchType.value
+            searchKeyword: searchKeyword.value
         },
         success(resultMap) {
             console.log(resultMap);
-            console.log(searchType.value, searchKeyword.value);
             const container = document.querySelector("#picture-container");
             const {menus: menuPictures, totalPage} = resultMap;
             // 내용 출력
@@ -26,10 +23,10 @@ const getPicture = (page) => {
                 console.log(picture);
                const {address, menuPictures : [{renamedFilename}], name, no} = picture;
                return `${html}
-               <div class="ml-32">
+               <div>
                 <a href="${contextPath}/restaurant/restaurantDetail?no=${no}">
                     <img 
-                        class="h-96 w-96 object-cover rounded-lg"
+                        class="h-auto max-w-full rounded-lg" 
                         src="${contextPath}/upload/picture/${renamedFilename}" 
                         alt="" />
                 </a>

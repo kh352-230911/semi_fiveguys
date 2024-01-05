@@ -51,4 +51,26 @@ public class RestaurantService {
         session.close();
         return convenienceVos;
     }
+
+    public int insertRestaurant(Restaurant restaurant) {
+        SqlSession session = getSqlSession();
+        int result = 0;
+        try {
+            result = restaurantDao.insertRestaurant(session, restaurant);
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public Restaurant findByPhone(String phone) {
+        SqlSession session = getSqlSession();
+        Restaurant restaurant = restaurantDao.findByPhone(session, phone);
+        session.close();
+        return restaurant;
+    }
 }

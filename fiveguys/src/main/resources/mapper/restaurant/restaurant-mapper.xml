@@ -119,12 +119,16 @@
     </select>
 
     <!-- 식당 등록 - 우진 -->
+    <!-- 편집 2024.01.05 - 재준
+         reserv_possible 컬럼 default -> #{reservPossible}으로 변경
+         total_star 컬럼 #{totalStar} -> default로 변경
+         approval 컬럼 추가로 인한 마지막 줄 default 추가 ex: values(..., default) -->
     <insert id="insertRestaurant">
         insert into
             restaurant
         values(
                 ('rest' || lpad(seq_restaurant_no.nextval,3,0)),
-                #{no},
+                #{usersNo},
                 #{name},
                 #{address},
                 #{content},
@@ -132,8 +136,9 @@
                 #{category},
                 #{openTime},
                 #{closeTime},
+                #{reservPossible},
+                0,
                 default,
-                #{totalStar},
                 default
               )
         <selectKey order="AFTER" resultType="String" keyProperty="no">
@@ -165,4 +170,14 @@
         where
             no = #{no}
     </delete>
+
+    <!-- 전화번호로 식당 검색 - 재준 -->
+    <select id="findByPhone" resultType="restaurant">
+        select
+            *
+        from
+            restaurant
+        where
+            phone = #{phone}
+    </select>
 </mapper>

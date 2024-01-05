@@ -5,9 +5,7 @@ import com.sh.guys.common.FiveGuysUtils;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
-@WebListener
 public class FiveGuysServletContextListener implements ServletContextListener {
 
     @Override
