@@ -1,6 +1,6 @@
 package com.sh.guys.restaurant.controller;
 
-import com.sh.guys.restaurant.model.entity.Reservation;
+import com.sh.guys.restaurant.model.entity.Reservations;
 import com.sh.guys.restaurant.model.entity.Restaurant;
 import com.sh.guys.restaurant.model.service.RestaurantService;
 
@@ -26,7 +26,7 @@ public class RestaurantUpdateController extends HttpServlet {
         String opentime = req.getParameter("opentime");
         String closetime = req.getParameter("closetime");
         String _reservPossible = req.getParameter("reservPossible");
-        Reservation reservPossible = Reservation.valueOf(_reservPossible);
+        Reservations reservPossible = Reservations.valueOf(_reservPossible);
 
         Restaurant restaurant = new Restaurant();
         restaurant.setNo(no);

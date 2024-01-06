@@ -25,14 +25,6 @@
                 <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">내가 쓴 리뷰</a>
             </li>
         </ul>
-        <button id="restaurantRegister" type="button"
-                class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 absolute top-6 right-20">
-            <a href="${pageContext.request.contextPath}/restaurant/restaurantRegister">식당 등록</a>
-        </button>
-        <button id="openUserDetailModalBtn" type="button"
-                class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 absolute top-6 right-4">
-            정보 변경
-        </button>
     </div>
     <form name="memberSearchFrm">
         <div class="p-4 bg-white flex">
@@ -156,10 +148,7 @@
     </table>
 </div>
 
-<!-- 모달 -->
-<div id="restaurantDetailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div id="restaurantDetail" class="bg-white p-8 rounded-lg"></div>
-</div>
+<%-- --%>
 
 <script src="${pageContext.request.contextPath}/js/oner/onerRestaurantList.js"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -38,7 +38,7 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5">
                 <option value="" disabled selected>검색</option>
                 <option value="id" ${param['search-type'] eq 'id' ? 'selected' : ''}>아이디</option>
-                <option value="name" ${param['search-type'] eq 'name' ? 'selected' : ''}>회원 이름</option>
+                <option value="u.name" ${param['search-type'] eq 'name' ? 'selected' : ''}>회원 이름</option>
                 <option value="restaurant_name" ${param['search-type'] eq 'restaurant_name' ? 'selected' : ''}>식당 이름</option>
                 <option value="r.address" ${param['search-type'] eq 'r.address' ? 'selected' : ''}>식당 주소</option>
                 <option value="r.phone" ${param['search-type'] eq 'r.phone' ? 'selected' : ''}>식당 전화번호</option>
