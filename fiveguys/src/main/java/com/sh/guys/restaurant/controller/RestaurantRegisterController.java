@@ -1,5 +1,6 @@
 package com.sh.guys.restaurant.controller;
 
+import com.sh.guys.notification.model.service.NotificationService;
 import com.sh.guys.oner.model.service.OnerService;
 import com.sh.guys.restaurant.model.entity.Reservation;
 import com.sh.guys.restaurant.model.entity.Restaurant;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class RestaurantRegisterController extends HttpServlet {
 
     private RestaurantService restaurantService = new RestaurantService();
+    private NotificationService notificationService = new NotificationService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,6 +38,7 @@ public class RestaurantRegisterController extends HttpServlet {
 
         // 2. 사용자 입력값 가져오기
         String no = req.getParameter("usersNo");
+        String id = req.getParameter("id");
         String name = req.getParameter("name");
         String address = req.getParameter("address");
         String content = req.getParameter("content");
@@ -64,6 +67,7 @@ public class RestaurantRegisterController extends HttpServlet {
         //. 리다이렉트후 경고창 성공메세지 전달
         req.getSession().setAttribute("msg", "식당 등록이 완료되었습니다.");
 
+        result = notificationService.recognize(id);
         // 4. redirect
         String location = (String) req.getSession().getAttribute("next");
         req.getSession().removeAttribute("next");
