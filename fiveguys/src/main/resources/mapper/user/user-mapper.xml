@@ -172,7 +172,7 @@
         <result column="email" property="email"/>
         <result column="phone" property="phone"/>
         <result column="category" property="category"/>
-        <collection property="reservations" ofType="reservations">
+        <collection property="reservations" ofType="reservation">
             <id column="reservation_no" property="no"/>
             <result column="rest_no" property="restNo"/>
             <result column="users_no" property="usersNo"/>

@@ -262,10 +262,25 @@
                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                        placeholder="(-) 없이 입력하세요.">
             </div>
-            <div>
-                <label for="people" class="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">인원수</label>
-                <input type="number" name="people" id="people" min="2" value="2" required>
-            </div>
+
+                <div class="w-full mt-4">
+                    <label for="people" class="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">인원수</label>
+                    <select id="people" name="people" class="ml-4 w-1/8 border-0">
+                        <option value="select">선택</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+<%--                <label for="people" class="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">인원수</label>--%>
+
             <div>
                 <label for="request" class="block mb-2 text-sm font-medium text-gray-900">요청사항</label>
                 <input type="text" name="request" id="request" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="요청사항을 입력해주세요...">

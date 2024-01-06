@@ -81,10 +81,12 @@
                                         </c:if>
                                     </c:forEach>
                                     <td class="px-6 py-4">
-                                        ${reservations.reservDate}
+                                        <fmt:parseDate value="${reservations.reservDate}" pattern="yyyy-MM-dd'T'HH:mm" var="reservDate"/>
+                                        <fmt:formatDate value="${reservDate}" pattern="yy/MM/dd"/>
                                     </td>
                                     <td class="px-6 py-4">
-                                        ${reservations.reservTime}
+                                        <fmt:parseDate value="${reservations.reservTime}" pattern="yyyy-MM-dd'T'HH:mm" var="reservTime"/>
+                                        <fmt:formatDate value="${reservTime}" pattern="yy/MM/dd"/>
                                     </td>
                                     <c:forEach var="restaurants" items="${userReservationVo.restaurants}">
                                         <c:if test="${restaurants.no eq reservations.restNo}">
@@ -107,6 +109,7 @@
                                         ${reservations.reservName}
                                     </td>
                                     <td class="px-6 py-4 text-right">
+                                        <button></button>
                                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">예약 취소</a>
                                     </td>
                                 </tr>
