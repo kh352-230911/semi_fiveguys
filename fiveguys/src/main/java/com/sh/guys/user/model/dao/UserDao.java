@@ -3,6 +3,8 @@ package com.sh.guys.user.model.dao;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.entity.UserDel;
 import com.sh.guys.user.model.vo.UserAttractionVo;
+import com.sh.guys.user.model.vo.UserReservationVo;
+import com.sh.guys.user.model.vo.UserReviewVo;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
@@ -56,5 +58,13 @@ public class UserDao {
 
     public List<UserAttractionVo> findByNo(SqlSession session, String no) {
         return session.selectList("user.findByNo", no);
+    }
+
+    public List<UserReservationVo> findReservation(SqlSession session, String no) {
+        return session.selectList("user.findReservation", no);
+    }
+
+    public List<UserReviewVo> findMyReview(SqlSession session, String no) {
+        return session.selectList("user.findMyReview", no);
     }
 }

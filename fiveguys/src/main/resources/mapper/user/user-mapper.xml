@@ -132,4 +132,120 @@
             <result column="approval" property="approval"/>
         </collection>
     </resultMap>
+    <select id="findReservation" resultMap="userReservationVoMap">
+        select
+            u.no,
+            u.id,
+            u.name,
+            u.nickname,
+            u.email,
+            u.phone,
+            u.category,
+            re.no reservation_no,
+            re.rest_no,
+            re.users_no,
+            re.reserv_name,
+            re.reserv_date,
+            re.reserv_time,
+            re.reserv_people,
+            re.reg_date,
+            r.no restaurant_no,
+            r.name restaurant_name,
+            r.address restaurant_address,
+            r.content,
+            r.phone restaurant_phone,
+            r.category restaurant_category,
+            r.approval
+        from
+            users u join reservation re
+                on u.no = re.users_no
+            join restaurant r
+                on re.rest_no = r.no
+        where
+            u.no = #{no}
+    </select>
+    <resultMap id="userReservationVoMap" type="userReservationVo">
+        <id column="no" property="no"/>
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="nickname" property="nickName"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="category" property="category"/>
+        <collection property="reservations" ofType="reservations">
+            <id column="reservation_no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="users_no" property="usersNo"/>
+            <result column="reserv_name" property="reservName"/>
+            <result column="reserv_date" property="reservDate"/>
+            <result column="reserv_time" property="reservTime"/>
+            <result column="reserv_people" property="reservPeople"/>
+            <result column="reg_date" property="regDate"/>
+        </collection>
+        <collection property="restaurants" ofType="restaurant">
+            <id column="restaurant_no" property="no"/>
+            <result column="restaurant_name" property="name"/>
+            <result column="restaurant_address" property="address"/>
+            <result column="content" property="content"/>
+            <result column="restaurant_phone" property="phone"/>
+            <result column="restaurant_category" property="category"/>
+            <result column="approval" property="approval"/>
+        </collection>
+    </resultMap>
+
+    <select id="findMyReview" resultMap="userReviewVoMap">
+        select
+            u.no,
+            u.id,
+            u.name,
+            u.nickname,
+            u.email,
+            u.phone,
+            u.category,
+            re.no review_no,
+            re.rest_no,
+            re.users_no,
+            re.content review_content,
+            re.star_grade,
+            re.reg_date,
+            r.no restaurant_no,
+            r.name restaurant_name,
+            r.address restaurant_address,
+            r.phone restaurant_phone,
+            r.category restaurant_category,
+            r.approval
+        from
+            users u join review re
+                on u.no = re.users_no
+            join restaurant r
+                on re.rest_no = r.no
+        where
+            u.no = #{no}
+    </select>
+    <resultMap id="userReviewVoMap" type="userReviewVo">
+        <id column="no" property="no"/>
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="nickname" property="nickName"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="category" property="category"/>
+        <collection property="reviews" ofType="review">
+            <id column="review_no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="users_no" property="usersNo"/>
+            <result column="review_content" property="content"/>
+            <result column="star_grade" property="starGrade"/>
+            <result column="reg_date" property="regDate"/>
+        </collection>
+        <collection property="restaurants" ofType="restaurant">
+            <id column="restaurant_no" property="no"/>
+            <result column="restaurant_name" property="name"/>
+            <result column="restaurant_address" property="address"/>
+            <result column="restaurant_phone" property="phone"/>
+            <result column="restaurant_category" property="category"/>
+            <result column="approval" property="approval"/>
+        </collection>
+    </resultMap>
+
 </mapper>
