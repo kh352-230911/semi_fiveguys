@@ -6,6 +6,7 @@ import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.entity.Restaurant;
 import com.sh.guys.restaurant.model.service.RestaurantService;
 import com.sh.guys.restaurant.model.vo.RestaurantVo;
+import com.sh.guys.restaurant.model.vo.StarAverageVo;
 import com.sh.guys.user.model.entity.User;
 
 import javax.servlet.ServletException;
@@ -40,6 +41,11 @@ public class restaurantDetailServlet extends HttpServlet {
         List<ConvenienceVo> convenienceVo = restaurantService.findConven(no);
         System.out.println(convenienceVo);
         req.setAttribute("convenienceVo", convenienceVo);
+
+        // 총 별점 조회
+        List<StarAverageVo> starAverageVo = restaurantService.findStarAverage(no);
+        System.out.println(starAverageVo);
+        req.setAttribute("starAverageVo", starAverageVo);
 
         // 좋아요 여부
         User loginUser = (User) req.getSession().getAttribute("loginUser");

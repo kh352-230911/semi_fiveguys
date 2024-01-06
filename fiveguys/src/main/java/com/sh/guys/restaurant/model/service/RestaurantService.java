@@ -4,6 +4,7 @@ import com.sh.guys.restaurant.model.dao.RestaurantDao;
 import com.sh.guys.restaurant.model.entity.Restaurant;
 import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.vo.RestaurantVo;
+import com.sh.guys.restaurant.model.vo.StarAverageVo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -90,5 +91,12 @@ public class RestaurantService {
             System.out.println("finally");
         }
         return result;
+    }
+
+    public List<StarAverageVo> findStarAverage(String no) {
+        SqlSession session = getSqlSession();
+        List<StarAverageVo> starAverageVo = restaurantDao.findStarAverage(session, no);
+        session.close();
+        return starAverageVo;
     }
 }
