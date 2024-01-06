@@ -35,6 +35,7 @@ public class RestaurantDao {
     }
 
     public int updateRestaurant(SqlSession session, Restaurant restaurant) {
+        System.out.println("dao");
         return session.update("restaurant.updateRestaurant", restaurant);
     }
 
