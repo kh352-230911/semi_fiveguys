@@ -51,4 +51,44 @@ public class RestaurantService {
         session.close();
         return convenienceVos;
     }
+
+    public int insertRestaurant(Restaurant restaurant) {
+        SqlSession session = getSqlSession();
+        int result = 0;
+        try {
+            result = restaurantDao.insertRestaurant(session, restaurant);
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public Restaurant findByPhone(String phone) {
+        SqlSession session = getSqlSession();
+        Restaurant restaurant = restaurantDao.findByPhone(session, phone);
+        session.close();
+        return restaurant;
+    }
+
+    public int updateRestaurant(Restaurant restaurant) {
+        SqlSession session = getSqlSession();
+        int result = 0;
+        try {
+            result = restaurantDao.updateRestaurant(session, restaurant);
+            session.commit();
+            System.out.println("try");
+        } catch (Exception e) {
+            session.rollback();
+            System.out.println("catch");
+            throw e;
+        } finally {
+            session.close();
+            System.out.println("finally");
+        }
+        return result;
+    }
 }

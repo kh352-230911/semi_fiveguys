@@ -16,7 +16,7 @@
             </div>
 
             <div class="p-5">
-            <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">${restaurantVo.name}</h5><br>
+                <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">${restaurantVo.name}</h5><br>
                 <c:if test="${restaurantVo.totalStar == 5.0}">
                     <div class="flex items-center mt-2.5 mb-5">
                         <div class="flex items-center space-x-1 rtl:space-x-reverse">

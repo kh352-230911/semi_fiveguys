@@ -26,9 +26,7 @@
                     식당 정보 관리</a>
             </li>
             <li class="me-2">
-                <a href="#"
-                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
-                    예약 정보 관리</a>
+                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">내가 쓴 리뷰</a>
             </li>
         </ul>
     </div>

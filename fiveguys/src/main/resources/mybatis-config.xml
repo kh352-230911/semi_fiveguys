@@ -58,5 +58,6 @@
     <mapper resource="mapper/reservation/cancelReservation-mapper.xml"/>
     <mapper resource="mapper/reservation/reservation-mapper.xml"/>
     <mapper resource="mapper/attraction/attraction-mapper.xml"/>
+    <mapper resource="mapper/oner/oner-mapper.xml"/>
   </mappers>
 </configuration>

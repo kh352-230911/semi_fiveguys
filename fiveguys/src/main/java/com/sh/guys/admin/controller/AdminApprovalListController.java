@@ -3,6 +3,9 @@ package com.sh.guys.admin.controller;
 import com.sh.guys.admin.model.service.AdminService;
 import com.sh.guys.admin.model.vo.UserVO;
 import com.sh.guys.common.FiveGuysUtils;
+import com.sh.guys.notification.model.service.NotificationService;
+import com.sh.guys.user.model.entity.User;
+import com.sh.guys.user.model.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +20,8 @@ import java.util.Map;
 @WebServlet("/admin/adminApprovalList")
 public class AdminApprovalListController extends HttpServlet {
     private AdminService adminService = new AdminService();
+    private NotificationService notificationService = new NotificationService();
+    private UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,6 +32,9 @@ public class AdminApprovalListController extends HttpServlet {
         try {
             page = Integer.parseInt(req.getParameter("page"));
         } catch (NumberFormatException ignore) {}
+
+//        String userId = req.getParameter("id");
+//        System.out.println(userId);
 
         String searchType = req.getParameter("search-type");
         String searchKeyword = req.getParameter("search-keyword");
@@ -52,6 +60,11 @@ public class AdminApprovalListController extends HttpServlet {
         }
         String pagebar = FiveGuysUtils.getPagebar(page, limit, totalCount, url);
         req.setAttribute("pagebar", pagebar);
+
+//        User user = userService.findById(userId);
+
+        // 실시간 알림처리
+//        int result = notificationService.recognize(user);
 
         // 3. view단 처리
         req.getRequestDispatcher("/WEB-INF/views/admin/adminApprovalList.jsp").forward(req, resp);

@@ -4,8 +4,8 @@ import com.sh.guys.notification.model.dao.NotificationDao;
 import com.sh.guys.notification.model.entity.Notification;
 import com.sh.guys.notification.model.entity.Type;
 import com.sh.guys.review.model.entity.Review;
-import com.sh.guys.review.model.entity.ReviewComment;
 import com.sh.guys.review.model.service.ReviewService;
+import com.sh.guys.user.model.entity.Role;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.service.UserService;
 import com.sh.guys.ws.endpoint.EchoWebSocket;
@@ -46,34 +46,31 @@ public class NotificationService {
         return notifications;
     }
 
-    public int notify(ReviewComment comment) {
-        String reviewNo = comment.getReviewNo();
-        Review review = reviewService.findByNo(reviewNo);
+//    public int notify(ReviewComment comment) {
+//        String reviewNo = comment.getReviewNo();
+//        Review review = reviewService.findByNo(reviewNo);
+//
+//        // 댓글이 달린 게시글의 작성자용 알림 생성
+//        Notification noti = new Notification();
+//        noti.setUsersId(review.getUsersNo());
+//        String content = TEMPLATE_OF_NEW_REVIEW_COMMENT_NOTIFICATION.formatted(
+//                getReviewCommentNotification(comment.getUsersNo(), "/member/memberView?id=" + comment.getUsersNo()),
+//                getReviewCommentNotification(review.getContent(), "/board/boardDetail?id=" + review.getNo())
+//        );
+//        noti.setContent(content);
+//        noti.setType(Type.NEW_COMMENT);
+//
+//        // 1. 실시간 알림
+//        EchoWebSocket.sendNotification(noti);
+//        // 2. 알림 테이블 등록
+//        return insertNotification(noti);
+//    }
 
-        // 댓글이 달린 게시글의 작성자용 알림 생성
+    public int recognize(String id){
         Notification noti = new Notification();
-        noti.setUsersId(review.getUsersNo());
-        String content = TEMPLATE_OF_NEW_REVIEW_COMMENT_NOTIFICATION.formatted(
-                getReviewCommentNotification(comment.getUsersNo(), "/member/memberView?id=" + comment.getUsersNo()),
-                getReviewCommentNotification(review.getContent(), "/board/boardDetail?id=" + review.getNo())
-        );
-        noti.setContent(content);
-        noti.setType(Type.NEW_COMMENT);
-
-        // 1. 실시간 알림
-        EchoWebSocket.sendNotification(noti);
-        // 2. 알림 테이블 등록
-        return insertNotification(noti);
-    }
-
-    public int recognize(User user){
-        String userId = user.getId();
-        User user1 = userService.findById(userId);
-
-        Notification noti = new Notification();
-        noti.setUsersId(user1.getId());
+        noti.setUsersId("woojin");
         String content = TEMPLATE_OF_NEW_RECOGNIZE_NOTIFICATION.formatted(
-                    getRecognizeNotification(user.getId(), "/admin/adminApprovalList")
+                getRecognizeNotification(id, "/admin/adminApprovalList")
         );
         noti.setContent(content);
         noti.setType(Type.RECOGNIZE);

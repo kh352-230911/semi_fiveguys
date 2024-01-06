@@ -19,14 +19,14 @@
             <div>
                 <label for="id" class="block text-sm font-medium text-gray-700">아이디</label>
                 <div class="mt-2">
-                    <input id="id" name="id" type="text" autocomplete="id" required class="input-field">
+                    <input id="id" name="id" type="text" autocomplete="id" required class="input-field" value="q1w2e3">
                 </div>
             </div>
 
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">비밀번호</label>
                 <div class="mt-2">
-                    <input id="password" name="password" type="password" autocomplete="password" required class="input-field">
+                    <input id="password" name="password" type="password" autocomplete="password" required class="input-field" value="1234a@">
                 </div>
             </div>
             <div class="flex items-center">

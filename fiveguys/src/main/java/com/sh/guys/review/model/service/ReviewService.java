@@ -18,11 +18,4 @@ public class ReviewService {
         session.close();
         return reviews;
     }
-
-    public Review findByNo(String reviewNo) {
-        SqlSession session = getSqlSession();
-        Review review = reviewDao.findByNo(session, reviewNo);
-        session.close();
-        return review;
-    }
 }

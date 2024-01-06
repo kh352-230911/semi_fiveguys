@@ -8,14 +8,14 @@
         select
         *
         from
-            users
+        users
         where
-          id = #{id}
+        id = #{id}
     </select>
     <!--무진 -->
     <insert id="insertUser">
         insert into
-            users
+        users
         values (
         ('user' || lpad(seq_users_no.nextval,3,0)), #{id}, #{password}, #{name}, #{nickName}, #{gender}, #{email}, #{phone}, #{role},
         #{category, typeHandler=listStringTypeHandler}, default)
@@ -23,92 +23,92 @@
 
     <select id="findAll" resultType="user">
         select
-            *
+        *
         from
-            users
+        users
         order by
-            no
+        no
     </select>
 
     <select id="findByName" resultType="user">
         select
-            *
+        *
         from
-            users
+        users
         where
         name like '%' || #{name} || '%'
     </select>
     <select id="findByGender" resultType="user">
         select
-            *
+        *
         from
-            users
+        users
         where
-            gender = #{gender}
+        gender = #{gender}
     </select>
     <update id="updateUser">
         update
-            users
+        users
         set
-            name = #{name},
-            gender = #{gender},
-            email = #{email},
-            phone = #{phone},
-            nickname = #{nickName},
-            category = #{category, typeHandler=listStringTypeHandler}
+        name = #{name},
+        gender = #{gender},
+        email = #{email},
+        phone = #{phone},
+        nickname = #{nickName},
+        category = #{category, typeHandler=listStringTypeHandler}
         where
-            id = #{id}
+        id = #{id}
     </update>
 
     <update id="updateUserPassword">
         update
-            users
+        users
         set
-            password = #{password}
+        password = #{password}
         where
         id = #{id}
     </update>
 
     <update id="updateUserRole" >
         update
-            users
+        users
         set
-            role = #{role}
+        role = #{role}
         where
-            id = #{id}
+        id = #{id}
     </update>
 
     <delete id="deleteUser">
         delete from
-            users
+        users
         where
-            id = #{id}
+        id = #{id}
     </delete>
     <select id="findByNo" resultMap="userAttractionVoMap">
         select
-            u.no,
-            u.id,
-            u.name,
-            u.nickname,
-            u.email,
-            u.phone,
-            u.category,
-            a.users_no,
-            a.rest_no,
-            r.no restaurant_no,
-            r.name restaurant_name,
-            r.address restaurant_address,
-            r.content,
-            r.phone restaurant_phone,
-            r.category restaurant_category,
-            r.approval
+        u.no,
+        u.id,
+        u.name,
+        u.nickname,
+        u.email,
+        u.phone,
+        u.category,
+        a.users_no,
+        a.rest_no,
+        r.no restaurant_no,
+        r.name restaurant_name,
+        r.address restaurant_address,
+        r.content,
+        r.phone restaurant_phone,
+        r.category restaurant_category,
+        r.approval
         from
-            users u join attraction a
-                on u.no = a.users_no
-            join restaurant r
-                on a.rest_no = r.no
+        users u join attraction a
+        on u.no = a.users_no
+        join restaurant r
+        on a.rest_no = r.no
         where
-            u.no = #{no}
+        u.no = #{no}
     </select>
     <resultMap id="userAttractionVoMap" type="userAttractionVo">
         <id column="no" property="no"/>

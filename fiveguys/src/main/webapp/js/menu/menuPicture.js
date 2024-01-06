@@ -24,8 +24,8 @@ const getPicture = (page) => {
             // 내용 출력
             container.innerHTML += menuPictures.reduce((html, picture) => {
                 console.log(picture);
-               const {address, menuPictures : [{renamedFilename}], name, no} = picture;
-               return `${html}
+                const {address, menuPictures : [{renamedFilename}], name, no} = picture;
+                return `${html}
                <div class="ml-32">
                 <a href="${contextPath}/restaurant/restaurantDetail?no=${no}">
                     <img 

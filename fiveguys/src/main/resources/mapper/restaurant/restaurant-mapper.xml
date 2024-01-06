@@ -119,12 +119,16 @@
     </select>
 
     <!-- 식당 등록 - 우진 -->
+    <!-- 편집 2024.01.05 - 재준
+         reserv_possible 컬럼 default -> #{reservPossible}으로 변경
+         total_star 컬럼 #{totalStar} -> default로 변경
+         approval 컬럼 추가로 인한 마지막 줄 default 추가 ex: values(..., default) -->
     <insert id="insertRestaurant">
         insert into
             restaurant
         values(
                 ('rest' || lpad(seq_restaurant_no.nextval,3,0)),
-                #{no},
+                #{usersNo},
                 #{name},
                 #{address},
                 #{content},
@@ -132,8 +136,9 @@
                 #{category},
                 #{openTime},
                 #{closeTime},
+                #{reservPossible},
+                0,
                 default,
-                #{totalStar},
                 default
               )
         <selectKey order="AFTER" resultType="String" keyProperty="no">
@@ -145,6 +150,8 @@
     </insert>
 
     <!-- 식당 내용을 수정 할 수 있다.(식당 이름, 주소, 내용, 번호) - 우진 -->
+    <!-- 편집 2024.01.05 - 재준
+         업데이트 컬럼 (카테고리, 오픈시간, 마감시간, 예약가능여부) 추가 -->
     <update id="updateRestaurant">
         update
             restaurant
@@ -152,7 +159,11 @@
             name = #{name},
             address = #{address},
             content = #{content},
-            phone = #{phone}
+            phone = #{phone},
+            category = #{category},
+            open_time = #{openTime},
+            close_time = #{closeTime},
+            reserv_possible = #{reservPossible}
         where
             no = #{no}
     </update>
@@ -165,4 +176,14 @@
         where
             no = #{no}
     </delete>
+
+    <!-- 전화번호로 식당 검색 - 재준 -->
+    <select id="findByPhone" resultType="restaurant">
+        select
+            *
+        from
+            restaurant
+        where
+            phone = #{phone}
+    </select>
 </mapper>

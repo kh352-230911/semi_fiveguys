@@ -62,36 +62,6 @@
                             <label for="country-option-2" class="block ms-2 text-sm font-medium text-gray-900">여</label>
                         </div>
                     </fieldset>
-                    <fieldset>
-                        <legend class="mb-3">음식선택</legend>
-                        <div class="inline-flex items-center mr-4">
-                            <input id="category-1" type="checkbox" name="category" value="한식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                            <label for="category-1" class="ms-2 text-sm font-medium text-gray-900">한식</label>
-                        </div>
-                        <div class="inline-flex items-center mr-4">
-                            <input id="category-2" type="checkbox" name="category" value="양식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                            <label for="category-2" class="ms-2 text-sm font-medium text-gray-900">양식</label>
-                        </div>
-                        <div class="inline-flex items-center mr-4">
-                            <input id="category-3" type="checkbox" name="category" value="중식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                            <label for="category-3" class="ms-2 text-sm font-medium text-gray-900">중식</label>
-                        </div>
-                        <div class="inline-flex items-center mr-4">
-                            <input id="category-4" type="checkbox" name="category" value="일식" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                            <label for="category-4" class="ms-2 text-sm font-medium text-gray-900">일식</label>
-                        </div>
-                        <div class="inline-flex items-center mr-4" id="category-etc-wrapper">
-                            <input type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2">
-                            <label id="category-etc" class="ms-2 text-sm font-medium text-gray-500" contenteditable>직접입력</label>
-                        </div>
-                    </fieldset>
-
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 text-white font-medium rounded-lg text-sm px-5 py-2.5 transition-colors duration-300 ease-in-out">
-                        회원가입
-                    </button>
-                    <p class="mt-4 text-sm font-light text-gray-500 text-center">
-                        이미 회원이신가요? <a href="#" class="font-medium text-primary-600 hover:underline">여기서 로그인하세요😀</a>
-                    </p>
                 </form>
             </div>
         </div>
