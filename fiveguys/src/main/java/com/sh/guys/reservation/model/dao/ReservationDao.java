@@ -1,17 +1,21 @@
 package com.sh.guys.reservation.model.dao;
 
-import com.sh.guys.reservation.model.entity.CancelReservations;
-import com.sh.guys.reservation.model.entity.Reservations;
+import com.sh.guys.reservation.model.entity.CancelReservation;
+import com.sh.guys.reservation.model.entity.Reservation;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
 public class ReservationDao {
-    public List<CancelReservations> cancelReservationFindAll(SqlSession session) {
-        return session.selectList("cancelReservations.cancelReservationFindAll");
+    public List<CancelReservation> cancelReservationFindAll(SqlSession session) {
+        return session.selectList("cancelReservation.cancelReservationFindAll");
     }
 
-    public List<Reservations> findAll(SqlSession session) {
+    public List<Reservation> findAll(SqlSession session) {
         return session.selectList("reservation.findAll");
+    }
+
+    public int insertReservation(SqlSession session, Reservation reservation) {
+        return session.insert("reservation.insertReservation", reservation);
     }
 }

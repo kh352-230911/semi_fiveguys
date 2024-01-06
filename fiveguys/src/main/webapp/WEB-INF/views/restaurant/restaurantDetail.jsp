@@ -155,6 +155,11 @@
             <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">예약 일시</h5><br>
             <hr>
             <br>
+            <button id="reservationRegisterModalBtn" type="button"
+                    class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 top-10 right-24">
+                예약
+            </button>
+            <br>
             <div class="mb-8">
             </div>
         </div>
@@ -235,16 +240,61 @@
         </div>
     </div>
 </div>
-    <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.js"></script>
-    <script src="${pageContext.request.contextPath}/js/restaurant/restaurantPicture.js"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=095c604985806a4d1d1e9815c61b4627&libraries=services"></script>
-    <script language="JavaScript">
-        var restaurantAddress = "${restaurantVo.address}";
-        var address = restaurantAddress;
-        var restaurantName = "${restaurantVo.name}";
-        var rName = restaurantName;
-    </script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/restaurant/restaurantDetailMap.js"></script>
-    <script src="${pageContext.request.contextPath}/js/restaurant/restaurantDetail.js"></script>
+<!-- 모달 -->
+<div id="reservationRegisterModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg">
+        <h2 class="text-2xl font-bold mb-4">사용자 정보 변경</h2>
+        <form name="reservationRegisterFrm" id="reservationRegisterFrm"
+              action="${pageContext.request.contextPath}/reservation/reservationRegister" method="post"
+              class="space-y-4 md:space-y-6">
+            <input type="hidden" name="usersNo" id="usersNo" value="${loginUser.no}">
+            <input type="hidden" name="no" id="no" value="${restaurantVo.no}">
+            <div>
+                <label for="name"
+                       class="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">이름</label>
+                <input type="text" name="name" id="name" value="${loginUser.name}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                       required>
+            </div>
+            <div>
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">전화번호</label>
+                <input type="text" name="phone" id="phone" value="${loginUser.phone}"
+                       class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                       placeholder="(-) 없이 입력하세요.">
+            </div>
+            <div>
+                <label for="people" class="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">인원수</label>
+                <input type="number" name="people" id="people" min="2" value="2" required>
+            </div>
+            <div>
+                <label for="request" class="block mb-2 text-sm font-medium text-gray-900">요청사항</label>
+                <input type="text" name="request" id="request" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="요청사항을 입력해주세요...">
+            </div>
+            <fieldset>
+                <button id="reservationSaveBtn" type="button"
+                        class="bg-green-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-green active:bg-green-700">
+                    확인
+                </button>
+                <button id="closeReservationRegisterModalBtn" type="button"
+                        class="bg-gray-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-gray active:bg-gray-700">
+                    닫기
+                </button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.js"></script>
+<script src="${pageContext.request.contextPath}/js/restaurant/restaurantPicture.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=095c604985806a4d1d1e9815c61b4627&libraries=services"></script>
+<script language="JavaScript">
+    var restaurantAddress = "${restaurantVo.address}";
+    var address = restaurantAddress;
+    var restaurantName = "${restaurantVo.name}";
+    var rName = restaurantName;
+</script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/restaurant/restaurantDetailMap.js"></script>
+<script src="${pageContext.request.contextPath}/js/restaurant/restaurantDetail.js"></script>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

@@ -33,3 +33,23 @@ document.querySelector(".attraction-btn").addEventListener('click', (e) => {
       });
    }
 });
+
+// 모달 열기
+document.getElementById('reservationRegisterModalBtn').addEventListener('click', function () {
+   // 모달 보이기
+   document.getElementById('reservationRegisterModal').classList.remove('hidden');
+});
+
+// 모달 닫기
+document.getElementById('closeReservationRegisterModalBtn').addEventListener('click', function () {
+   // 모달 숨기기
+   document.getElementById('reservationRegisterModal').classList.add('hidden');
+});
+
+// 저장 버튼 클릭 시 처리
+document.getElementById('reservationSaveBtn').addEventListener('click', function () {
+   // 수정된 정보를 서버로 전송하는 로직 추가
+   document.getElementById('reservationRegisterFrm').submit();
+   // 모달 닫기
+   document.getElementById('reservationRegisterModal').classList.add('hidden');
+});

@@ -2,11 +2,11 @@ package com.sh.guys.reservation.model.entity;
 
 import java.time.LocalDateTime;
 
-public class CancelReservations extends Reservations {
-    public CancelReservations() {
+public class CancelReservation extends Reservation {
+    public CancelReservation() {
     }
 
-    public CancelReservations(String no, String restNo, String usersNo, String reservName, LocalDateTime reservDate, LocalDateTime reservTime, String reservPeople, String request, LocalDateTime regDate) {
+    public CancelReservation(String no, String restNo, String usersNo, String reservName, LocalDateTime reservDate, LocalDateTime reservTime, int reservPeople, String request, LocalDateTime regDate) {
         super(no, restNo, usersNo, reservName, reservDate, reservTime, reservPeople, request, regDate);
     }
 

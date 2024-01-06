@@ -3,10 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reservation">
-    <select id="findAll" resultType="reservations">
+    <select id="findAll" resultType="reservation">
         select
             *
         from
-            reservation
+            reservations
     </select>
+    <insert id="insertReservation">
+        insert into
+            reservation
+        values
+            (
+                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), #{restNo}, #{usersNo}, #{reservName} ,sysdate, sysdate, #{reservPeople},
+                #{request}, default
+            )
+    </insert>
 </mapper>
