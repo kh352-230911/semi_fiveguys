@@ -33,3 +33,11 @@ document.querySelector(".attraction-btn").addEventListener('click', (e) => {
       });
    }
 });
+
+document.querySelector("#timeBtnWrapper").addEventListener('change', (e) => {
+   const timeBtn = document.querySelector("#timeBtnWrapper");
+
+   timeBtn.innerHTML = null;
+
+// for (int i = 0; i < diffcount; i++) {}
+});

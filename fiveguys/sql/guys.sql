@@ -523,7 +523,7 @@ commit;
  
 insert into reservation
     values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '김안녕', sysdate, sysdate, default, null, default);
-    
+
 select
     *
 from
@@ -687,4 +687,18 @@ select
             r.no = 'restaurant043';
 commit;
 
->>>>>>> 66b088dcabe16ce357478d7e70c8e9ed2eb61509
+select
+            r.*,
+            m.no menu_no,
+            m.rest_no,
+            m.name menu_name,
+            m.content menu_content,
+            m.price,
+            p.no pic_no,
+            p.menu_no menuNo,
+            p.renamed_filename
+        from
+            restaurant r join menu m
+                  on r.no = m.rest_no
+             join menu_picture p
+                  on m.no = p.menu_no;

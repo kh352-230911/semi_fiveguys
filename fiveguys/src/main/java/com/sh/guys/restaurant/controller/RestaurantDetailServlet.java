@@ -3,7 +3,6 @@ package com.sh.guys.restaurant.controller;
 import com.sh.guys.attraction.model.entity.Attraction;
 import com.sh.guys.attraction.model.service.AttractionService;
 import com.sh.guys.convenience.model.vo.ConvenienceVo;
-import com.sh.guys.restaurant.model.entity.Restaurant;
 import com.sh.guys.restaurant.model.service.RestaurantService;
 import com.sh.guys.restaurant.model.vo.RestaurantVo;
 import com.sh.guys.user.model.entity.User;
@@ -14,12 +13,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @WebServlet("/restaurant/restaurantDetail")
-public class restaurantDetailServlet extends HttpServlet {
+public class RestaurantDetailServlet extends HttpServlet {
 
     private RestaurantService restaurantService = new RestaurantService();
     private AttractionService attractionService = new AttractionService();
@@ -36,6 +40,52 @@ public class restaurantDetailServlet extends HttpServlet {
         System.out.println(restaurantVo);
         req.setAttribute("restaurantVo", restaurantVo);
 
+        // 예약 밑밥 만들기 - 재준
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+
+            // 비교할 시간 (문자열)
+            String _openTime = restaurantVo.getOpenTime();
+            System.out.println("_openTime = " + _openTime);
+            String _closeTime = restaurantVo.getCloseTime();
+            System.out.println("_closeTime = " + _closeTime);
+            String _correctionTime = "12:00";
+
+            // 문자열 -> Date
+            Date openTime = formatter.parse(_openTime);
+            System.out.println("openTime = " + openTime);
+            Date closeTime = formatter.parse(_closeTime);
+            System.out.println("closeTime = " + closeTime);
+            Date correctionTime = formatter.parse(_correctionTime);
+
+            // Dage -> 밀리세컨즈
+            long openMil = openTime.getTime();
+            long closeMil = closeTime.getTime();
+            long correctionMil = correctionTime.getTime();
+
+            // 비교
+            if (closeMil >= openMil) {
+                long diff1 = closeMil - openMil;
+
+                // for문 i값 만들기
+                long _diffCount = diff1 / (1000 * 60 * 60);
+                System.out.println("_diffCount = " + _diffCount);
+                String diffCount = String.valueOf(_diffCount);
+                System.out.println("diffCount = " + diffCount);
+
+            } else {
+                long diff2 = (closeMil + correctionMil) - openMil;
+                // for문 i값 만들기
+                long _diffCount = diff2 / (1000 * 60 * 60);
+                System.out.println("_diffCount = " + _diffCount);
+                String diffCount = String.valueOf(_diffCount);
+                System.out.println("diffCount = " + diffCount);
+            }
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
         // 편의시설 조회
         List<ConvenienceVo> convenienceVo = restaurantService.findConven(no);
         System.out.println(convenienceVo);
@@ -49,7 +99,7 @@ public class restaurantDetailServlet extends HttpServlet {
             param.put("restNo", restaurantVo.getNo());
             List<Attraction> attractions = attractionService.findByUsersNoRestNo(param);
 
-            if(attractions.size() > 0){
+            if(attractions.size() > 0) {
                 req.setAttribute("attractions", attractions);
                 System.out.println(attractions);
             }
