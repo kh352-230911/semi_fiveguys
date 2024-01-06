@@ -4,6 +4,8 @@ import com.sh.guys.user.model.dao.UserDao;
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.entity.UserDel;
 import com.sh.guys.user.model.vo.UserAttractionVo;
+import com.sh.guys.user.model.vo.UserReservationVo;
+import com.sh.guys.user.model.vo.UserReviewVo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -155,5 +157,19 @@ public class UserService {
         List<UserAttractionVo> userAttractionVo = userDao.findByNo(session, no);
         session.close();
         return userAttractionVo;
+    }
+
+    public List<UserReservationVo> findReservation(String no) {
+        SqlSession session = getSqlSession();
+        List<UserReservationVo> userReservationVo = userDao.findReservation(session, no);
+        session.close();
+        return userReservationVo;
+    }
+
+    public List<UserReviewVo> findMyReview(String no) {
+        SqlSession session = getSqlSession();
+        List<UserReviewVo> userReviewVo = userDao.findMyReview(session, no);
+        session.close();
+        return userReviewVo;
     }
 }
