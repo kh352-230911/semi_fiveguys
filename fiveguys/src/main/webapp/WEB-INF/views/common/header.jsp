@@ -183,9 +183,11 @@
                                     <c:if test="${notifications != null}">
                                     <c:forEach items="${notifications}" var="noti" varStatus="vs">
                                     <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
-                                                                                            <a href="#" class="hover:underline text-blue-500">${noti.content}</a>
+                                        <a href="#" class="hover:underline text-blue-500">${noti.content}</a>
 <%--                                            ${noti.content.replaceAll("#([^#]+)§([^#]+)#", '<a href="##$2" class="hover:underline text-blue-500">$1</a>').replaceAll('##', pageContext.request.contextPath)}--%>
-                                            <%--                                                        <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-sm text-[10px] px-1 leading-snug text-center">X</button>--%>
+                                        <button type="button"
+                                                class="bg-red-50 text-red-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
+                                            X</button>
                                     </li>
                                     </c:forEach>
                                     </c:if>

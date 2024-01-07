@@ -18,4 +18,10 @@
                 #{request}, default
             )
     </insert>
+    <delete id="cancelReservation">
+        delete from
+               reservation
+        where
+            no = #{no}
+    </delete>
 </mapper>
