@@ -1,10 +1,10 @@
 package com.sh.guys.reservation.model.vo;
 
-import com.sh.guys.reservation.model.entity.Reservations;
+import com.sh.guys.reservation.model.entity.Reservation;
 
 import java.time.LocalDateTime;
 
-public class ReservationVO extends Reservations {
+public class ReservationVO extends Reservation {
     private String openTime;
     private String diffCount;
 
