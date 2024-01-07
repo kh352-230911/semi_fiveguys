@@ -161,6 +161,15 @@
             </button>
             <br>
             <div class="mb-8">
+                <label for="calendar">예약 날짜</label>
+                <input type="date" id="calendar" name="calendar"
+                       data-restNo="${restaurantVo.no}"
+                       data-usersNo="${loginUser.no}"
+                       data-openTime="${reservationVO.openTime}"
+                       data-diffCount="${reservationVO.diffCount}">
+                <br>
+                <label>예약 시간</label>
+                <div id="timeBtnWrapper"></div>
             </div>
         </div>
         <hr>
