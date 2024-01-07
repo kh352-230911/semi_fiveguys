@@ -72,8 +72,6 @@ alter table restaurant add constraint ck_restaurant_approval check(approval in (
 
 -- delete from restaurant where name = '1234';
 
-update restaurant set users_no = 'user065' where no = 'restaurant022';
-
 select * from restaurant;
 
 -- 우진 식당 테이블에 샘플 데이터 추가
@@ -723,3 +721,17 @@ from
         on u.id = n.users_id
 where
     role = 'M';
+<<<<<<< HEAD
+    
+    insert into
+            reservation
+        values
+            (
+                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), 'restaurant043', 'user065', '호날두' ,sysdate, sysdate, 2,
+                'gg', default
+            );
+select * from cancel_reservation;
+select * from reservation;
+select * from users;
+=======
+>>>>>>> f0e11cf19af1d3894bc489e68b0c634d6bc61022

@@ -86,7 +86,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <fmt:parseDate value="${reservations.reservTime}" pattern="yyyy-MM-dd'T'HH:mm" var="reservTime"/>
-                                        <fmt:formatDate value="${reservTime}" pattern="yy/MM/dd"/>
+                                        <fmt:formatDate value="${reservTime}" pattern="HH:mm"/>
                                     </td>
                                     <c:forEach var="restaurants" items="${userReservationVo.restaurants}">
                                         <c:if test="${restaurants.no eq reservations.restNo}">
@@ -109,15 +109,23 @@
                                         ${reservations.reservName}
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <button></button>
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">예약 취소</a>
+                                        <button type="button"
+                                                onclick="confirm('취소 하시겠습니까?') && document.querySelector('#reservationCancelFrm').submit()"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                            예약 취소
+                                        </button>
+                                        <form id="reservationCancelFrm"
+                                              action="${pageContext.request.contextPath}/reservation/reservationCancel"
+                                              method="post">
+                                            <input type="hidden" name="reservNo" id="reservNo" value="${reservations.no}">
+                                        </form>
                                     </td>
                                 </tr>
                             </c:forEach>
                         </c:forEach>
                         </tbody>
                     </table>
-            </div>
+                </div>
             <br><br>
 
                 <div class="container">
@@ -347,6 +355,7 @@
                     </fieldset>
                 </div>
             </div>
+
             <form action="${pageContext.request.contextPath}/user/userDelete" method="post" name="userDeleteFrm"></form>
 
             <script src="${pageContext.request.contextPath}/js/user/userDetail.js"></script>

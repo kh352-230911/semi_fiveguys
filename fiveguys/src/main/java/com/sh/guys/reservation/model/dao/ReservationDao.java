@@ -18,4 +18,8 @@ public class ReservationDao {
     public int insertReservation(SqlSession session, Reservation reservation) {
         return session.insert("reservation.insertReservation", reservation);
     }
+
+    public int cancelReservation(SqlSession session, String reservNo) {
+        return session.delete("reservation.cancelReservation", reservNo);
+    }
 }
