@@ -3,6 +3,7 @@ package com.sh.guys.restaurant.controller;
 import com.sh.guys.attraction.model.entity.Attraction;
 import com.sh.guys.attraction.model.service.AttractionService;
 import com.sh.guys.convenience.model.vo.ConvenienceVo;
+import com.sh.guys.reservation.model.vo.ReservationVO;
 import com.sh.guys.restaurant.model.service.RestaurantService;
 import com.sh.guys.restaurant.model.vo.RestaurantVo;
 import com.sh.guys.user.model.entity.User;
@@ -42,6 +43,7 @@ public class RestaurantDetailServlet extends HttpServlet {
 
         // 예약 밑밥 만들기 - 재준
         try {
+            ReservationVO reservationVO = new ReservationVO();
             SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
 
             // 비교할 시간 (문자열)
@@ -50,6 +52,8 @@ public class RestaurantDetailServlet extends HttpServlet {
             String _closeTime = restaurantVo.getCloseTime();
             System.out.println("_closeTime = " + _closeTime);
             String _correctionTime = "12:00";
+
+            reservationVO.setOpenTime(_openTime);
 
             // 문자열 -> Date
             Date openTime = formatter.parse(_openTime);
@@ -73,6 +77,9 @@ public class RestaurantDetailServlet extends HttpServlet {
                 String diffCount = String.valueOf(_diffCount);
                 System.out.println("diffCount = " + diffCount);
 
+                reservationVO.setDiffCount(diffCount);
+                System.out.println("Y = " + reservationVO);
+                req.setAttribute("reservationVO", reservationVO);
             } else {
                 long diff2 = (closeMil + correctionMil) - openMil;
                 // for문 i값 만들기
@@ -80,7 +87,12 @@ public class RestaurantDetailServlet extends HttpServlet {
                 System.out.println("_diffCount = " + _diffCount);
                 String diffCount = String.valueOf(_diffCount);
                 System.out.println("diffCount = " + diffCount);
+
+                reservationVO.setDiffCount(diffCount);
+                System.out.println("N = " + reservationVO);
+                req.setAttribute("reservationVO", reservationVO);
             }
+
 
         } catch (ParseException e) {
             throw new RuntimeException(e);

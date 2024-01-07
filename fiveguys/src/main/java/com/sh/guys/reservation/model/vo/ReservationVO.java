@@ -6,8 +6,7 @@ import java.time.LocalDateTime;
 
 public class ReservationVO extends Reservations {
     private String openTime;
-    private String closeTime;
-    private long diffTime;
+    private String diffCount;
 
     public ReservationVO() {}
 
@@ -19,28 +18,19 @@ public class ReservationVO extends Reservations {
         this.openTime = openTime;
     }
 
-    public String getCloseTime() {
-        return closeTime;
+    public String getDiffCount() {
+        return diffCount;
     }
 
-    public void setCloseTime(String closeTime) {
-        this.closeTime = closeTime;
-    }
-
-    public long getDiffTime() {
-        return diffTime;
-    }
-
-    public void setDiffTime(long diffTime) {
-        this.diffTime = diffTime;
+    public void setDiffCount(String diffCount) {
+        this.diffCount = diffCount;
     }
 
     @Override
     public String toString() {
         return "ReservationVO{" +
                 "openTime='" + openTime + '\'' +
-                ", closeTime='" + closeTime + '\'' +
-                ", diffTime='" + diffTime + '\'' +
-                "} " + super.toString();
+                ", diffCount='" + diffCount + '\'' +
+                '}';
     }
 }
