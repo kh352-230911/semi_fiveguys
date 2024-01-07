@@ -518,10 +518,10 @@ end;
 select * from reservations;
 select * from cancel_reservation;
 commit;
- 
-insert into reservations
-    values (('reservations' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '김안녕', sysdate, sysdate, default, null, default);
-    
+
+insert into reservation
+    values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '김안녕', sysdate, sysdate, default, null, default);
+
 select
     *
 from
@@ -685,6 +685,22 @@ select
             r.no = 'restaurant043';
 commit;
 
+select
+            r.*,
+            m.no menu_no,
+            m.rest_no,
+            m.name menu_name,
+            m.content menu_content,
+            m.price,
+            p.no pic_no,
+            p.menu_no menuNo,
+            p.renamed_filename
+        from
+            restaurant r join menu m
+                  on r.no = m.rest_no
+             join menu_picture p
+                  on m.no = p.menu_no;
+
 select * from notification;
 
 insert into notification
@@ -705,6 +721,7 @@ from
         on u.id = n.users_id
 where
     role = 'M';
+<<<<<<< HEAD
     
     insert into
             reservation
@@ -716,3 +733,5 @@ where
 select * from cancel_reservation;
 select * from reservation;
 select * from users;
+=======
+>>>>>>> f0e11cf19af1d3894bc489e68b0c634d6bc61022
