@@ -1,5 +1,5 @@
 package com.sh.guys.restaurant.model.entity;
 
-public enum Reservation {
+public enum Reservations {
     Y,N;
 }
