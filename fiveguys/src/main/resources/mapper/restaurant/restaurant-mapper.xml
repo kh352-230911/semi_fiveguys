@@ -90,6 +90,36 @@
         </collection>
     </resultMap>
 
+    <select id="starAverage" resultMap="starAverageVoMap">
+        select
+            round(
+                (select
+                     sum(re.star_grade)
+                 from
+                     restaurant r join review re
+                        on r.no = re.rest_no
+                 where
+                     r.no = #{no})/
+                (select
+                     count(re.star_grade)
+                 from
+                     restaurant r join review re
+                                       on r.no = re.rest_no
+                 where
+                     r.no = #{no}),1
+            ) as  average_rating
+        from dual
+    </select>
+    <resultMap id="starAverageVoMap" type="starAverageVo">
+        <id column="no" property="no"/>
+        <result column="average_rating" property="averageRating"/>
+        <collection property="reviews" ofType="review">
+            <id column="review_no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="star_grade" property="starGrade"/>
+        </collection>
+    </resultMap>
+
     <!-- 식당 여러 건 조회 - 우진 -->
     <select id="findAll" resultType="restaurant">
         select
