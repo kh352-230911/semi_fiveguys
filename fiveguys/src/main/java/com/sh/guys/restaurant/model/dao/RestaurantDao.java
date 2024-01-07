@@ -3,6 +3,7 @@ package com.sh.guys.restaurant.model.dao;
 import com.sh.guys.restaurant.model.entity.Restaurant;
 import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.vo.RestaurantVo;
+import com.sh.guys.restaurant.model.vo.StarAverageVo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -49,5 +50,9 @@ public class RestaurantDao {
 
     public Restaurant findByPhone(SqlSession session, String phone) {
         return session.selectOne("restaurant.findByPhone", phone);
+    }
+
+    public List<StarAverageVo> findStarAverage(SqlSession session, String no) {
+        return session.selectList("restaurant.starAverage", no);
     }
 }
