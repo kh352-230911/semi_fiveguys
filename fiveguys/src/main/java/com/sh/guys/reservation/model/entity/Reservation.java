@@ -2,21 +2,21 @@ package com.sh.guys.reservation.model.entity;
 
 import java.time.LocalDateTime;
 
-public class Reservations {
+public class Reservation {
     private String no;
     private String restNo;
     private String usersNo;
     private String reservName;
     private LocalDateTime reservDate;
     private LocalDateTime reservTime;
-    private String reservPeople;
+    private int reservPeople;
     private String request;
     private LocalDateTime regDate;
 
-    public Reservations() {
+    public Reservation() {
     }
 
-    public Reservations(String no, String restNo, String usersNo, String reservName, LocalDateTime reservDate, LocalDateTime reservTime, String reservPeople, String request, LocalDateTime regDate) {
+    public Reservation(String no, String restNo, String usersNo, String reservName, LocalDateTime reservDate, LocalDateTime reservTime, int reservPeople, String request, LocalDateTime regDate) {
         this.no = no;
         this.restNo = restNo;
         this.usersNo = usersNo;
@@ -76,11 +76,11 @@ public class Reservations {
         this.reservTime = reservTime;
     }
 
-    public String getReservPeople() {
+    public int getReservPeople() {
         return reservPeople;
     }
 
-    public void setReservPeople(String reservPeople) {
+    public void setReservPeople(int reservPeople) {
         this.reservPeople = reservPeople;
     }
 

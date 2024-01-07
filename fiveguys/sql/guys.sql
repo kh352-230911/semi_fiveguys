@@ -133,7 +133,7 @@ create sequence seq_convenience_no;
 select * from convenience;
 
 -- 예약 테이블
-create table reservation (
+create table reservations (
     no varchar2(30) not null,
     rest_no varchar2(30) not null,
     users_no varchar2(30) not null,
@@ -149,7 +149,7 @@ create table reservation (
 );
 create sequence seq_reservation_no;
 
-select * from reservation;
+select * from reservations;
 
 -- 좋아요 테이블
 create table attraction (
@@ -470,7 +470,7 @@ select * from delete_users;
 create table cancel_reservation
 as
 select no, rest_no, users_no, reserv_name, reserv_date, reserv_time, reg_date
-from reservation
+from reservations
 where
     id = 'woojin';
     
@@ -506,7 +506,7 @@ where
  
 create or replace trigger trig_cancel_reservation
     after
-    delete on reservation
+    delete on reservations
     for each row
 begin
     if deleting then
@@ -517,12 +517,12 @@ begin
 end;
 /
  
-select * from reservation;
+select * from reservations;
 select * from cancel_reservation;
 commit;
  
-insert into reservation
-    values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '김안녕', sysdate, sysdate, default, null, default);
+insert into reservations
+    values (('reservations' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '김안녕', sysdate, sysdate, default, null, default);
     
 select
     *

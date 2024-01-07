@@ -1,7 +1,6 @@
 package com.sh.guys.restaurant.model.entity;
 
 import java.time.LocalDateTime;
-import java.time.LocalDate;
 
 public class Restaurant {
     private String no;
@@ -13,7 +12,7 @@ public class Restaurant {
     private String category;
     private String openTime;
     private String closeTime;
-    private Reservation reservPossible;
+    private Reservations reservPossible;
     private double totalStar;
     private LocalDateTime regDate;
     private Approval approval;
@@ -21,7 +20,7 @@ public class Restaurant {
     public Restaurant() {
     }
 
-    public Restaurant(String no, String usersNo, String name, String address, String content, String phone, String category, String openTime, String closeTime, Reservation reservPossible, double totalStar, LocalDateTime regDate, Approval approval) {
+    public Restaurant(String no, String usersNo, String name, String address, String content, String phone, String category, String openTime, String closeTime, Reservations reservPossible, double totalStar, LocalDateTime regDate, Approval approval) {
         this.no = no;
         this.usersNo = usersNo;
         this.name = name;
@@ -109,11 +108,11 @@ public class Restaurant {
         this.closeTime = closeTime;
     }
 
-    public Reservation getReservPossible() {
+    public Reservations getReservPossible() {
         return reservPossible;
     }
 
-    public void setReservPossible(Reservation reservPossible) {
+    public void setReservPossible(Reservations reservPossible) {
         this.reservPossible = reservPossible;
     }
 

@@ -14,14 +14,17 @@
 
 
 <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 w-screen">
-
     <div class="w-full bg-white rounded-lg shadow my-4 sm:max-w-full xl:p-0 relative">
         <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ml-[-20px] absolute top-4">
             my page
         </h1>
+        <button id="restaurantRegister" type="button"
+                class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 absolute top-6 right-24">
+            <a href="${pageContext.request.contextPath}/restaurant/restaurantRegister">식당 등록</a>
+        </button>
 
         <button id="openUserDetailModalBtn" type="button"
-                class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 absolute top-6 right-4">
+                class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 absolute top-6 right-1">
             정보 변경
         </button>
     </div>
@@ -78,10 +81,12 @@
                                         </c:if>
                                     </c:forEach>
                                     <td class="px-6 py-4">
-                                        ${reservations.reservDate}
+                                        <fmt:parseDate value="${reservations.reservDate}" pattern="yyyy-MM-dd'T'HH:mm" var="reservDate"/>
+                                        <fmt:formatDate value="${reservDate}" pattern="yy/MM/dd"/>
                                     </td>
                                     <td class="px-6 py-4">
-                                        ${reservations.reservTime}
+                                        <fmt:parseDate value="${reservations.reservTime}" pattern="yyyy-MM-dd'T'HH:mm" var="reservTime"/>
+                                        <fmt:formatDate value="${reservTime}" pattern="yy/MM/dd"/>
                                     </td>
                                     <c:forEach var="restaurants" items="${userReservationVo.restaurants}">
                                         <c:if test="${restaurants.no eq reservations.restNo}">
@@ -104,6 +109,7 @@
                                         ${reservations.reservName}
                                     </td>
                                     <td class="px-6 py-4 text-right">
+                                        <button></button>
                                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">예약 취소</a>
                                     </td>
                                 </tr>
@@ -222,6 +228,10 @@
 
 
 
+            <!-- 모달 -->
+            <div id="restaurantDetailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                <div id="restaurantDetail" class="bg-white p-8 rounded-lg"></div>
+            </div>
 
             <!-- 모달 -->
             <div id="userDetailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -360,7 +370,8 @@
                     // 모달 닫기
                     document.getElementById('userDetailModal').classList.add('hidden');
                 });
-            </script>
 
+            </script>
+            <script src="${pageContext.request.contextPath}/js/user/userDetail.js"></script>
             <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     
