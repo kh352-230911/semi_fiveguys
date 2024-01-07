@@ -149,7 +149,11 @@ create table reservations (
 );
 create sequence seq_reservation_no;
 
-select * from reservations;
+select * from reservation;
+
+-- 재준 예약 테이블 샘플 데이터 추가
+insert into reservation
+    values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '이재준1', sysdate, sysdate, '2', null, default);
 
 -- 좋아요 테이블
 create table attraction (

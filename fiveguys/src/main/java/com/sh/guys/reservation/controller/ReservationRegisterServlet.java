@@ -16,19 +16,25 @@ public class ReservationRegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String restNo = req.getParameter("no");
+        String restNo = req.getParameter("restNo");
         String usersNo = req.getParameter("usersNo");
-        String name = req.getParameter("name");
-        int people = Integer.parseInt(req.getParameter("people"));
+        String reservName = req.getParameter("name");
+        int reservPeople = Integer.parseInt(req.getParameter("people"));
         String request = req.getParameter("request");
-        System.out.println(restNo + "     " + usersNo + "     " + name + "      " + people + "      " + request);
+        String reservDate = req.getParameter("reservDate");
+        System.out.println(reservDate);
+        String reservTime = req.getParameter("reservTime");
+        System.out.println(reservTime);
+        System.out.println(restNo + "     " + usersNo + "     " + reservName + "      " + reservPeople + "      " + request);
 
         Reservation reservation = new Reservation();
         reservation.setRestNo(restNo);
         reservation.setUsersNo(usersNo);
-        reservation.setReservName(name);
-        reservation.setReservPeople(people);
+        reservation.setReservName(reservName);
+        reservation.setReservPeople(reservPeople);
         reservation.setRequest(request);
+//        reservation.setReservDate(reservDate);
+//        reservation.setReservTime(reservTime);
 
         int result = reservationService.insertReservation(reservation);
 
