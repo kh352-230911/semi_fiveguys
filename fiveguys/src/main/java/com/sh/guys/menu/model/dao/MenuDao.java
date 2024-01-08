@@ -2,6 +2,7 @@ package com.sh.guys.menu.model.dao;
 
 import com.sh.guys.menu.model.entity.MenuPicture;
 import com.sh.guys.menu.model.vo.MenuVo;
+import com.sh.guys.user.model.entity.User;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
@@ -61,5 +62,16 @@ public class MenuDao {
 
     public int getTotalCount1(SqlSession session) {
         return session.selectOne("menu.getTotalCount");
+    }
+
+    public List<MenuVo> findUserPage(SqlSession session, Map<String, Object> param1) {
+        int page = (int) param1.get("page");
+        int limit = (int) param1.get("limit");
+        int offset = (page - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+
+        String no1 = (String) param1.get("no1");
+        param1.put("no1", no1);
+        return session.selectList("menu.findUserPage", param1, rowBounds);
     }
 }

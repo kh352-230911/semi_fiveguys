@@ -26,7 +26,7 @@
             <div>
                 <label for="password" class="block text-sm font-medium text-gray-700">비밀번호</label>
                 <div class="mt-2">
-                    <input id="password" name="password" type="password" autocomplete="password" required class="input-field" value="1234a@">
+                    <input id="password" name="password" type="password" autocomplete="password" value="1234a@" required class="input-field">
                 </div>
             </div>
             <div class="flex items-center">
