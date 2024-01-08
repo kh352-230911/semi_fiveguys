@@ -40,4 +40,11 @@
         where
             reserv_time = #{reservTime}
     </select>
+
+    <delete id="cancelReservation">
+        delete from
+               reservation
+        where
+            no = #{no}
+    </delete>
 </mapper>

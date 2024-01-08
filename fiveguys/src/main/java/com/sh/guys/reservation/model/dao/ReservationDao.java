@@ -22,4 +22,8 @@ public class ReservationDao {
     public int countReservation(SqlSession session, Reservation reservation) {
         return session.selectOne("reservation.countReservation", reservation);
     }
+
+    public int cancelReservation(SqlSession session, String reservNo) {
+        return session.delete("reservation.cancelReservation", reservNo);
+    }
 }
