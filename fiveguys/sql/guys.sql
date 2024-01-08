@@ -129,6 +129,10 @@ create sequence seq_reservation_no;
 
 select * from reservation;
 
+-- 재준 예약 테이블 샘플 데이터 추가
+insert into reservation
+    values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '이재준1', sysdate, sysdate, '2', null, default);
+
 -- 좋아요 테이블
 create table attraction (
     users_no varchar2(30) not null,
@@ -925,4 +929,69 @@ select
             u.no = 'user049'
         order by
             re.reg_date desc, 
+
+    role = 'M';
     
+-- 재준 reservation 셀렉트문 실험
+select * from reservation;
+
+select
+    *
+from
+    reservation
+where
+    reserv_date = '2024/01/07 09:42:29'
+    and reserv_time = '2024/01/07 09:42:29';
+
+select
+    rest_no
+    , reserv_date
+    , reserv_time
+from
+    (
+    select
+        *
+    from (
+        select
+            *
+        from
+            reservation
+        where
+            rest_no = 'restaurant043'
+    )
+    where
+        reserv_date = '2024-01-24'
+    )
+where
+    reserv_time = '15:00';
+    
+select
+    *
+from
+    reservation
+where
+    rest_no = 'restaurant043' and reserv_date = '2024-01-24' and reserv_time = '15:00' and count < 5 ;
+
+select
+    *
+from
+    reservation
+where
+    rest_no = 'restaurant043' and users_no = 'user065' and reserv_date = '2024/01/07 09:42:29' and reserv_time = '2024/01/07 09:42:29' and count < 5 ;
+
+alter table reservation drop column reserv_time;
+alter table reservation add reserv_time varchar2(10);
+
+select * from reservation;
+    
+insert into
+        reservation
+    values
+        (
+            ('reservation' || lpad(seq_reservation_no.nextval,3,0)), 'restaurant043', 'user065', '호날두' ,sysdate, sysdate, 2,
+            'gg', default
+        );
+select * from cancel_reservation;
+select * from reservation;
+select * from users;
+
