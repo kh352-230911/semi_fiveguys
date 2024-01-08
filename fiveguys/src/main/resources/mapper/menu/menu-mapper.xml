@@ -26,15 +26,39 @@
         insert into
         menu
         values (
-        ('menu' || lpad(seq_menu_no.nextval,3,0)), #{restNo}, #{name}, #{content}, #{price}
+            ('menu' || lpad(seq_menu_no.nextval,3,0)), #{restNo}, #{name}, #{content}, #{price}
         )
         <selectKey order="AFTER" resultType="string" keyProperty="no">
             select
-            ('menu' || lpad(seq_menu_no.currval,3,0))
+                ('menu' || lpad(seq_menu_no.currval,3,0))
             from
-            dual
+                dual
         </selectKey>
     </insert>
+    <!-- 메뉴 사진 추가 - 재준 -->
+    <insert id="insertMenuPicture">
+        insert into menu_picture values (
+            ('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), #{menuNo}, #{renamedFilename}
+        )
+        <selectKey order="AFTER" resultType="string" keyProperty="no">
+            select
+                ('menu_pic' || lpad(seq_menu_picture_no.currval,3,0))
+            from
+                dual
+        </selectKey>
+    </insert>
+    <resultMap id="menuVoMap" type="menuVo">
+        <id column="no" property="no"/>
+        <result column="rest_no" property="restNo"/>
+        <result column="name" property="name"/>
+        <result column="content" property="content"/>
+        <result column="price" property="price"/>
+        <collection property="menuPictures" ofType="menuPicture">
+            <id column="no" property="no"/>
+            <result column="menu_no" property="menuNo"/>
+            <result column="renamed_filename" property="renamedFilename"/>
+        </collection>
+    </resultMap>
 
     <!-- 메뉴 수정 - 재준 -->
     <update id="updateMenu">
@@ -44,6 +68,14 @@
             name = #{name}
           , content = #{content}
           , price = #{price}
+        where
+            no = #{no}
+    </update>
+    <update id="updateMenuPicture">
+        update
+            menu_picture
+        set
+            renamed_filename = #{renamedFilename}
         where
             no = #{no}
     </update>
@@ -154,5 +186,21 @@
                                    on r.no = m.rest_no
                          left join menu_picture p
                                    on m.no = p.menu_no
+    </select>
+
+    <select id="findForUpdate" resultMap="menuVoMap">
+        select
+            m.no menu_no
+            , m.rest_no
+            , m.name
+            , m.content
+            , m.price
+            , p.no picture_no
+            , p.renamed_filename
+        from
+            menu m join menu_picture p
+                on m.no = p.menu_no
+        where
+            m.no = #{no}
     </select>
 </mapper>

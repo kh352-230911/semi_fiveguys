@@ -26,13 +26,20 @@ public class MenuDao {
     }
 
     // 메뉴 추가 - 재준
-    public int insertMenu(SqlSession session, Menu menu) {
-        return session.insert("menu.insertMenu", menu);
+    public int insertMenu(SqlSession session, MenuVo menuVo) {
+        return session.insert("menu.insertMenu", menuVo);
+    }
+    // 메뉴 사진 추가 - 재준
+    public int insertMenuPicture(SqlSession session, MenuPicture menuPicture) {
+        return session.insert("menu.insertMenuPicture", menuPicture);
     }
 
     // 메뉴 수정 - 재준
     public int updateMenu(SqlSession session, Menu menu) {
         return session.update("menu.updateMenu", menu);
+    }
+    public int updateMenuPicture(SqlSession session, MenuPicture menuPicture) {
+        return session.update("menu.updateMenuPicture", menuPicture);
     }
 
     // 메뉴 삭제 - 재준
@@ -61,5 +68,9 @@ public class MenuDao {
 
     public int getTotalCount1(SqlSession session) {
         return session.selectOne("menu.getTotalCount");
+    }
+
+    public MenuVo findForUpdate(SqlSession session, MenuVo menuVo) {
+        return session.selectOne("menu.findForUpdate", menuVo);
     }
 }

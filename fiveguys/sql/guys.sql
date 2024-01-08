@@ -108,8 +108,8 @@ create table menu_picture (
 );
 create sequence seq_menu_picture_no;
 
+select * from menu;
 select * from menu_picture;
-
 
 -- 식당-편의시설 브릿지 테이블
 create table restaurant_convenience (
@@ -760,6 +760,34 @@ where
     reserv_time = '15:00';
     
 select
+    rest_no
+    , reserv_date
+    , reserv_time
+    , reserv_count
+    , (select count(*) from(select * from reservation where rest_no = 'restaurant043') where reserv_date = '2024-01-24' group by reserv_time) reserve_count
+from
+    (
+    select
+        *
+    from (
+        select
+            *
+        from
+            reservation
+        where
+            rest_no = 'restaurant043'
+    )
+    where
+        reserv_date = '2024-01-24'
+    );
+where
+    rest_no = 'restaurant043'
+    and reserv_date = '2024-01-24';
+    
+    
+select * from reservation;
+    
+select
     *
 from
     reservation
@@ -788,3 +816,35 @@ insert into
 select * from cancel_reservation;
 select * from reservation;
 select * from users;
+
+SELECT
+    rest_no,
+    reserv_date,
+    reserv_time,
+    reserve_count
+FROM (
+    SELECT
+        res.rest_no,
+        res.reserv_date,
+        res.reserv_time,
+        (
+            SELECT COUNT(*)
+            FROM reservation subres
+            WHERE subres.rest_no = res.rest_no
+                AND subres.reserv_date = res.reserv_date
+            GROUP BY subres.reserv_time
+        ) AS reserve_count
+    FROM reservation res
+    WHERE res.rest_no = 'restaurant043'
+        AND res.reserv_date = '2024-01-24'
+) AS subquery
+WHERE reserve_count > 1;
+
+select
+    m.*
+    , p.*
+from
+    menu m join menu_picture p
+        on m.no = p.menu_no
+where
+    m.no = 'menu085';
