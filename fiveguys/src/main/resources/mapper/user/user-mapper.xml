@@ -17,7 +17,7 @@
         insert into
         users
         values (
-        ('user' || lpad(seq_users_no.nextval,3,0)), #{id}, #{password}, #{name}, #{nickName}, #{gender}, #{email}, #{phone}, #{role},
+        ('user' || lpad(seq_users_no.nextval,4,0)), #{id}, #{password}, #{name}, #{nickName}, #{gender}, #{email}, #{phone}, #{role},
         #{category, typeHandler=listStringTypeHandler}, default)
     </insert>
 
@@ -163,6 +163,8 @@
                 on re.rest_no = r.no
         where
             u.no = #{no}
+        order by
+            re.reserv_date desc, re.reserv_time desc
     </select>
     <resultMap id="userReservationVoMap" type="userReservationVo">
         <id column="no" property="no"/>
@@ -221,6 +223,8 @@
                 on re.rest_no = r.no
         where
             u.no = #{no}
+        order by
+            re.reg_date desc
     </select>
     <resultMap id="userReviewVoMap" type="userReviewVo">
         <id column="no" property="no"/>

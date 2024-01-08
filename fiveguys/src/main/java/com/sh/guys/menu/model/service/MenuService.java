@@ -3,6 +3,7 @@ package com.sh.guys.menu.model.service;
 import com.sh.guys.menu.model.dao.MenuDao;
 import com.sh.guys.menu.model.entity.MenuPicture;
 import com.sh.guys.menu.model.vo.MenuVo;
+import com.sh.guys.user.model.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import java.util.List;
 import java.util.Map;
@@ -59,5 +60,12 @@ public class MenuService {
         int totalCount = menuDao.getTotalCount1(session);
         session.close();
         return totalCount;
+    }
+
+    public List<MenuVo> findUserPage(Map<String, Object> param1) {
+        SqlSession session = getSqlSession();
+        List<MenuVo> menus = menuDao.findUserPage(session, param1);
+        session.close();
+        return menus;
     }
 }
