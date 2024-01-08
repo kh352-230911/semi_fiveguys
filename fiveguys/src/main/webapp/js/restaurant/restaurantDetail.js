@@ -2,7 +2,7 @@ document.querySelector(".attraction-btn").addEventListener('click', (e) => {
    const attraction = e.target.nextElementSibling;
    console.log(attraction);
    const {restNo, usersNo} = attraction.dataset;
-    console.log(restNo, usersNo);
+   console.log(restNo, usersNo);
 
    if(attraction.classList.contains("fa-regular")) {
       $.ajax({
@@ -44,16 +44,20 @@ document.getElementById("calendar").setAttribute("min", today);
 document.getElementById("calendar").setAttribute("max", aMonthLater);
 
 document.querySelector("#calendar").addEventListener('change', (e) => {
+   $.ajax({
+      url: `${contextPath}/reservation/reservationTimeButton`
+   })
+
    const info = e.target;
    // console.log(info);
-   const {restno, usersno, opentime, diffcount} = info.dataset;
+   const {restno, usersno, opentime, diffcount, count} = info.dataset;
    // console.log(restno, usersno, opentime, diffcount);
 
    const timeBtn = document.querySelector("#timeBtnWrapper");
    timeBtn.innerHTML = `
       <button type="button" onclick="frmPlease('${restno}', '${usersno}', '${opentime}', '${e.target.value}');" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
             ${opentime}
-         </button>`;
+      </button>`;
 
    let date = new Date();
    let time = opentime.split(":");
@@ -69,10 +73,12 @@ document.querySelector("#calendar").addEventListener('change', (e) => {
       // console.log(copyOpentime);
       let formattedCopyOpenTime = `${copyOpentime.getHours()}:${String(copyOpentime.getMinutes()).padStart(2, '0')}`;
 
-      timeBtn.innerHTML += `
+      if (count < 5) {
+         timeBtn.innerHTML += `
          <button type="button" onclick="frmPlease('${restno}', '${usersno}', '${formattedCopyOpenTime}', '${e.target.value}');" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
             ${formattedCopyOpenTime}
          </button>`;
+      }
    }
 });
 
@@ -126,7 +132,7 @@ function frmPlease(restno, usersno, time, date) {
                         class="bg-green-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-green active:bg-green-700">
                     확인
                 </button>
-                <button id="closeReservationRegisterModalBtn" type="button" onclick="close();"
+                <button id="closeReservationRegisterModalBtn" type="button" onclick="window.close();"
                         class="bg-gray-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-gray active:bg-gray-700">
                     닫기
                 </button>

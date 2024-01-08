@@ -9,12 +9,35 @@
         from
             reservations
     </select>
+
     <insert id="insertReservation">
         insert into
             reservation
         values
             (
-                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), #{restNo}, #{usersNo}, #{reservName} ,sysdate, sysdate, #{reservPeople}, #{request}, default, default
+                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), #{restNo}, #{usersNo}, #{reservName}, #{reservPeople}, #{request}, default, default, #{reservDate}, #{reservTime}
             )
     </insert>
+
+    <select id="countReservation" resultType="_int">
+        select
+            count(*)
+        from
+            (
+                select
+                    *
+                from (
+                         select
+                             *
+                         from
+                             reservation
+                         where
+                             rest_no = #{restNo}
+                     )
+                where
+                    reserv_date = #{reservDate}
+            )
+        where
+            reserv_time = #{reservTime}
+    </select>
 </mapper>

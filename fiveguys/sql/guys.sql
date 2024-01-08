@@ -727,3 +727,55 @@ from
         on u.id = n.users_id
 where
     role = 'M';
+    
+-- 재준 reservation 셀렉트문 실험
+select * from reservation;
+
+select
+    *
+from
+    reservation
+where
+    reserv_date = '2024/01/07 09:42:29'
+    and reserv_time = '2024/01/07 09:42:29';
+
+select
+    rest_no
+    , reserv_date
+    , reserv_time
+from
+    (
+    select
+        *
+    from (
+        select
+            *
+        from
+            reservation
+        where
+            rest_no = 'restaurant043'
+    )
+    where
+        reserv_date = '2024-01-24'
+    )
+where
+    reserv_time = '15:00';
+    
+select
+    *
+from
+    reservation
+where
+    rest_no = 'restaurant043' and reserv_date = '2024-01-24' and reserv_time = '15:00' and count < 5 ;
+
+select
+    *
+from
+    reservation
+where
+    rest_no = 'restaurant043' and users_no = 'user065' and reserv_date = '2024/01/07 09:42:29' and reserv_time = '2024/01/07 09:42:29' and count < 5 ;
+
+alter table reservation drop column reserv_time;
+alter table reservation add reserv_time varchar2(10);
+
+select * from reservation;

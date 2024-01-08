@@ -40,4 +40,11 @@ public class ReservationService {
         }
         return result;
     }
+
+    public int countReservation(Reservation reservation) {
+        SqlSession session = getSqlSession();
+        int result = reservationDao.countReservation(session, reservation);
+        session.close();
+        return result;
+    }
 }

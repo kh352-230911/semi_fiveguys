@@ -22,23 +22,34 @@ public class ReservationRegisterServlet extends HttpServlet {
         int reservPeople = Integer.parseInt(req.getParameter("people"));
         String request = req.getParameter("request");
         String reservDate = req.getParameter("reservDate");
-        System.out.println(reservDate);
+//        System.out.println(reservDate);
         String reservTime = req.getParameter("reservTime");
-        System.out.println(reservTime);
-        System.out.println(restNo + "     " + usersNo + "     " + reservName + "      " + reservPeople + "      " + request);
+//        System.out.println(reservTime);
+//        System.out.println(restNo + "     " + usersNo + "     " + reservName + "      " + reservPeople + "      " + request);
 
         Reservation reservation = new Reservation();
         reservation.setRestNo(restNo);
-        reservation.setUsersNo(usersNo);
-        reservation.setReservName(reservName);
-        reservation.setReservPeople(reservPeople);
-        reservation.setRequest(request);
-//        reservation.setReservDate(reservDate);
-//        reservation.setReservTime(reservTime);
+        reservation.setReservDate(reservDate);
+        reservation.setReservTime(reservTime);
+        System.out.println(reservation);
 
-        int result = reservationService.insertReservation(reservation);
+        // 예약 막기
+        int count = reservationService.countReservation(reservation);
+        System.out.println(count);
 
-        req.getSession().setAttribute("msg", "예약이 완료되었습니다.");
+        if (count < 5) {
+            // 예약
+            reservation.setUsersNo(usersNo);
+            reservation.setReservName(reservName);
+            reservation.setReservPeople(reservPeople);
+            reservation.setRequest(request);
+            System.out.println(reservation);
+
+            int result = reservationService.insertReservation(reservation);
+            req.getSession().setAttribute("msg", "예약이 완료되었습니다.");
+        } else {
+            req.getSession().setAttribute("msg", "마감된 예약입니다, 죄송합니다.");
+        }
 
         resp.sendRedirect(req.getContextPath() + "/restaurant/restaurantDetail?no=" + restNo);
     }
