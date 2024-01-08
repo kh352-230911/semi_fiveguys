@@ -6,7 +6,7 @@ public class CancelReservation extends Reservation {
     public CancelReservation() {
     }
 
-    public CancelReservation(String no, String restNo, String usersNo, String reservName, LocalDateTime reservDate, LocalDateTime reservTime, int reservPeople, String request, LocalDateTime regDate) {
+    public CancelReservation(String no, String restNo, String usersNo, String reservName, String reservDate, String reservTime, int reservPeople, String request, LocalDateTime regDate) {
         super(no, restNo, usersNo, reservName, reservDate, reservTime, reservPeople, request, regDate);
     }
 

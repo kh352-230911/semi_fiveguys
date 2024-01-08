@@ -91,7 +91,6 @@ public class RestaurantDetailServlet extends HttpServlet {
 //                System.out.println("N = " + reservationVO);
                 req.setAttribute("reservationVO", reservationVO);
             }
-
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

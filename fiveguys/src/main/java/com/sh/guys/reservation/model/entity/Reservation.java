@@ -7,8 +7,8 @@ public class Reservation {
     private String restNo;
     private String usersNo;
     private String reservName;
-    private LocalDateTime reservDate;
-    private LocalDateTime reservTime;
+    private String reservDate;
+    private String reservTime;
     private int reservPeople;
     private String request;
     private LocalDateTime regDate;
@@ -16,7 +16,7 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(String no, String restNo, String usersNo, String reservName, LocalDateTime reservDate, LocalDateTime reservTime, int reservPeople, String request, LocalDateTime regDate) {
+    public Reservation(String no, String restNo, String usersNo, String reservName, String reservDate, String reservTime, int reservPeople, String request, LocalDateTime regDate) {
         this.no = no;
         this.restNo = restNo;
         this.usersNo = usersNo;
@@ -60,19 +60,19 @@ public class Reservation {
         this.reservName = reservName;
     }
 
-    public LocalDateTime getReservDate() {
+    public String getReservDate() {
         return reservDate;
     }
 
-    public void setReservDate(LocalDateTime reservDate) {
+    public void setReservDate(String reservDate) {
         this.reservDate = reservDate;
     }
 
-    public LocalDateTime getReservTime() {
+    public String getReservTime() {
         return reservTime;
     }
 
-    public void setReservTime(LocalDateTime reservTime) {
+    public void setReservTime(String reservTime) {
         this.reservTime = reservTime;
     }
 
@@ -104,12 +104,12 @@ public class Reservation {
     public String toString() {
         return "Reservation{" +
                 "no='" + no + '\'' +
-                ", rest_no='" + restNo + '\'' +
+                ", restNo='" + restNo + '\'' +
                 ", usersNo='" + usersNo + '\'' +
                 ", reservName='" + reservName + '\'' +
-                ", reservDate=" + reservDate +
-                ", reservTime=" + reservTime +
-                ", reservPeople='" + reservPeople + '\'' +
+                ", reservDate='" + reservDate + '\'' +
+                ", reservTime='" + reservTime + '\'' +
+                ", reservPeople=" + reservPeople +
                 ", request='" + request + '\'' +
                 ", regDate=" + regDate +
                 '}';
