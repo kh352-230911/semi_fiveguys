@@ -70,6 +70,19 @@ public class MenuDao {
         return session.selectOne("menu.getTotalCount");
     }
 
+    // github에서 가져옴
+    public List<MenuVo> findUserPage(SqlSession session, Map<String, Object> param1) {
+        int page = (int) param1.get("page");
+        int limit = (int) param1.get("limit");
+        int offset = (page - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+
+        String no1 = (String) param1.get("no1");
+        param1.put("no1", no1);
+        return session.selectList("menu.findUserPage", param1, rowBounds);
+    }
+    // end
+
     public MenuVo findForUpdate(SqlSession session, MenuVo menuVo) {
         return session.selectOne("menu.findForUpdate", menuVo);
     }

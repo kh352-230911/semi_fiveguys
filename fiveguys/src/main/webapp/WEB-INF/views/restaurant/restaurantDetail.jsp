@@ -155,7 +155,7 @@
         </div>
 
             <hr>
-        <%-- 예약 관련 프론트 미완성 --%>
+        <%-- 예약 관련 프론트 --%>
         <div class="p-5">
             <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">예약 일시</h5><br>
             <hr>
