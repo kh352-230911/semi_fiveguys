@@ -262,16 +262,12 @@
             <p class="mb-5 font-sans text-gray-700">${restaurantVo.openTime} ~ ${restaurantVo.closeTime}</p>
         </div>
         <hr>
-        <%-- 주변 가게 정보 및 관련 식당 공간 - 우진 --%>
-        <div class="p-5">
-            <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">주변 식당</h5><br>
-        </div>
-        <hr>
-        <%-- 리뷰 공간 --%>
+
+         리뷰 공간
         <div class="p-5">
             <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">
-                <a href="${pageContext.request.contextPath}/review/reviewList?no=${restaurantVo.no}">리뷰</a> </h5><br>
-    </div>
+                <a href="${pageContext.request.contextPath}/review/reviewList?no=${restaurantVo.no}">리뷰</a></h5><br>
+        </div>
 </div>
 <!-- 모달 -->
 <div id="reservationRegisterModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">

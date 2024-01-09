@@ -36,7 +36,7 @@ public class ReviewCreateServlet extends HttpServlet {
         // 사용자가 입력한 리뷰 내용 가져오기
         String restNo = req.getParameter("no");
         System.out.println(restNo);
-        File repository = new File("C:\\Workspaces\\semi_fiveguys\\fiveguys\\src\\main\\webapp\\images");
+        File repository = new File("C:\\Users\\user1\\Dropbox\\Workspaces\\semi_project\\kh352_semi_project\\fiveguys\\src\\main\\webapp\\images");
         int sizeThreshold = 10 * 1024 * 1024;
 
 

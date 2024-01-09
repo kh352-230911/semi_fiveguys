@@ -887,18 +887,7 @@ from
         on r.no = re.rest_no
 where
     r.no = 'restaurant043';
-    
-    
-    
-    select
-    where
-        date = 12  || r.count < 6
-    
-    
-    insert into valeus()
-    
-   
-        
+
 select * from reservation;
         
 select
