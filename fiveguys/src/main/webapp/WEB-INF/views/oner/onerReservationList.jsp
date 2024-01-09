@@ -49,105 +49,68 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-6 py-3">
+                식당 번호
+            </th>
+            <th scope="col" class="px-6 py-3">
+                예약 번호
+            </th>
+            <th scope="col" class="px-6 py-3">
                 회원 아이디
             </th>
             <th scope="col" class="px-6 py-3">
                 회원 이름
             </th>
             <th scope="col" class="px-6 py-3">
-                식당 이름
+                예약 날짜
             </th>
             <th scope="col" class="px-6 py-3">
-                식당 주소
+                예약 시간
             </th>
             <th scope="col" class="px-6 py-3">
-                식당 소개
+                요청사항
             </th>
             <th scope="col" class="px-6 py-3">
-                전화번호
-            </th>
-            <th scope="col" class="px-6 py-3">
-                카테고리
-            </th>
-            <th scope="col" class="px-6 py-3">
-                오픈 타임
-            </th>
-            <th scope="col" class="px-6 py-3">
-                클로즈 타임
-            </th>
-            <th scope="col" class="px-6 py-3">
-                예약 가능 여부
-            </th>
-            <th scope="col" class="px-6 py-3">
-                등록일자
-            </th>
-            <th scope="col" class="px-6 py-3">
-                옵션
+                예약등록날짜
             </th>
         </tr>
         </thead>
         <tbody>
+        <c:forEach items="${ownerReservationVo}" var="ownerReservationVo">
+        <c:forEach items="${ownerReservationVo.reservations}" var="reservations">
         <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                ${userVO.id}
+                    ${reservations.no}
             </th>
             <td class="px-6 py-4">
-                ${userVO.name}
+                    ${ownerReservationVo.no}
             </td>
             <td class="px-6 py-4">
-                ${userVO.restaurant.name}
+                    ${reservations.usersNo}
             </td>
             <td class="px-6 py-4">
-                ${userVO.restaurant.address}
+                    ${reservations.reservName}
             </td>
             <td class="px-6 py-4">
-                ${userVO.restaurant.content}
+                    ${reservations.reservDate}
             </td>
             <td class="px-6 py-4">
-                ${userVO.restaurant.phone}
+                    ${reservations.reservTime}
             </td>
             <td class="px-6 py-4">
-                ${userVO.restaurant.category}
+                    ${reservations.request}
             </td>
             <td class="px-6 py-4">
-                ${userVO.restaurant.openTime}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.closeTime}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.reservPossible}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.regDate}
-                <fmt:parseDate value="${userVO.restaurant.regDate}" pattern="yyyy-MM-dd" var="regDate"
+                    ${reservations.regDate}
+                <fmt:parseDate value="${reservations.regDate}" pattern="yyyy-MM-dd" var="regDate"
                                scope="page"/>
-                <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
+                <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd HH:mm" var="regDate"/>
             </td>
-            <td id="btn-edit" class="px-6 py-4">
-                <a data-no="${userVO.no}"
-                   data-id="${userVO.id}"
-                   data-name="${userVO.name}"
-                   data-role="${userVO.role}"
-                   data-rNo="${userVO.restaurant.no}"
-                   data-rName="${userVO.restaurant.name}"
-                   data-rAddress="${userVO.restaurant.address}"
-                   data-rContent="${userVO.restaurant.content}"
-                   data-rPhone="${userVO.restaurant.phone}"
-                   data-rCategory="${userVO.restaurant.category}"
-                   data-rOpenTime="${userVO.restaurant.openTime}"
-                   data-rCloseTime="${userVO.restaurant.closeTime}"
-                   data-rReservPossible="${userVO.restaurant.reservPossible}"
-                   data-rRegDate="${userVO.restaurant.regDate}"
-                        <fmt:parseDate value="${userVO.restaurant.regDate}" pattern="yyyy-MM-dd" var="regDate"
-                                       scope="page"/>
-                        <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
-                   data-rApproval="${userVO.restaurant.approval}"
-                   class="openModal font-medium text-blue-600 dark:text-blue-500 hover:underline">More</a>
-            </td>
+            </c:forEach>
+            </c:forEach>
         </tr>
         </tbody>
     </table>
 </div>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     

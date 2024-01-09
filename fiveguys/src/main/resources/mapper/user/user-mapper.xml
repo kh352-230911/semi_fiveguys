@@ -17,7 +17,7 @@
         insert into
         users
         values (
-        ('user' || lpad(seq_users_no.nextval,3,0)), #{id}, #{password}, #{name}, #{nickName}, #{gender}, #{email}, #{phone}, #{role},
+        ('user' || lpad(seq_users_no.nextval,4,0)), #{id}, #{password}, #{name}, #{nickName}, #{gender}, #{email}, #{phone}, #{role},
         #{category, typeHandler=listStringTypeHandler}, default)
     </insert>
 
@@ -86,29 +86,29 @@
     </delete>
     <select id="findByNo" resultMap="userAttractionVoMap">
         select
-        u.no,
-        u.id,
-        u.name,
-        u.nickname,
-        u.email,
-        u.phone,
-        u.category,
-        a.users_no,
-        a.rest_no,
-        r.no restaurant_no,
-        r.name restaurant_name,
-        r.address restaurant_address,
-        r.content,
-        r.phone restaurant_phone,
-        r.category restaurant_category,
-        r.approval
+            u.no,
+            u.id,
+            u.name,
+            u.nickname,
+            u.email,
+            u.phone,
+            u.category,
+            a.users_no,
+            a.rest_no,
+            r.no restaurant_no,
+            r.name restaurant_name,
+            r.address restaurant_address,
+            r.content,
+            r.phone restaurant_phone,
+            r.category restaurant_category,
+            r.approval
         from
-        users u join attraction a
-        on u.no = a.users_no
-        join restaurant r
-        on a.rest_no = r.no
+            users u join attraction a
+            on u.no = a.users_no
+            join restaurant r
+            on a.rest_no = r.no
         where
-        u.no = #{no}
+            u.no = #{no}
     </select>
     <resultMap id="userAttractionVoMap" type="userAttractionVo">
         <id column="no" property="no"/>
@@ -163,6 +163,10 @@
                 on re.rest_no = r.no
         where
             u.no = #{no}
+        <!-- github -->
+        order by
+            re.reserv_date desc, re.reserv_time desc
+
     </select>
     <resultMap id="userReservationVoMap" type="userReservationVo">
         <id column="no" property="no"/>
@@ -221,6 +225,8 @@
                 on re.rest_no = r.no
         where
             u.no = #{no}
+        order by
+            re.reg_date desc
     </select>
     <resultMap id="userReviewVoMap" type="userReviewVo">
         <id column="no" property="no"/>

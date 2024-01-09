@@ -49,25 +49,11 @@ document.querySelector("#calendar").addEventListener('change', (e) => {
    const {restno, usersno, opentime, diffcount, count} = info.dataset;
    // console.log(restno, usersno, opentime, diffcount);
 
-   $.ajax({
-      url: `${contextPath}/reservation/reservationTimeButton`,
-      data : {
-         restNo : restno,
-         usersNo : usersno,
-         opentime : opentime,
-         diffcount : diffcount,
-         count : count
-      },
-      success(response){
-         console.log(response);
-      }
-});
-
    const timeBtn = document.querySelector("#timeBtnWrapper");
    timeBtn.innerHTML = `
       <button type="button" onclick="frmPlease('${restno}', '${usersno}', '${opentime}', '${e.target.value}');" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
             ${opentime}
-      </button>`;
+         </button>`;
 
    let date = new Date();
    let time = opentime.split(":");
@@ -83,12 +69,12 @@ document.querySelector("#calendar").addEventListener('change', (e) => {
       // console.log(copyOpentime);
       let formattedCopyOpenTime = `${copyOpentime.getHours()}:${String(copyOpentime.getMinutes()).padStart(2, '0')}`;
 
-      if (count < 5) {
-         timeBtn.innerHTML += `
-         <button type="button" onclick="frmPlease('${restno}', '${usersno}', '${formattedCopyOpenTime}', '${e.target.value}');" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
-            ${formattedCopyOpenTime}
-         </button>`;
-      }
+
+      timeBtn.innerHTML += `
+      <button type="button" onclick="frmPlease('${restno}', '${usersno}', '${formattedCopyOpenTime}', '${e.target.value}');" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
+         ${formattedCopyOpenTime}
+      </button>`;
+
    }
 });
 

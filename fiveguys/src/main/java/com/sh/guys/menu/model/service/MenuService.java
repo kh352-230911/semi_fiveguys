@@ -61,6 +61,13 @@ public class MenuService {
         return totalCount;
     }
 
+    public List<MenuVo> findUserPage(Map<String, Object> param1) {
+        SqlSession session = getSqlSession();
+        List<MenuVo> menus = menuDao.findUserPage(session, param1);
+        session.close();
+        return menus;
+    }
+
     public int insertMenu(MenuVo menuVo) {
         int result = 0;
         SqlSession session = getSqlSession();

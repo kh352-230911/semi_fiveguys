@@ -11,4 +11,53 @@
         where
             users_no = #{userno}
     </select>
+
+    <!-- github -->
+    <select id="findOwnerRestaurant" resultMap="ownerReservationVoMap">
+        select
+            r.*,
+            re.no reserv_no,
+            re.rest_no,
+            re.users_no user_no,
+            re.reserv_name,
+            re.reserv_date,
+            re.reserv_time,
+            re.reserv_people,
+            re.request,
+            re.reg_date reserv_reg_date
+        from
+            restaurant r join reservation re
+                              on r.no = re.rest_no
+        where
+            r.users_no = #{no}
+        order by
+            re.reg_date desc
+    </select>
+    <resultMap id="ownerReservationVoMap" type="ownerReservationVo">
+        <id column="no" property="no"/>
+        <result column="users_no" property="usersNo"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="content" property="content"/>
+        <result column="phone" property="phone"/>
+        <result column="category" property="category"/>
+        <result column="open_time" property="openTime"/>
+        <result column="close_time" property="closeTime"/>
+        <result column="reserv_possible" property="reservPossible"/>
+        <result column="total_star" property="totalStar"/>
+        <result column="reg_date" property="regDate"/>
+        <result column="approval" property="approval"/>
+        <collection property="reservations" ofType="reservation">
+            <id column="reserv_no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="user_no" property="usersNo"/>
+            <result column="reserv_name" property="reservName"/>
+            <result column="reserv_date" property="reservDate"/>
+            <result column="reserv_time" property="reservTime"/>
+            <result column="reserv_people" property="reservPeople"/>
+            <result column="request" property="request"/>
+            <result column="reserv_reg_date" property="regDate"/>
+        </collection>
+    </resultMap>
+    <!-- end -->
 </mapper>
