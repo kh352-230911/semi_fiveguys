@@ -22,9 +22,6 @@
             <li class="me-2">
                 <a href="${pageContext.request.contextPath}/oner/onerRestaurantList" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 목록</a>
             </li>
-            <li class="me-2">
-                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">내가 쓴 리뷰</a>
-            </li>
         </ul>
     </div>
     <form name="memberSearchFrm">
@@ -32,10 +29,9 @@
             <select id="search-type" name="search-type" required
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5">
                 <option value="" disabled selected>검색</option>
-                <option value="id" ${param['search-type'] eq 'id' ? 'selected' : ''}>아이디</option>
-                <option value="id" ${param['search-type'] eq 'name' ? 'selected' : ''}>이름</option>
-                <option value="r.name" ${param['search-type'] eq 'r.name' ? 'selected' : ''}>식당 이름</option>
-                <option value="r.address" ${param['search-type'] eq 'r.address' ? 'selected' : ''}>식당 주소</option>
+                <option value="reserv_name" ${param['search-type'] eq 'reserv_name' ? 'selected' : ''}>이름</option>
+                <option value="reserv_date" ${param['search-type'] eq 'reserv_date' ? 'selected' : ''}>예약 날짜</option>
+                <option value="reserv_time" ${param['search-type'] eq 'reserv_time' ? 'selected' : ''}>예약 시간</option>
                 <option value="r.phone" ${param['search-type'] eq 'r.phone' ? 'selected' : ''}>전화번호</option>
             </select>
             <div class="ml-1">
@@ -49,16 +45,10 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-6 py-3">
-                식당 번호
+                이름
             </th>
             <th scope="col" class="px-6 py-3">
-                예약 번호
-            </th>
-            <th scope="col" class="px-6 py-3">
-                회원 아이디
-            </th>
-            <th scope="col" class="px-6 py-3">
-                회원 이름
+                전화번호
             </th>
             <th scope="col" class="px-6 py-3">
                 예약 날짜
@@ -67,47 +57,100 @@
                 예약 시간
             </th>
             <th scope="col" class="px-6 py-3">
-                요청사항
+                인원
             </th>
             <th scope="col" class="px-6 py-3">
-                예약등록날짜
+                요구 사항
+            </th>
+            <th scope="col" class="px-6 py-3">
+                예약 일자
+
+<%--                식당 번호--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                예약 번호--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                회원 아이디--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                회원 이름--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                예약 날짜--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                예약 시간--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                요청사항--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                예약등록날짜--%>
             </th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${ownerReservationVo}" var="ownerReservationVo">
-        <c:forEach items="${ownerReservationVo.reservations}" var="reservations">
-        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    ${reservations.no}
-            </th>
-            <td class="px-6 py-4">
-                    ${ownerReservationVo.no}
-            </td>
-            <td class="px-6 py-4">
-                    ${reservations.usersNo}
-            </td>
-            <td class="px-6 py-4">
-                    ${reservations.reservName}
-            </td>
-            <td class="px-6 py-4">
-                    ${reservations.reservDate}
-            </td>
-            <td class="px-6 py-4">
-                    ${reservations.reservTime}
-            </td>
-            <td class="px-6 py-4">
-                    ${reservations.request}
-            </td>
-            <td class="px-6 py-4">
-                    ${reservations.regDate}
-                <fmt:parseDate value="${reservations.regDate}" pattern="yyyy-MM-dd" var="regDate"
-                               scope="page"/>
-                <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd HH:mm" var="regDate"/>
-            </td>
+            <c:forEach items="${reservations}" var="reservation">
+                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        ${reservation.reservName}
+                    </th>
+                    <td class="px-6 py-4">
+        <%--                ${reservation.phone}--%>
+                    </td>
+                    <td class="px-6 py-4">
+                        ${reservation.reservDate}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${reservation.reservTime}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${reservation.reservPeople}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${reservation.request}
+                    </td>
+                    <td class="px-6 py-4">
+                        <fmt:parseDate value="${reservation.regDate}" pattern="yyyy-MM-dd'T'HH:mm" var="regDate"/>
+                        <fmt:formatDate value="${regDate}" pattern="yy/MM/dd HH:mm"/>
+                    </td>
+                </tr>
             </c:forEach>
-            </c:forEach>
-        </tr>
+
+<%--        <c:forEach items="${ownerReservationVo}" var="ownerReservationVo">--%>
+<%--        <c:forEach items="${ownerReservationVo.reservations}" var="reservations">--%>
+<%--        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">--%>
+<%--            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">--%>
+<%--                    ${reservations.no}--%>
+<%--            </th>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${ownerReservationVo.no}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.usersNo}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.reservName}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.reservDate}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.reservTime}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.request}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.regDate}--%>
+<%--                <fmt:parseDate value="${reservations.regDate}" pattern="yyyy-MM-dd" var="regDate"--%>
+<%--                               scope="page"/>--%>
+<%--                <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd HH:mm" var="regDate"/>--%>
+<%--            </td>--%>
+<%--            </c:forEach>--%>
+<%--            </c:forEach>--%>
+<%--        </tr>--%>
         </tbody>
     </table>
 </div>

@@ -180,21 +180,28 @@
                             <!-- Dropdown menu -->
                             <div id="dropdownBottom" class="z-10 m-4 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                 <ul id="notification-container" class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownBottomButton">
-                                    <c:if test="${notifications != null}">
-                                    <c:forEach items="${notifications}" var="noti" varStatus="vs">
-                                    <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
-                                        <a href="#" class="hover:underline text-blue-500">${noti.content}</a>
-<%--                                            ${noti.content.replaceAll("#([^#]+)§([^#]+)#", '<a href="##$2" class="hover:underline text-blue-500">$1</a>').replaceAll('##', pageContext.request.contextPath)}--%>
-                                        <button type="button"
-                                                class="bg-red-50 text-red-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
-                                            X</button>
-                                    </li>
-                                    </c:forEach>
+                                    <c:if test="${notifications != null or notification != ''}">
+                                        <c:forEach items="${notifications}" var="noti" varStatus="vs">
+                                            <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
+<%--                                                <a href="#" class="hover:underline text-blue-500">${noti.content}</a>--%>
+                                                    ${noti.content.replaceAll("#([^#]+)§([^#]+)#", '<a href="##$2" class="hover:underline text-blue-500">$1</a>').replaceAll('##', pageContext.request.contextPath)}
+                                                <button type="button"
+                                                        onclick="confirm('정말 삭제하시겠습니까?') && document.querySelector('#notificationDeleteFrm').submit()"
+                                                        class="bg-red-50 text-red-500 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
+                                                    X</button>
+                                                <form id="notificationDeleteFrm"
+                                                      action="${pageContext.request.contextPath}/notification/notificationDelete"
+                                                      method="post">
+                                                    <input type="hidden" name="no" id="no" value="${noti.no}">
+                                                </form>
+                                            </li>
+                                        </c:forEach>
                                     </c:if>
-                                    <c:if test="${notifications == null}">
-                                    <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
-                                        새로운 알림이 없습니다.
-                                    </li>
+
+                                    <c:if test="${notifications == null or notification == ''}">
+                                        <li class="w-full px-4 border-b border-gray-200 rounded-t-lg">
+                                            새로운 알림이 없습니다.
+                                        </li>
                                     </c:if>
                             </div>
                             <c:if test="${loginUser.role == Role.O or loginUser.role == Role.M}">

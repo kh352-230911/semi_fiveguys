@@ -172,4 +172,10 @@ public class UserService {
         session.close();
         return userReviewVo;
     }
+
+    public User findByUsersNo(String usersNo) {
+        SqlSession session = getSqlSession();
+        User user = userDao.findByUsersNo(session, usersNo);
+        return user;
+    }
 }

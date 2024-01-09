@@ -216,4 +216,103 @@
         where
             phone = #{phone}
     </select>
+
+    <select id="findByUsersId" resultMap="restaurantVoMap1">
+        select
+            u.no,
+            u.id
+        from
+            restaurant r left join users u
+                                   on r.users_no = u.no
+        where
+            r.no = #{restNo}
+    </select>
+    <resultMap id="restaurantVoMap1" type="restaurantVo">
+        <id column="no" property="no"/>
+        <result column="users_no" property="usersNo"/>
+        <association property="user" javaType="user">
+            <id column="no" property="no"/>
+            <result column="id" property="id"/>
+            <result column="role" property="role"/>
+        </association>
+    </resultMap>
+
+    <select id="findByUsersNo" resultType="restaurant">
+        select
+            *
+        from
+            restaurant
+        where
+            users_no = #{usersNo}
+    </select>
+
+    <select id="reservationFindAll" resultMap="restaurantVoMap2">
+        select
+            t.name,
+            r.*
+        from
+            restaurant t join reservation r
+                                   on t.no = r.rest_no
+        order by
+            r.reg_date desc
+    </select>
+    <resultMap id="restaurantVoMap2" type="restaurantVo">
+        <id column="no" property="no"/>
+        <result column="name" property="name"/>
+        <collection property="reservations" ofType="reservation">
+            <id column="no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="reserv_name" property="reservName"/>
+<!--            <result column="reserv_phone" property="reservPhone"/>-->
+            <result column="reserv_people" property="reservPeople"/>
+            <result column="request" property="request"/>
+            <result column="reg_date" property="regDate"/>
+            <result column="reserv_date" property="reservDate"/>
+            <result column="reserv_time" property="reservTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="reservationFindAllPage" resultMap="restaurantVoMap3">
+        select
+            t.name,
+            r.*
+        from
+            restaurant t join reservation r
+                                   on t.no = r.rest_no
+        <where>
+            <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+                ${searchType} like '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
+        order by
+            r.reg_date desc
+    </select>
+    <resultMap id="restaurantVoMap3" type="restaurantVo">
+        <id column="no" property="no"/>
+        <result column="name" property="name"/>
+        <collection property="reservations" ofType="reservation">
+            <id column="no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="reserv_name" property="reservName"/>
+            <!--            <result column="reserv_phone" property="reservPhone"/>-->
+            <result column="reserv_people" property="reservPeople"/>
+            <result column="request" property="request"/>
+            <result column="reg_date" property="regDate"/>
+            <result column="reserv_date" property="reservDate"/>
+            <result column="reserv_time" property="reservTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="getTotalCount" resultType="_int">
+        select
+            count(*)
+        from
+            restaurant t join reservation r
+                on t.no = r.rest_no
+        <where>
+            <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+                ${searchType} like '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -9,10 +9,10 @@
         values (
                    ('noti' || lpad(seq_notification_no.nextval,3,0)),
                    #{usersId},
-                   #{type},
                    #{content},
                    default,
-                   default)
+                   default,
+                   #{type})
     </insert>
     <select id="findByUserId" resultType="notification">
         select
@@ -21,9 +21,13 @@
             notification
         where
             users_id = #{usersId}
-          and
-            checked = 0
         order by
             no desc
     </select>
+    <delete id="deleteNoti">
+        delete from
+               notification
+        where
+            no = #{no}
+    </delete>
 </mapper>

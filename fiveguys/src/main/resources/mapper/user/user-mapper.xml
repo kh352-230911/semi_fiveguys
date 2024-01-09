@@ -253,5 +253,12 @@
             <result column="approval" property="approval"/>
         </collection>
     </resultMap>
-
+    <select id="findByUsersNo" resultType="user">
+        select
+            *
+        from
+            users
+        where
+            no = #{no}
+    </select>
 </mapper>

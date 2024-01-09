@@ -1,5 +1,9 @@
 package com.sh.guys.oner.controller;
 
+import com.sh.guys.reservation.model.entity.Reservation;
+import com.sh.guys.reservation.model.service.ReservationService;
+import com.sh.guys.restaurant.model.entity.Restaurant;
+import com.sh.guys.restaurant.model.service.RestaurantService;
 import com.sh.guys.oner.model.service.OnerService;
 import com.sh.guys.oner.model.vo.OwnerReservationVo;
 import com.sh.guys.user.model.entity.User;
@@ -15,15 +19,26 @@ import java.util.List;
 
 @WebServlet("/oner/onerReservationList")
 public class OnerReservationListController extends HttpServlet {
+    private ReservationService reservationService = new ReservationService();
+    private RestaurantService restaurantService = new RestaurantService();
 
     private OnerService onerService = new OnerService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User no = (User) req.getSession().getAttribute("loginUser");
+        String usersNo = no.getNo();
+
+        Restaurant restaurant = restaurantService.findByUsersNo(usersNo);
+
+        String restNo = restaurant.getNo();
+
+        List<Reservation> reservations = reservationService.findByRestNo(restNo);
+        System.out.println(reservations);
+        req.setAttribute("reservations", reservations);
+
         // github
-        HttpSession httpSession = req.getSession();
         // 1. 사용자 입력값 - 우진
-        User no = (User) httpSession.getAttribute("loginUser");
         String no1 = no.getNo();
         System.out.println(no1);
 

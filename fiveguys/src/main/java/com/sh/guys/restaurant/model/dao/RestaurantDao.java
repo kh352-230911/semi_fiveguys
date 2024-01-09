@@ -4,6 +4,7 @@ import com.sh.guys.restaurant.model.entity.Restaurant;
 import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.vo.RestaurantVo;
 import com.sh.guys.restaurant.model.vo.StarAverageVo;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -54,5 +55,26 @@ public class RestaurantDao {
 
     public List<StarAverageVo> findStarAverage(SqlSession session, String no) {
         return session.selectList("restaurant.starAverage", no);
+    }
+
+    public RestaurantVo findByUsersId(SqlSession session, String no) {
+        return session.selectOne("restaurant.findByUsersId", no);
+    }
+
+    public Restaurant findByUsersNo(SqlSession session, String usersNo) {
+        return session.selectOne("restaurant.findByUsersNo", usersNo);
+    }
+
+    public List<RestaurantVo> reservationFindAll(SqlSession session, Map<String, Object> param) {
+        int page = (int) param.get("page");
+        int limit = (int) param.get("limit");
+        // 건너뛸 회원수
+        int offset = (page - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        return session.selectList("restaurant.reservationFindAllPage", param, rowBounds);
+    }
+
+    public int getTotalCount(SqlSession session, Map<String, Object> param) {
+        return session.selectOne("restaurant.getTotalCount", param);
     }
 }

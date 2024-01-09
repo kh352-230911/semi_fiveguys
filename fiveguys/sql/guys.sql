@@ -221,7 +221,10 @@ create table notification (
     constraints ck_notification_type check (type in ('NEW_REVIEW', 'NEW_COMMENT', 'RECOGNIZE', 'NEW_FOLLOWER', 'RESERVATION_TIME'))
 );
 create sequence seq_notification_no;
-
+--alter table notification drop column type;
+--alter table notification add type varchar2(100);
+--alter table notification add constraints ck_notification_type check (type in ('NEW_REVIEW', 'NEW_COMMENT', 'RECOGNIZE', 'NEW_FOLLOWER', 'RESERVATION_CONFIRM'));
+--alter table member add constraints uq_member_username unique(username);
 select * from notification;
 
 select 
@@ -467,11 +470,11 @@ select * from delete_users;
 -- 예약 취소 트리거 테이블
 create table cancel_reservation
 as
-select no, rest_no, users_no, reserv_name, reserv_date, reserv_time, reg_date
-from reservations
+select *
+from reservation
 where
-    id = 'woojin';
-    
+    0 = 1;
+
 select * from attraction;
 
 select
@@ -501,24 +504,26 @@ from
          on r.no = a.rest_no
 where
     r.no = 'restaurant014';
+    
+select * from users;
  
 create or replace trigger trig_cancel_reservation
     after
-    delete on reservations
+    delete on reservation
     for each row
 begin
     if deleting then
         insert into
             cancel_reservation
-        values(:old.no, :old.rest_no, :old.users_no, :old.reserv_name, :old.reserv_date, :old.reserv_time, sysdate);
+        values(:old.no, :old.rest_no, :old.users_no, :old.reserv_name, :old.reserv_people, :old.request, sysdate, :old.count, :old.reserv_date, :old.reserv_time);
     end if;
 end;
 /
- 
-select * from reservations;
+delete from reservation where request = 'test';
+select * from reservation;
 select * from cancel_reservation;
 commit;
-
+delete from reservation where reserv_date = null;
 insert into reservation
     values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '김안녕', sysdate, sysdate, default, null, default);
 
@@ -712,7 +717,7 @@ select
 select * from notification;
 
 insert into notification
-values (('noti' || lpad(seq_notification_no.nextval,3,0)), 'woojin', 'RECOGNIZE', '<a href = "${pageContext.request.contextPath}/admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다', default, default);
+values (('noti' || lpad(seq_notification_no.nextval,3,0)), 'woojin', '<a href = "${pageContext.request.contextPath}/admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다', default, default, 'RECOGNIZE');
 
 update
     notification
@@ -900,6 +905,40 @@ where
 
 select * from restaurant;
 select * from reservation;
+<<<<<<< HEAD
+<<<<<<< HEAD
+select * from users where role = 'M';
+select * from notification;
+select * from restaurant;
+
+select
+    *
+from
+    reservation
+where
+    rest_no = 'restaurant043'
+order by
+    no desc;
+
+update
+    restaurant
+set
+    users_no = 'user065'
+where
+    name in ('백소정3', '스시히로아키');
+    
+select
+    t.name,
+    r.*
+from
+    restaurant t join reservation r
+                           on t.no = r.rest_no
+order by 
+    r.reg_date desc;
+
+select * from restaurant;
+=======
+=======
 
 -- 사용자가 선호하는 카테고리에 맞게 정렬
 WITH UserCategories AS (
@@ -941,6 +980,7 @@ ORDER BY
     no DESC,
     renamed_filename;
 
+>>>>>>> 2bdb5d7e36dbb620eb4b66daa0e8fefa9fcb6dd4
 select * from users;
 select * from reservation;
 select * from menu_picture;
@@ -989,4 +1029,8 @@ from
         on m.no = p.menu_no
 where
     m.no = 'menu085';
+<<<<<<< HEAD
+>>>>>>> f9e2fe9d8fdf77e19028ae5fa25ba8ec8278f3b3
+=======
 
+>>>>>>> 2bdb5d7e36dbb620eb4b66daa0e8fefa9fcb6dd4

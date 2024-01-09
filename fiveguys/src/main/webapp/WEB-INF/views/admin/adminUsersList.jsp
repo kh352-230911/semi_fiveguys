@@ -26,7 +26,9 @@
                     식당 정보 관리</a>
             </li>
             <li class="me-2">
-                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">내가 쓴 리뷰</a>
+                <a href="${pageContext.request.contextPath}/admin/adminReservationList"
+                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                    예약 정보 관리</a>
             </li>
         </ul>
     </div>
@@ -144,6 +146,11 @@
     </table>
 </div>
 
+<nav class="mb-4 mt-4 flex justify-center">
+    <ul class="flex items-center -space-x-px h-8 text-sm">
+        ${pagebar}
+    </ul>
+</nav>
 <!-- 모달 -->
 <div id="userDetailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
     <div id="userDetail" class="bg-white p-8 rounded-lg"></div>
