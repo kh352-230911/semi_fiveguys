@@ -59,6 +59,8 @@
     <mapper resource="mapper/reservation/reservation-mapper.xml"/>
     <mapper resource="mapper/attraction/attraction-mapper.xml"/>
     <mapper resource="mapper/oner/oner-mapper.xml"/>
+    <!-- github -->
     <mapper resource="mapper/review/review-mapper.xml"/>
+    <!-- end -->
   </mappers>
 </configuration>

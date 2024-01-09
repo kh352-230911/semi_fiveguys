@@ -69,7 +69,6 @@ document.querySelector("#calendar").addEventListener('change', (e) => {
       // console.log(copyOpentime);
       let formattedCopyOpenTime = `${copyOpentime.getHours()}:${String(copyOpentime.getMinutes()).padStart(2, '0')}`;
 
-      
       timeBtn.innerHTML += `
       <button type="button" onclick="frmPlease('${restno}', '${usersno}', '${formattedCopyOpenTime}', '${e.target.value}');" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
          ${formattedCopyOpenTime}
@@ -140,21 +139,10 @@ function frmPlease(restno, usersno, time, date) {
    document.getElementById('reservationRegisterModal').classList.remove('hidden');
 }
 
-// 모달 열기
-// function open() {
-//    // 모달 보이기
-//    document.getElementById('reservationRegisterModal').classList.remove('hidden');
-// }
-
 function close() {
    // 모달 숨기기
    document.getElementById('reservationRegisterModal').classList.add('hidden');
 }
-// 모달 닫기
-// document.getElementById('closeReservationRegisterModalBtn').addEventListener('click', function () {
-//    // 모달 숨기기
-//    document.getElementById('reservationRegisterModal').classList.add('hidden');
-// });
 
 // 저장 버튼 클릭 시 처리
 function save() {
@@ -163,9 +151,4 @@ function save() {
    // 모달 닫기
    document.getElementById('reservationRegisterModal').classList.add('hidden');
 }
-// document.getElementById('reservationSaveBtn').addEventListener('click', function () {
-//    // 수정된 정보를 서버로 전송하는 로직 추가
-//    document.getElementById('reservationRegisterFrm').submit();
-//    // 모달 닫기
-//    document.getElementById('reservationRegisterModal').classList.add('hidden');
-// });
+

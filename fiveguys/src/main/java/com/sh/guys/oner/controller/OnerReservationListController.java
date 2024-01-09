@@ -20,6 +20,7 @@ public class OnerReservationListController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // github
         HttpSession httpSession = req.getSession();
         // 1. 사용자 입력값 - 우진
         User no = (User) httpSession.getAttribute("loginUser");
@@ -32,6 +33,7 @@ public class OnerReservationListController extends HttpServlet {
         req.setAttribute("ownerReservationVo", ownerReservationVo);
 
         // view단 처리
+        // end
         req.getRequestDispatcher("/WEB-INF/views/oner/onerReservationList.jsp").forward(req, resp);
     }
 }

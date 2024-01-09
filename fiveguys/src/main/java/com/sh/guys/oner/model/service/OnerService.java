@@ -19,10 +19,12 @@ public class OnerService {
         return restaurants;
     }
 
+    // github
     public List<OwnerReservationVo> findOwnerRestaurant(String no) {
         SqlSession session =getSqlSession();
         List<OwnerReservationVo> ownerReservationVo = onerDao.findOwnerRestaurant(session, no);
         session.close();
         return ownerReservationVo;
     }
+    // end
 }

@@ -1,6 +1,7 @@
 package com.sh.guys.menu.model.dao;
 
 import com.sh.guys.menu.model.entity.Menu;
+import com.sh.guys.menu.model.vo.MenuVo;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,7 +39,7 @@ public class MenuDaoTest {
     void test1(String no) {
         // given
         // when
-        Menu menu = new Menu();
+        MenuVo menu = new MenuVo();
         menu.setRestNo(no);
         menu.setName("순대");
         menu.setContent("아침에 먹어도 맛있는 순대, 점심에 먹어도 맛있는 순대, 저녁에 먹어도 맛있는 순대, 냉장고에 넣었다 꺼내도 맛있는 순대, 차갑게 먹어도 맛있는 순대, 뜨거울때 먹어도 맛있는 순대, 새해에 먹는 맛있는 순대");

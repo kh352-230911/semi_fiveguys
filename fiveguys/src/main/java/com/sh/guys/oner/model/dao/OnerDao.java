@@ -11,7 +11,9 @@ public class OnerDao {
         return session.selectList("oner.findMyRestaurant", userNo);
     }
 
+    // github
     public List<OwnerReservationVo> findOwnerRestaurant(SqlSession session, String no) {
         return session.selectList("oner.findOwnerRestaurant" , no);
     }
+    // end
 }

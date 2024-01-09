@@ -10,7 +10,9 @@ public class ReviewDao {
         return session.selectList("reivew.findAll");
     }
 
+    // github
     public int reviewDelete(SqlSession session, String reviewNo) {
         return session.delete("review.reviewDelete", reviewNo);
     }
+    // end
 }

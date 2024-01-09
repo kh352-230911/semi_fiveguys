@@ -17,10 +17,24 @@ public class MenuVo extends Menu {
         this.menuPictures = menuPictures;
     }
 
+    public void addMenuPicture(MenuPicture menuPicture) {
+        this.menuPictures.add(menuPicture);
+    }
+
     @Override
     public String toString() {
         return "MenuVo{" +
                 "menuPictures=" + menuPictures +
                 "} " + super.toString();
+    }
+
+    public void setValue(String name, String value) {
+        switch (name) {
+            case "no" : this.setNo(value); break;
+            case "restNo" : this.setRestNo(value); break;
+            case "name" : this.setName(value); break;
+            case "content" : this.setContent(value); break;
+            case "price" : this.setPrice(Integer.parseInt(value)); break;
+        }
     }
 }

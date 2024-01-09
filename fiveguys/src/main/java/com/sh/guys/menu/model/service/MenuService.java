@@ -3,7 +3,6 @@ package com.sh.guys.menu.model.service;
 import com.sh.guys.menu.model.dao.MenuDao;
 import com.sh.guys.menu.model.entity.MenuPicture;
 import com.sh.guys.menu.model.vo.MenuVo;
-import com.sh.guys.user.model.entity.User;
 import org.apache.ibatis.session.SqlSession;
 import java.util.List;
 import java.util.Map;
@@ -67,5 +66,85 @@ public class MenuService {
         List<MenuVo> menus = menuDao.findUserPage(session, param1);
         session.close();
         return menus;
+    }
+
+    public int insertMenu(MenuVo menuVo) {
+        int result = 0;
+        SqlSession session = getSqlSession();
+        try {
+            // Menu 테이블에 등록
+            System.out.println(menuVo);
+            result = menuDao.insertMenu(session, menuVo);
+            System.out.println(result + "MenuService#insertMenu : Menu#No = " + menuVo.getNo());
+
+            // MenuPicture 테이블에 등록
+            List<MenuPicture> menuPictures = menuVo.getMenuPicture();
+            if (!menuPictures.isEmpty()) {
+                for (MenuPicture menuPicture : menuPictures) {
+                    menuPicture.setMenuNo(menuVo.getNo());
+                    System.out.println(menuPicture);
+                    result = menuDao.insertMenuPicture(session, menuPicture);
+                    System.out.println(result);
+                }
+            }
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public MenuVo findForUpdate(MenuVo menuVo) {
+        SqlSession session = getSqlSession();
+        MenuVo menu = menuDao.findForUpdate(session, menuVo);
+        session.close();
+        return menu;
+    }
+
+    public int updateMenu(MenuVo menuVo) {
+        int result = 0;
+        SqlSession session = getSqlSession();
+        try {
+            // Menu 테이블 수정
+            System.out.println(menuVo);
+            result = menuDao.updateMenu(session, menuVo);
+
+            // MenuPicture 테이블 수정
+            List<MenuPicture> menuPictures = menuVo.getMenuPicture();
+            if (!menuPictures.isEmpty()) {
+                for (MenuPicture menuPicture : menuPictures) {
+                    menuPicture.setMenuNo(menuVo.getNo());
+                    System.out.println(menuPicture);
+                    result = menuDao.insertMenuPicture(session, menuPicture);
+                    System.out.println(result);
+                }
+            }
+            
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public int deleteMenu(String no) {
+        int result = 0;
+        SqlSession session = getSqlSession();
+        try {
+            result = menuDao.deleteMenu(session, no);
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return result;
     }
 }

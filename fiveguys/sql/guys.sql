@@ -31,6 +31,9 @@ create sequence seq_users_no;
 
 select * from users;
 
+--alter table delete_users  modify (password varchar2(300));
+commit;
+
 -- 우진 회원 테이블에 샘플 데이터 추가
 insert into user values(
     ('user' || lpad(seq_users_no.nextval,3,0)), 'woojin', '1234a@', '오우진', '우지', 'M', 'woojin@naver.com', '010-1231-1211', 'M', null, default
@@ -57,11 +60,28 @@ create table restaurant (
 );
 create sequence seq_restaurant_no;
 
+-- 재준 식당 테이블에 식당 승인 컬럼 추가
+alter table restaurant add approval char(1) default 'N' not null;
+alter table restaurant add constraint ck_restaurant_approval check(approval in ('Y', 'N'));
+-- alter table restaurant drop column approval;
+-- commit;
+
+-- 재준 식당 테이블, total_star 컬럼 default값 0.0으로 설정 추가
+-- alter table restaurant modify reserv_possible default '0';
+-- commit;
+
+-- delete from restaurant where name = '1234';
+
 select * from restaurant;
 
 -- 우진 식당 테이블에 샘플 데이터 추가
 insert into restaurant values(
      ('rest' || lpad(seq_restaurant_no.nextval,3,0)), 'users001', '캐치마인드', '강남구 테헤란로', '바뀐 데이터베이스에 샘플코드 넣는중', '02-3391-4991', 'it', '9:00', '18:00', default, 5, default
+);
+
+-- 재준 식당 테이블에 샘플 데이터 추가
+insert into restaurant values(
+     ('rest' || lpad(seq_restaurant_no.nextval,3,0)), 'user065', '고에몬', '강남구 테헤란로', '바뀐 데이터베이스에 샘플코드 넣는중', '02-3391-4992', '양식', '9:00', '18:00', default, 5, default, default
 );
 
 -- 메뉴 테이블
@@ -88,8 +108,8 @@ create table menu_picture (
 );
 create sequence seq_menu_picture_no;
 
+select * from menu;
 select * from menu_picture;
-
 
 -- 식당-편의시설 브릿지 테이블
 create table restaurant_convenience (
@@ -111,7 +131,7 @@ create sequence seq_convenience_no;
 select * from convenience;
 
 -- 예약 테이블
-create table reservation (
+create table reservations (
     no varchar2(30) not null,
     rest_no varchar2(30) not null,
     users_no varchar2(30) not null,
@@ -148,25 +168,13 @@ create table review (
     reg_date date default sysdate not null,
     constraints pk_review_no primary key(no),
     constraints fk_review_rest_no foreign key(rest_no) references restaurant(no) on delete cascade,
-    constraints fk_review_users_no foreign key(users_no) references users(no) on delete cascade,
+    constraints fk_review_users_no foreign key(users_no) references user(no) on delete cascade,
     constraints ck_review_star_grade check(star_grade in(1, 2, 3, 4, 5))
 );
 create sequence seq_review_no;
 
-select * from review where rest_no = 'restaurant047';
-select * from restaurant;
+select * from review;
 
-insert into review values(
-    ('review' || lpad(seq_review_no.nextval,3,0)),'restaurant043','users007',null,5,sysdate
-);
-insert into review values(
-    ('review' || lpad(seq_review_no.nextval,3,0)),'restaurant043','user049','샘플데이터 2',5,sysdate
-);
-insert into review values(
-    ('review' || lpad(seq_review_no.nextval,3,0)),'restaurant047','user049','샘플데이터 3',5,sysdate
-);
-select * from users;
-select * from restaurant;
 -- 리뷰 사진 테이블
 create table review_picture (
     no varchar2(30) not null,
@@ -215,9 +223,6 @@ create table notification (
 create sequence seq_notification_no;
 
 select * from notification;
-
-insert into notification
-values (('noti' || lpad(seq_notification_no.nextval,3,0)), 'woojin', 'NEW_COMMENT', '<a href="#">fghi</a>님이 <a href="#">너무 맛있게 먹었어요</a> 게시글에 댓글을 작성했습니다', default, default);
 
 select 
     u.id,
@@ -298,7 +303,7 @@ insert into users
 insert into users
     values (('users' || lpad(seq_users_no.nextval,3,0)), 'jklm', '1234', '이주은', 'jklm', 'F', 'jklm@naver.com', '01044221112', default, null, default);
 
-select * from users;
+select * from users order by no desc;
 
 create table restaurant (
     no varchar2(30),
@@ -432,6 +437,9 @@ select * from menu_picture;
 
 commit;
 
+
+select * from delete_users;
+
 -- 회원 삭제 트리거 테이블
 create table delete_users
 as
@@ -460,9 +468,8 @@ select * from delete_users;
 create table cancel_reservation
 as
 select no, rest_no, users_no, reserv_name, reserv_date, reserv_time, reg_date
-from reservation
+from reservations
 where
- 0 = 1;
     id = 'woojin';
     
 select * from attraction;
@@ -494,11 +501,10 @@ from
          on r.no = a.rest_no
 where
     r.no = 'restaurant014';
-
  
- create or replace trigger trig_cancel_reservation
+create or replace trigger trig_cancel_reservation
     after
-    delete on reservation
+    delete on reservations
     for each row
 begin
     if deleting then
@@ -509,13 +515,13 @@ begin
 end;
 /
  
- select * from reservation;
- select * from cancel_reservation;
- commit;
- 
- insert into reservation
+select * from reservations;
+select * from cancel_reservation;
+commit;
+
+insert into reservation
     values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '김안녕', sysdate, sysdate, default, null, default);
-    
+
 select
     *
 from
@@ -527,33 +533,27 @@ where
     r.no = 'restaurant017';
     
 select
-            r.*,
-            m.*,
-            p.*,
-            m.no menu_no,
-            m.name menu_name,
-            m.content menu_content,
-            p.no pic_no,
-            p.renamed_filename
-        from
-            restaurant r  left join menu m
-                  on r.no = m.rest_no
-             join menu_picture p
-                  on m.no = p.menu_no
-        where
-            r.no = 'restaurant043';
+        r.*,
+        m.*,
+        p.*,
+        m.no menu_no,
+        m.name menu_name,
+        m.content menu_content,
+        p.no pic_no,
+        p.renamed_filename
+    from
+        restaurant r  left join menu m
+              on r.no = m.rest_no
+         join menu_picture p
+              on m.no = p.menu_no
+    where
+        r.no = 'restaurant043';
 
 -- 식당 테이블 샘플 데이터 추가 - 우진
-insert into restaurant values (
+insert into restaurant values(
      ('restaurant' || lpad(seq_restaurant_no.nextval,3,0)), 'users007', '긴자료코', '서울 강남구 테헤란로20길 19 1동 106호', '완벽한 한끼를 추구하는 긴자료코입니다.', '02-554-5112', '일식', '11:00', '21:00', default, 5, default
 );
-insert into restaurant values (
-    ('restaurant' || lpad(seq_restaurant_no.nextval,3,0)), 'users007', '스시히로아키','서울특별시 강남구 도곡로3길 27 동일빌딩 지하 1층', '핫토리출신 셰프들의 모던한 스시야'
-    ,'070-8866-9394','일식','12:00','22:00',default,5,default,default
-);
 
-select * from users;
-select * from restaurant;
 -- 메뉴 테이블에 샘플 데이터 추가 -우진
 insert into menu
     values (('menu' || lpad(seq_menu_no.nextval,3,0)), 'restaurant043', '사케동', null, '13000');
@@ -564,12 +564,14 @@ insert into menu
 insert into menu
     values (('menu' || lpad(seq_menu_no.nextval,3,0)), 'restaurant043', '가츠동', '돈까스 덮밥', '8500');
     
+
 insert into menu
     values (('menu' || lpad(seq_menu_no.nextval,3,0)), 'restaurant047', '런치', '1부 12:00 - 13:30 2부 14:00 - 15:30', '70000');
 insert into menu
     values (('menu' || lpad(seq_menu_no.nextval,3,0)), 'restaurant047', '디너', '18:00 - 21:00', '150000');
 
     
+
 -- 메뉴 사진 테이블에 샘플 데이터 추가 - 우진
 insert into menu_picture
     values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu086', '사케동.jpeg');
@@ -582,20 +584,11 @@ insert into menu_picture
 insert into menu_picture
     values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu044', '긴자료코메뉴판.jpeg');
 
-insert into menu_picture
-    values(('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)),  'menu063','스시히로아키 런치1.jpg');
-insert into menu_picture
-    values(('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu063','스시히로아키 런치2.jpg');    
-insert into menu_picture
-    values(('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu064','스시히로아키 디너3.jpg');
-
-
-
 delete from menu_picture where  no = 'menu_pic046';
 select  * from restaurant;
 select * from menu;
 select * from menu_picture;
-select * from users;
+
 -- 편의시설 테이블에 사진 컬럼 추가 - 우진
 ALTER TABLE convenience
 ADD convenience_pic VARCHAR2(255);
@@ -633,9 +626,6 @@ insert into restaurant_convenience values('restaurant043', 'con004');
 insert into restaurant_convenience values('restaurant043', 'con005');
 insert into restaurant_convenience values('restaurant043', 'con008');
 
-insert into restaurant_convenience values('restaurant047', 'con003');
-insert into restaurant_convenience values('restaurant047', 'con005');
-insert into restaurant_convenience values('restaurant047', 'con007');
 select * from restaurant_convenience;
 
 select
@@ -688,163 +678,55 @@ WHERE
     r.no = 'restaurant043';
     
 select
-        r.*,
-        rc.rest_no abc,
-        rc.conven_no,
-        conven.no convenience_no,
-        conven.kind,
-        conven.convenience_pic
-    from
-        restaurant r join restaurant_convenience rc
-                          on r.no = rc.rest_no
-                     join convenience conven
-                          on rc.conven_no = conven.no
-    where
-        r.no = 'restaurant043';
+            r.*,
+            rc.rest_no,
+            rc.conven_no,
+            conven.no convenience_no,
+            conven.kind,
+            conven.convenience_pic
+        from
+            restaurant r join restaurant_convenience rc
+                              on r.no = rc.rest_no
+                         join convenience conven
+                              on rc.conven_no = conven.no
+        where
+            r.no = 'restaurant043';
 commit;
 
 select
-    count(*)
-from
-    restaurant r left join menu m
-        on r.no = m.rest_no
-    left join menu_picture p
-        on m.no = p.menu_no;
-where
-    category like '%' || #{searchKeyword} || '%';
-    
-select
-    r.no,
-    r.name,
-    r.address,
-    r.category,
-    renamed_filename
-from
-    restaurant r left join menu m
-        on r.no = m.rest_no
-            left join menu_picture p
-                   on m.no = p.menu_no
-order by
-    no desc;
-where
-    category like '%' || #{searchKeyword} || '%'
-    
-    
-SELECT
-    restaurant_no AS no,
-    restaurant_name AS name,
-    restaurant_address AS address,
-    restaurant_category AS category,
-    renamed_filename
-FROM (
-    SELECT
-        r.no AS restaurant_no,
-        r.name AS restaurant_name,
-        r.address AS restaurant_address,
-        r.category AS restaurant_category,
-        p.renamed_filename,
-        ROW_NUMBER() OVER (PARTITION BY m.no ORDER BY p.renamed_filename) AS rn
-    FROM
-        restaurant r
-    LEFT JOIN menu m ON r.no = m.rest_no
-    LEFT JOIN menu_picture p ON m.no = p.menu_no
-)
-WHERE
-    rn = 1
-ORDER BY
-    no DESC;
-    
+            r.*,
+            m.no menu_no,
+            m.rest_no,
+            m.name menu_name,
+            m.content menu_content,
+            m.price,
+            p.no pic_no,
+            p.menu_no menuNo,
+            p.renamed_filename
+        from
+            restaurant r join menu m
+                  on r.no = m.rest_no
+             join menu_picture p
+                  on m.no = p.menu_no;
 
-select * from review_comment;
-
-WITH RankedPictures AS (
-    SELECT
-        r.no AS restaurant_no,
-        r.name AS restaurant_name,
-        r.address AS restaurant_address,
-        r.category AS restaurant_category,
-        p.renamed_filename,
-        ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
-    FROM
-        restaurant r
-    LEFT JOIN menu m ON r.no = m.rest_no
-    LEFT JOIN menu_picture p ON m.no = p.menu_no
-)
-SELECT
-
-    restaurant_no no,
-    restaurant_name as name,
-    restaurant_address as address,
-    restaurant_category as category,
-    renamed_filename
-FROM
-    RankedPictures
-WHERE
-    rn = 1
-    and 
-    restaurant_address like '%역삼%'
-ORDER BY
-    no DESC, renamed_filename;
-    
-update
-    restaurant
-set
-    total_star = 4.2
-where
-    name = '스시히로아키';
-    
 select * from notification;
 
--- 예약 테이블 샘플 데이터 추가 - 우진
-insert into reservation values (('reservation' || lpad(seq_reservation_no.nextval,3,0)), 'restaurant047','user049', '오성진', TO_DATE('2024/01/05', 'YYYY/MM/DD'), TO_DATE('16:00', 'HH24:MI') ,  2, null, default);
-insert into reservation values (('reservation' || lpad(seq_reservation_no.nextval,3,0)), 'restaurant043','user049', '오우진', TO_DATE('2024/01/06', 'YYYY/MM/DD'), TO_DATE('19:23', 'HH24:MI') ,  2, null, default);
+insert into notification
+values (('noti' || lpad(seq_notification_no.nextval,3,0)), 'woojin', 'RECOGNIZE', '<a href = "${pageContext.request.contextPath}/admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다', default, default);
 
-select * from users;
-select * from reservation;
-select * from restaurant;
-select
-            u.no,
-            u.id,
-            u.name,
-            u.nickname,
-            u.email,
-            u.phone,
-            u.category,
-            re.no review_no,
-            re.rest_no,
-            re.users_no,
-            re.star_grade,
-            re.reg_date,
-            r.no restaurant_no,
-            r.name restaurant_name,
-            r.address restaurant_address,
-            r.content,
-            r.phone restaurant_phone,
-            r.category restaurant_category,
-            r.approval
-        from
-            users u join review re
-                on u.no = re.users_no
-            join restaurant r
-                on re.rest_no = r.no
-        where
-            u.no = 'user049';
-
-select
-    r.*,
-    re.*
-from
-    restaurant r join review re
-        on r.no = re.rest_no
+update
+    notification
+set
+    content = '<a href = "admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다'
 where
-    r.no = 'restaurant043';            
-            
--- 식당에 따른 별점들을 합      
+    content = '<a href = "${pageContext.request.contextPath}/admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다';
+    
 select
-    sum(re.star_grade)
+    u.role,
+    n.*
 from
-    restaurant r join review re
-        on r.no = re.rest_no
+    users u left join notification n
+        on u.id = n.users_id
 where
     r.no = 'restaurant043';
 
@@ -925,6 +807,12 @@ select
         order by
             re.reg_date desc;
             
+
+    role = 'M';
+    
+-- 재준 reservation 셀렉트문 실험
+select * from reservation;
+
 select
     *
 from
@@ -932,6 +820,72 @@ from
 where
     rest_no = 'restaurant043' and reserv_date = '2024/01/07 09:42:29' and reserv_time = '2024/01/07 09:42:29' and count < 6;
 
+select
+    rest_no
+    , reserv_date
+    , reserv_time
+from
+    (
+    select
+        *
+    from (
+        select
+            *
+        from
+            reservation
+        where
+            rest_no = 'restaurant043'
+    )
+    where
+        reserv_date = '2024-01-24'
+    )
+where
+    reserv_time = '15:00';
+    
+select
+    rest_no
+    , reserv_date
+    , reserv_time
+    , reserv_count
+    , (select count(*) from(select * from reservation where rest_no = 'restaurant043') where reserv_date = '2024-01-24' group by reserv_time) reserve_count
+from
+    (
+    select
+        *
+    from (
+        select
+            *
+        from
+            reservation
+        where
+            rest_no = 'restaurant043'
+    )
+    where
+        reserv_date = '2024-01-24'
+    );
+where
+    rest_no = 'restaurant043'
+    and reserv_date = '2024-01-24';
+    
+    
+select * from reservation;
+    
+select
+    *
+from
+    reservation
+where
+    rest_no = 'restaurant043' and reserv_date = '2024-01-24' and reserv_time = '15:00' and count < 5 ;
+
+select
+    *
+from
+    reservation
+where
+    rest_no = 'restaurant043' and users_no = 'user065' and reserv_date = '2024/01/07 09:42:29' and reserv_time = '2024/01/07 09:42:29' and count < 5 ;
+
+alter table reservation drop column reserv_time;
+alter table reservation add reserv_time varchar2(10);
 
 select * from reservation;
 
@@ -995,6 +949,7 @@ select * from restaurant;
 
 
 
+
 <where>
             rn = 1
             <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
@@ -1002,3 +957,36 @@ select * from restaurant;
                 ${searchType} like '%' || #{searchKeyword} || '%'
             </if>
         </where>
+
+SELECT
+    rest_no,
+    reserv_date,
+    reserv_time,
+    reserve_count
+FROM (
+    SELECT
+        res.rest_no,
+        res.reserv_date,
+        res.reserv_time,
+        (
+            SELECT COUNT(*)
+            FROM reservation subres
+            WHERE subres.rest_no = res.rest_no
+                AND subres.reserv_date = res.reserv_date
+            GROUP BY subres.reserv_time
+        ) AS reserve_count
+    FROM reservation res
+    WHERE res.rest_no = 'restaurant043'
+        AND res.reserv_date = '2024-01-24'
+) AS subquery
+WHERE reserve_count > 1;
+
+select
+    m.*
+    , p.*
+from
+    menu m join menu_picture p
+        on m.no = p.menu_no
+where
+    m.no = 'menu085';
+

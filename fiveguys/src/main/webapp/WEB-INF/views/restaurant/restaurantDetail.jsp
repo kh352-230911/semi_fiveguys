@@ -17,6 +17,12 @@
 
             <div class="p-5">
                 <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">${restaurantVo.name}</h5><br>
+                <div class="sticky w-full bg-white rounded-lg shadow my-4 sm:max-w-full xl:p-0 relative">
+                    <button type="button"
+                            class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 absolute top-6 right-1">
+                        <a href="${pageContext.request.contextPath}/menu/menuRegister?no=${restaurantVo.no}">메뉴 추가</a>
+                    </button>
+                </div>
                 <c:if test="${starAverageVo[0].averageRating == 5.0}">
                     <div class="flex items-center mt-2.5 mb-5">
                         <div class="flex items-center space-x-1 rtl:space-x-reverse">
@@ -146,19 +152,14 @@
                    class="fa-regular fa-heart"></i>
             </c:if>
             <p class="mb-3 font-sans text-gray-700">${restaurantVo.content}</p>
-
         </div>
 
             <hr>
-        <%-- 예약 관련 프론트 미완성 --%>
+        <%-- 예약 관련 프론트 --%>
         <div class="p-5">
             <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">예약 일시</h5><br>
             <hr>
             <br>
-            <button id="reservationRegisterModalBtn" type="button"
-                    class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 top-10 right-24">
-                예약
-            </button>
             <br>
             <div class="mb-8">
                 <label for="calendar">예약 날짜</label>
@@ -189,9 +190,24 @@
             <br>
             <hr>
 
-            <c:forEach items="${restaurantVo.menus}" var="restaurantVo" begin="0" end="2">
-                <div class="font-bold">${restaurantVo.name}</div>
-                <div>${restaurantVo.price}원</div>
+            <c:forEach items="${restaurantVo.menus}" var="restaurantVo">
+                    <div class="font-bold">${restaurantVo.name}</div>
+                    <div class="inline">${restaurantVo.price}원</div>
+                    <div class="plusminus-wrapper inline grid grid-cols-6 gap-6 place-content-center h-10 ...">
+                        <button id="update-etc" name="update-etc">
+                            <a href="${pageContext.request.contextPath}/menu/menuUpdate?no=${no}">
+                                <img src="${pageContext.request.contextPath}/upload/img/free-icon-add-3394636.png"/>
+                            </a>
+                        </button>
+
+                        <form name="menuDeleteFrm${no}" action="${pageContext.request.contextPath}/menu/menuDelete" method="post">
+                            <input type="hidden" name="no" value="${restaurantVo.no}">
+                            <input type="hidden" name="restNo" value="${restaurantVo.restNo}">
+                            <button id="delete-etc" name="delete-etc" onclick="confirm('해당 메뉴를 삭제하시겠습니까?') && document.menuDeleteFrm${restaurantVo.no}.submit();">
+                                <img src="${pageContext.request.contextPath}/upload/img/free-icon-minus-3485999.png"/>
+                            </button>
+                        </form>
+                    </div>
                 <br>
                 <hr>
             </c:forEach>

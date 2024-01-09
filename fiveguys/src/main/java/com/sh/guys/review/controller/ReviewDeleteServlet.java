@@ -13,6 +13,7 @@ import java.io.IOException;
 public class ReviewDeleteServlet extends HttpServlet {
 
     private ReviewService reviewService = new ReviewService();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String reviewNo = req.getParameter("reviewNo");

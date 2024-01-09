@@ -19,6 +19,7 @@ public class ReviewService {
         return reviews;
     }
 
+    // github
     public int reviewDelete(String reviewNo) {
         SqlSession session = getSqlSession();
         int result = 0;
@@ -33,4 +34,5 @@ public class ReviewService {
         }
         return result;
     }
+    // end
 }
