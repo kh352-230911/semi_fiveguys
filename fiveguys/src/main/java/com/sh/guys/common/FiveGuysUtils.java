@@ -151,4 +151,10 @@ public class FiveGuysUtils {
         return "<a href=\"%s\" class=\"hover:underline text-blue-500\">%s</a>"
                 .formatted(url, content);
     }
+
+    public static String getReservationNotification(String content, String url) {
+        url = servletContext.getContextPath() + url;
+        return "<a href=\"%s\" class=\"hover:underline text-blue-500\">%s</a>"
+                .formatted(url, content);
+    }
 }

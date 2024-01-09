@@ -22,9 +22,6 @@
             <li class="me-2">
                 <a href="${pageContext.request.contextPath}/oner/onerRestaurantList" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 목록</a>
             </li>
-            <li class="me-2">
-                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">내가 쓴 리뷰</a>
-            </li>
         </ul>
     </div>
     <form name="memberSearchFrm">
@@ -32,10 +29,9 @@
             <select id="search-type" name="search-type" required
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-1.5">
                 <option value="" disabled selected>검색</option>
-                <option value="id" ${param['search-type'] eq 'id' ? 'selected' : ''}>아이디</option>
-                <option value="id" ${param['search-type'] eq 'name' ? 'selected' : ''}>이름</option>
-                <option value="r.name" ${param['search-type'] eq 'r.name' ? 'selected' : ''}>식당 이름</option>
-                <option value="r.address" ${param['search-type'] eq 'r.address' ? 'selected' : ''}>식당 주소</option>
+                <option value="reserv_name" ${param['search-type'] eq 'reserv_name' ? 'selected' : ''}>이름</option>
+                <option value="reserv_date" ${param['search-type'] eq 'reserv_date' ? 'selected' : ''}>예약 날짜</option>
+                <option value="reserv_time" ${param['search-type'] eq 'reserv_time' ? 'selected' : ''}>예약 시간</option>
                 <option value="r.phone" ${param['search-type'] eq 'r.phone' ? 'selected' : ''}>전화번호</option>
             </select>
             <div class="ml-1">
@@ -49,103 +45,55 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
             <th scope="col" class="px-6 py-3">
-                회원 아이디
-            </th>
-            <th scope="col" class="px-6 py-3">
-                회원 이름
-            </th>
-            <th scope="col" class="px-6 py-3">
-                식당 이름
-            </th>
-            <th scope="col" class="px-6 py-3">
-                식당 주소
-            </th>
-            <th scope="col" class="px-6 py-3">
-                식당 소개
+                이름
             </th>
             <th scope="col" class="px-6 py-3">
                 전화번호
             </th>
             <th scope="col" class="px-6 py-3">
-                카테고리
+                예약 날짜
             </th>
             <th scope="col" class="px-6 py-3">
-                오픈 타임
+                예약 시간
             </th>
             <th scope="col" class="px-6 py-3">
-                클로즈 타임
+                인원
             </th>
             <th scope="col" class="px-6 py-3">
-                예약 가능 여부
+                요구 사항
             </th>
             <th scope="col" class="px-6 py-3">
-                등록일자
-            </th>
-            <th scope="col" class="px-6 py-3">
-                옵션
+                예약 일자
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                ${userVO.id}
-            </th>
-            <td class="px-6 py-4">
-                ${userVO.name}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.name}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.address}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.content}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.phone}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.category}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.openTime}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.closeTime}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.reservPossible}
-            </td>
-            <td class="px-6 py-4">
-                ${userVO.restaurant.regDate}
-                <fmt:parseDate value="${userVO.restaurant.regDate}" pattern="yyyy-MM-dd" var="regDate"
-                               scope="page"/>
-                <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
-            </td>
-            <td id="btn-edit" class="px-6 py-4">
-                <a data-no="${userVO.no}"
-                   data-id="${userVO.id}"
-                   data-name="${userVO.name}"
-                   data-role="${userVO.role}"
-                   data-rNo="${userVO.restaurant.no}"
-                   data-rName="${userVO.restaurant.name}"
-                   data-rAddress="${userVO.restaurant.address}"
-                   data-rContent="${userVO.restaurant.content}"
-                   data-rPhone="${userVO.restaurant.phone}"
-                   data-rCategory="${userVO.restaurant.category}"
-                   data-rOpenTime="${userVO.restaurant.openTime}"
-                   data-rCloseTime="${userVO.restaurant.closeTime}"
-                   data-rReservPossible="${userVO.restaurant.reservPossible}"
-                   data-rRegDate="${userVO.restaurant.regDate}"
-                        <fmt:parseDate value="${userVO.restaurant.regDate}" pattern="yyyy-MM-dd" var="regDate"
-                                       scope="page"/>
-                        <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd" var="regDate"/>
-                   data-rApproval="${userVO.restaurant.approval}"
-                   class="openModal font-medium text-blue-600 dark:text-blue-500 hover:underline">More</a>
-            </td>
-        </tr>
+            <c:forEach items="${reservations}" var="reservation">
+                <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        ${reservation.reservName}
+                    </th>
+                    <td class="px-6 py-4">
+        <%--                ${reservation.phone}--%>
+                    </td>
+                    <td class="px-6 py-4">
+                        ${reservation.reservDate}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${reservation.reservTime}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${reservation.reservPeople}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${reservation.request}
+                    </td>
+                    <td class="px-6 py-4">
+                        <fmt:parseDate value="${reservation.regDate}" pattern="yyyy-MM-dd'T'HH:mm" var="regDate"/>
+                        <fmt:formatDate value="${regDate}" pattern="yy/MM/dd HH:mm"/>
+                    </td>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
 </div>

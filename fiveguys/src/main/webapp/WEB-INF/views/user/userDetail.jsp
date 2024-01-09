@@ -114,17 +114,22 @@
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                             예약 취소
                                         </button>
-                                        <form id="reservationCancelFrm"
-                                              action="${pageContext.request.contextPath}/reservation/reservationCancel"
-                                              method="post">
-                                            <input type="hidden" name="reservNo" id="reservNo" value="${reservations.no}">
-                                        </form>
+
                                     </td>
                                 </tr>
                             </c:forEach>
                         </c:forEach>
                         </tbody>
                     </table>
+                    <c:forEach var="userReservationVo" items="${userReservationVo}">
+                        <c:forEach var="reservations" items="${userReservationVo.reservations}">
+                            <form id="reservationCancelFrm"
+                                  action="${pageContext.request.contextPath}/reservation/reservationCancel"
+                                  method="post">
+                                <input type="hidden" name="reservNo" id="reservNo" value="${reservations.no}">
+                            </form>
+                        </c:forEach>
+                    </c:forEach>
                 </div>
             <br><br>
 

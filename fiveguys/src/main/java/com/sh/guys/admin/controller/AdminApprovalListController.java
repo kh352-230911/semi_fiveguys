@@ -61,11 +61,6 @@ public class AdminApprovalListController extends HttpServlet {
         String pagebar = FiveGuysUtils.getPagebar(page, limit, totalCount, url);
         req.setAttribute("pagebar", pagebar);
 
-//        User user = userService.findById(userId);
-
-        // 실시간 알림처리
-//        int result = notificationService.recognize(user);
-
         // 3. view단 처리
         req.getRequestDispatcher("/WEB-INF/views/admin/adminApprovalList.jsp").forward(req, resp);
     }

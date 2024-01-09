@@ -8,6 +8,7 @@ import com.sh.guys.restaurant.model.vo.StarAverageVo;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.sh.guys.common.SqlSessionTemplate.getSqlSession;
 
@@ -98,5 +99,32 @@ public class RestaurantService {
         List<StarAverageVo> starAverageVo = restaurantDao.findStarAverage(session, no);
         session.close();
         return starAverageVo;
+    }
+
+    public RestaurantVo findByUsersId(String no) {
+        SqlSession session = getSqlSession();
+        RestaurantVo restaurantVo = restaurantDao.findByUsersId(session, no);
+        session.close();
+        return restaurantVo;
+    }
+
+    public Restaurant findByUsersNo(String usersNo) {
+        SqlSession session = getSqlSession();
+        Restaurant restaurant = restaurantDao.findByUsersNo(session, usersNo);
+        session.close();
+        return restaurant;
+    }
+    public List<RestaurantVo> reservationFindAll(Map<String, Object> param) {
+        SqlSession session = getSqlSession();
+        List<RestaurantVo> restaurantVo = restaurantDao.reservationFindAll(session, param);
+        session.close();
+        return restaurantVo;
+    }
+
+    public int getTotalCount(Map<String, Object> param) {
+        SqlSession session = getSqlSession();
+        int totalCount = restaurantDao.getTotalCount(session, param);
+        session.close();
+        return totalCount;
     }
 }

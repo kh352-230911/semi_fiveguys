@@ -169,7 +169,11 @@
                        data-diffCount="${reservationVO.diffCount}">
                 <br>
                 <label>예약 시간</label>
-                <div id="timeBtnWrapper"></div>
+                <div id="timeBtnWrapper">
+<%--                    <button id="reservationRegisterModalBtn" type="button"--%>
+<%--                            class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 top-10 right-24">--%>
+<%--                    </button>--%>
+                </div>
             </div>
         </div>
         <hr>
@@ -294,6 +298,7 @@
                 <label for="request" class="block mb-2 text-sm font-medium text-gray-900">요청사항</label>
                 <input type="text" name="request" id="request" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="요청사항을 입력해주세요...">
             </div>
+            <input type="hidden" name="id" id="id" value="${loginUser.id}">
             <fieldset>
                 <button id="reservationSaveBtn" type="button"
                         class="bg-green-500 text-white py-2 px-4 mt-4 rounded focus:outline-none focus:shadow-outline-green active:bg-green-700">

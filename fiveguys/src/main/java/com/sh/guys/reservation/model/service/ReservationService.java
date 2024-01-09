@@ -55,4 +55,11 @@ public class ReservationService {
         }
         return result;
     }
+
+    public List<Reservation> findByRestNo(String restNo) {
+        SqlSession session = getSqlSession();
+        List<Reservation> reservations = reservationDao.findByRestNo(session, restNo);
+        session.close();
+        return reservations;
+    }
 }

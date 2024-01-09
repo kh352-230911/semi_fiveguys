@@ -20,7 +20,9 @@
                 <a href="${pageContext.request.contextPath}/admin/adminRestaurantList" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">식당 정보 관리</a>
             </li>
             <li class="me-2">
-                <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">예약 정보 관리</a>
+                <a href="${pageContext.request.contextPath}/admin/adminReservationList"
+                   class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">
+                    예약 정보 관리</a>
             </li>
         </ul>
     </div>
@@ -176,6 +178,12 @@
         </tbody>
     </table>
 </div>
+
+<nav class="mb-4 mt-4 flex justify-center">
+    <ul class="flex items-center -space-x-px h-8 text-sm">
+        ${pagebar}
+    </ul>
+</nav>
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/js/admin/adminApprovalList.js"></script>

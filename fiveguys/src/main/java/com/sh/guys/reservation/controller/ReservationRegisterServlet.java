@@ -1,5 +1,6 @@
 package com.sh.guys.reservation.controller;
 
+import com.sh.guys.notification.model.service.NotificationService;
 import com.sh.guys.reservation.model.entity.Reservation;
 import com.sh.guys.reservation.model.service.ReservationService;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
 @WebServlet("/reservation/reservationRegister")
 public class ReservationRegisterServlet extends HttpServlet {
     private ReservationService reservationService = new ReservationService();
+    private NotificationService notificationService = new NotificationService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,6 +23,7 @@ public class ReservationRegisterServlet extends HttpServlet {
         String name = req.getParameter("name");
         int people = Integer.parseInt(req.getParameter("people"));
         String request = req.getParameter("request");
+        String id = req.getParameter("id");
         System.out.println(restNo + "     " + usersNo + "     " + name + "      " + people + "      " + request);
 
         Reservation reservation = new Reservation();
@@ -31,6 +34,8 @@ public class ReservationRegisterServlet extends HttpServlet {
         reservation.setRequest(request);
 
         int result = reservationService.insertReservation(reservation);
+
+        result = notificationService.reservation(id, restNo);
 
         req.getSession().setAttribute("msg", "예약이 완료되었습니다.");
 

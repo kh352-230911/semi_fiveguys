@@ -7,15 +7,15 @@
         select
             *
         from
-            reservations
+            reservation
     </select>
     <insert id="insertReservation">
         insert into
             reservation
         values
             (
-                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), #{restNo}, #{usersNo}, #{reservName} ,sysdate, sysdate, #{reservPeople},
-                #{request}, default
+                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), #{restNo}, #{usersNo}, #{reservName} , #{reservPeople},
+                #{request}, default, 0, '2', '3'
             )
     </insert>
     <delete id="cancelReservation">
@@ -24,4 +24,14 @@
         where
             no = #{no}
     </delete>
+    <select id="findByRestNo" resultType="reservation">
+        select
+            *
+        from
+            reservation
+        where
+            rest_no = #{restNo}
+        order by
+            no desc
+    </select>
 </mapper>

@@ -14,4 +14,8 @@ public class NotificationDao {
     public List<Notification> findByUserId(SqlSession session, String userId) {
         return session.selectList("notification.findByUserId", userId);
     }
+
+    public int deleteNoti(SqlSession session, String no) {
+        return session.delete("notification.deleteNoti", no);
+    }
 }

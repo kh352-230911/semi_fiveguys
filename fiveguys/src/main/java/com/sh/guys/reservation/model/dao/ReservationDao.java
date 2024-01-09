@@ -22,4 +22,8 @@ public class ReservationDao {
     public int cancelReservation(SqlSession session, String reservNo) {
         return session.delete("reservation.cancelReservation", reservNo);
     }
+
+    public List<Reservation> findByRestNo(SqlSession session, String restNo) {
+        return session.selectList("reservation.findByRestNo", restNo);
+    }
 }
