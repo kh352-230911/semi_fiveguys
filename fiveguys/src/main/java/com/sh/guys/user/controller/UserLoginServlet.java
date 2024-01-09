@@ -47,6 +47,7 @@ public class UserLoginServlet extends HttpServlet {
             // pageContext, request, session, application 컨텍스트객체중에 login처리에 적합한 것은 session
             // session객체는 사용자가 서버첫접속부터 세션해제시까지 유효
             session.setAttribute("loginUser", user);
+            System.out.println(user);
             String location = req.getContextPath() + "/";
             String next = (String) req.getSession().getAttribute("next");
             if (next != null) {

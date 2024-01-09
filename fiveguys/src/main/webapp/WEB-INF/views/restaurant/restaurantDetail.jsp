@@ -123,8 +123,8 @@
         <hr>
         <%-- 리뷰 공간 --%>
         <div class="p-5">
-            <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">리뷰</h5><br>
-        </div>
+            <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">
+                <a href="${pageContext.request.contextPath}/review/reviewList?no=${restaurantVo.no}">리뷰</a> </h5><br>
 
 
     </div>

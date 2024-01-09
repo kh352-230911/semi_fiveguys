@@ -155,8 +155,46 @@ create table review (
     constraints ck_review_star_grade check(star_grade in(1, 2, 3, 4, 5))
 );
 create sequence seq_review_no;
-
 select * from review;
+
+select * from restaurant;
+
+insert into review 
+    values  (('review' || lpad(seq_review_no.nextval,3,0)), 'restaurant043 ' , 'users004' , '굿입니다' , 5 , default);
+insert into review
+    values  (('review' || lpad(seq_users_no.nextval,3,0)), 'users003' , 'restaurant015' , '별로입니다' , '3' , sysdate);    
+    
+    insert into review
+    values  (('review' || lpad(seq_users_no.nextval,3,0)), 'restaurant015' , 'users003' , '아주맛나요굿굿' , '3' , sysdate);  
+commit;
+--리뷰 사진 테이블
+--insert into review_picture (no, review_no, renamed_filename, reg_date)
+--values ('review_pic' || lpad(seq_users_no.nextval, 3, '0'), 'review1', '2af3c384-a2bc-4a1f-bb7e-77bee293ea04.jpg', sysdate);
+--
+--insert into review_picture (no, review_no, renamed_filename, reg_date)
+--values ('review_pic' || lpad(seq_users_no.nextval, 3, '0'), 'review2', '2af3c384-a2bc-4a1f-bb7e-77bee293ea04.jpg', sysdate);
+    
+
+--댓글테이블
+--insert into review_comment (no, users_no, review_no, content, comment_level, parent_comment_no, reg_date)
+--values ('review_com' || lpad(seq_users_no.nextval, 3, '0'), '1', 'review1', '굿입니다', 1, null, sysdate);
+--
+--insert into review_comment (no, users_no, review_no, content, comment_level, parent_comment_no, reg_date)
+--values ('review_com' || lpad(seq_users_no.nextval, 3, '0'), '2', 'review2', '별로입니다', 2, 'null', sysdate);
+
+select
+    r.*,
+    (select count(*) from review_picture where review_no = r.no)  attach_count,
+    (select count(*) from review_comment where review_no = r.no)  comment_count
+from
+    review r
+order by
+    no desc;
+
+select * from review_picture;
+select * from review_comment;
+select * from review;
+select * from users;
 
 -- 리뷰 사진 테이블
 create table review_picture (
@@ -323,6 +361,7 @@ insert into restaurant
     values (('restaurant' || lpad(seq_restaurant_no.nextval,3,0)), 'users010', '백소정', '서울시 강남구 역삼동', null, '921-2466', '일식', '10:00', '20:00', default, 5, default); 
 
 select * from restaurant;
+select * from users;
 
 create table menu (
     no varchar2(30),
@@ -401,3 +440,82 @@ set
     password = 'S0NLwMHt0Wp+riazlX7lDq6r/B2iz2hRwVi1jzVfpKydrywrCKsjB6YFuKE8o/zbbqMla1NjwQDRJyynCHEuPw=='
 where
     id = 'woojin';
+    
+    
+    
+        select
+        b.*,
+        (select count(*) from attachment where board_id = b.id) attach_count,
+        (select count(*) from board_comment where board_id = b.id) comment_count
+      from
+        board b
+      order by
+        id desc;
+    
+    select * from  review;
+    
+    select * from  review_picture;
+    
+    select * from review_comment;
+    
+    
+      select
+    r.*,
+    v.no  review_no,
+    v.users_no,
+    v.content,
+    v.reg_date,
+    rp.no  review_pic_no,
+    rp.renamed_filename,
+    u.no user_no,
+    u.id,
+    u.nickname,
+     rc.no comment_no,
+     rc.users_no comment_users_no
+from
+    restaurant r
+join
+    review v on r.no = v.rest_no
+left join
+    review_picture rp on v.no = rp.review_no
+join
+    users u on v.users_no = u.no
+left join
+    review_comment rc on v.no = rc.review_no
+where
+ v.no = 'review013';
+ 
+ update 
+    review
+   set
+    content=  '개별로'
+   where
+     no = 'review015' ;
+     
+     select * from review;
+    
+    select 
+    *
+    from
+        review
+    where
+     no ='review013';
+     
+
+  select *from review;
+   select *from restaurant;
+   
+    
+     select
+            *
+        from
+            review
+        where
+          rest_no = 'restaurant015' ;
+    
+update
+    review
+set
+    rest_no = 'restaurant023'
+where
+    no = 'review051';
