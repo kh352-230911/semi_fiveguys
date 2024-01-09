@@ -30,7 +30,7 @@ public class Attraction {
 
     @Override
     public String toString() {
-        return "Wish{" +
+        return "Attraction{" +
                 "usersNo='" + usersNo + '\'' +
                 ", restNo='" + restNo + '\'' +
                 '}';

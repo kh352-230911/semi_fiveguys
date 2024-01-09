@@ -2,9 +2,14 @@ package com.sh.guys.user.model.dao;
 
 import com.sh.guys.user.model.entity.User;
 import com.sh.guys.user.model.entity.UserDel;
+import com.sh.guys.user.model.vo.UserAttractionVo;
+import com.sh.guys.user.model.vo.UserReservationVo;
+import com.sh.guys.user.model.vo.UserReviewVo;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 public class UserDao {
     public int insertUser(SqlSession session, User user) {
@@ -43,12 +48,27 @@ public class UserDao {
         return session.delete("user.deleteUser", id);
     }
 
-
     public List<UserDel> userDelFindAll(SqlSession session) {
         return session.selectList("userDel.userDelFindAll");
     }
 
     public User findByNickName(SqlSession session, String nickName) {
         return session.selectOne("user.userfindByNickName", nickName);
+    }
+
+    public List<UserAttractionVo> findByNo(SqlSession session, String no) {
+        return session.selectList("user.findByNo", no);
+    }
+
+    public List<UserReservationVo> findReservation(SqlSession session, String no) {
+        return session.selectList("user.findReservation", no);
+    }
+
+    public List<UserReviewVo> findMyReview(SqlSession session, String no) {
+        return session.selectList("user.findMyReview", no);
+    }
+
+    public User findByUsersNo(SqlSession session, String usersNo) {
+        return session.selectOne("user.findByUsersNo", usersNo);
     }
 }

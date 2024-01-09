@@ -3,10 +3,58 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reservation">
-    <select id="findAll" resultType="reservations">
+    <select id="findAll" resultType="reservation">
         select
             *
         from
             reservation
+    </select>
+
+    <insert id="insertReservation">
+        insert into
+            reservation
+        values
+            (
+                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), #{restNo}, #{usersNo}, #{reservName}, #{reservPeople}, #{request}, default, default, #{reservDate}, #{reservTime}
+            )
+    </insert>
+
+    <select id="countReservation" resultType="_int">
+        select
+            count(*)
+        from
+            (
+                select
+                    *
+                from (
+                         select
+                             *
+                         from
+                             reservation
+                         where
+                             rest_no = #{restNo}
+                     )
+                where
+                    reserv_date = #{reservDate}
+            )
+        where
+            reserv_time = #{reservTime}
+    </select>
+
+    <delete id="cancelReservation">
+        delete from
+               reservation
+        where
+            no = #{no}
+    </delete>
+    <select id="findByRestNo" resultType="reservation">
+        select
+            *
+        from
+            reservation
+        where
+            rest_no = #{restNo}
+        order by
+            no desc
     </select>
 </mapper>

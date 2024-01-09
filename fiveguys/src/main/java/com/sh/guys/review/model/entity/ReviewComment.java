@@ -10,10 +10,12 @@ public class ReviewComment {
 
     private Integer commentLevel;
     private Long parentCommentNo;
+
     private LocalDateTime regDate;
 
     public ReviewComment() {
     }
+
 
     public ReviewComment(String no, String usersNo, String reviewNo, String content, Integer commentLevel, Long parentCommentNo, LocalDateTime regDate) {
         this.no = no;
@@ -57,6 +59,7 @@ public class ReviewComment {
         this.content = content;
     }
 
+
     public Integer getCommentLevel() {
         return commentLevel;
     }
@@ -70,6 +73,7 @@ public class ReviewComment {
     }
 
     public void setParentCommentNo(Long parentCommentNo) {
+
         this.parentCommentNo = parentCommentNo;
     }
 
@@ -94,3 +98,5 @@ public class ReviewComment {
                 '}';
     }
 }
+
+

@@ -1,5 +1,6 @@
 package com.sh.guys.notification.model.service;
 
+import com.sh.guys.common.FiveGuysUtils;
 import com.sh.guys.notification.model.entity.Notification;
 import com.sh.guys.notification.model.entity.Type;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,20 +10,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.quartz.*;
 
-import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class NotificationServiceTest {
-    private NotificatonService notificatonService;
+    private NotificationService notificationService;
 
     @BeforeEach
     @Test
     public void setUp() {
-        this.notificatonService = new NotificatonService();
+        this.notificationService = new NotificationService();
     }
 
     @Disabled
@@ -41,7 +40,7 @@ public class NotificationServiceTest {
         notification.setUsersId(usersId);
         notification.setType(type);
         notification.setContent(content);
-        int result = notificatonService.insertNotification(notification);
+        int result = notificationService.insertNotification(notification);
         // then
         assertThat(result).isGreaterThan(0);
     }
@@ -53,7 +52,7 @@ public class NotificationServiceTest {
         // given
         assertThat(usersId).isNotNull();
         // when
-        List<Notification> notifications = notificatonService.findByUserId(usersId);
+        List<Notification> notifications = notificationService.findByUserId(usersId);
         System.out.println(notifications);
         // then
         assertThat(notifications)
@@ -67,5 +66,22 @@ public class NotificationServiceTest {
                    assertThat(notification.getRegDate()).isNotNull();
                 });
     }
+//    @DisplayName("알림 내용에 링크를 추가한다. (Context Path는 제외하고 테스트) ")
+//    @ParameterizedTest
+//    @CsvSource({
+//            "Helloworld,/restaurant/restaurantDetail?no=restaurant043,<a href=\"/board/boardDetail?id=123\" class=\"hover:underline text-blue-500\">Helloworld</a>",
+//            "honggd,/member/memberView?id=honggd,<a href=\"/member/memberView?id=honggd\" class=\"hover:underline text-blue-500\">honggd</a>"
+//    })
+//    void test1(String content, String url, String expected) {
+//        // given
+//        assertThat(content).isNotNull();
+//        assertThat(url).isNotNull();
+//        assertThat(expected).isNotNull();
+//        // when
+//        String actual = FiveGuysUtils.getNotification(content, url);
+//
+//        // then
+//        assertThat(actual).isEqualTo(expected);
+//    }
 
 }

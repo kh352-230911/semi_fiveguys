@@ -90,6 +90,36 @@
         </collection>
     </resultMap>
 
+    <select id="starAverage" resultMap="starAverageVoMap">
+        select
+            round(
+                (select
+                     sum(re.star_grade)
+                 from
+                     restaurant r join review re
+                        on r.no = re.rest_no
+                 where
+                     r.no = #{no})/
+                (select
+                     count(re.star_grade)
+                 from
+                     restaurant r join review re
+                                       on r.no = re.rest_no
+                 where
+                     r.no = #{no}),1
+            ) as  average_rating
+        from dual
+    </select>
+    <resultMap id="starAverageVoMap" type="starAverageVo">
+        <id column="no" property="no"/>
+        <result column="average_rating" property="averageRating"/>
+        <collection property="reviews" ofType="review">
+            <id column="review_no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="star_grade" property="starGrade"/>
+        </collection>
+    </resultMap>
+
     <!-- 식당 여러 건 조회 - 우진 -->
     <select id="findAll" resultType="restaurant">
         select
@@ -119,12 +149,16 @@
     </select>
 
     <!-- 식당 등록 - 우진 -->
+    <!-- 편집 2024.01.05 - 재준
+         reserv_possible 컬럼 default -> #{reservPossible}으로 변경
+         total_star 컬럼 #{totalStar} -> default로 변경
+         approval 컬럼 추가로 인한 마지막 줄 default 추가 ex: values(..., default) -->
     <insert id="insertRestaurant">
         insert into
             restaurant
         values(
                 ('rest' || lpad(seq_restaurant_no.nextval,3,0)),
-                #{no},
+                #{usersNo},
                 #{name},
                 #{address},
                 #{content},
@@ -132,8 +166,9 @@
                 #{category},
                 #{openTime},
                 #{closeTime},
+                #{reservPossible},
+                0,
                 default,
-                #{totalStar},
                 default
               )
         <selectKey order="AFTER" resultType="String" keyProperty="no">
@@ -145,6 +180,8 @@
     </insert>
 
     <!-- 식당 내용을 수정 할 수 있다.(식당 이름, 주소, 내용, 번호) - 우진 -->
+    <!-- 편집 2024.01.05 - 재준
+         업데이트 컬럼 (카테고리, 오픈시간, 마감시간, 예약가능여부) 추가 -->
     <update id="updateRestaurant">
         update
             restaurant
@@ -152,7 +189,11 @@
             name = #{name},
             address = #{address},
             content = #{content},
-            phone = #{phone}
+            phone = #{phone},
+            category = #{category},
+            open_time = #{openTime},
+            close_time = #{closeTime},
+            reserv_possible = #{reservPossible}
         where
             no = #{no}
     </update>
@@ -165,4 +206,113 @@
         where
             no = #{no}
     </delete>
+
+    <!-- 전화번호로 식당 검색 - 재준 -->
+    <select id="findByPhone" resultType="restaurant">
+        select
+            *
+        from
+            restaurant
+        where
+            phone = #{phone}
+    </select>
+
+    <select id="findByUsersId" resultMap="restaurantVoMap1">
+        select
+            u.no,
+            u.id
+        from
+            restaurant r left join users u
+                                   on r.users_no = u.no
+        where
+            r.no = #{restNo}
+    </select>
+    <resultMap id="restaurantVoMap1" type="restaurantVo">
+        <id column="no" property="no"/>
+        <result column="users_no" property="usersNo"/>
+        <association property="user" javaType="user">
+            <id column="no" property="no"/>
+            <result column="id" property="id"/>
+            <result column="role" property="role"/>
+        </association>
+    </resultMap>
+
+    <select id="findByUsersNo" resultType="restaurant">
+        select
+            *
+        from
+            restaurant
+        where
+            users_no = #{usersNo}
+    </select>
+
+    <select id="reservationFindAll" resultMap="restaurantVoMap2">
+        select
+            t.name,
+            r.*
+        from
+            restaurant t join reservation r
+                                   on t.no = r.rest_no
+        order by
+            r.reg_date desc
+    </select>
+    <resultMap id="restaurantVoMap2" type="restaurantVo">
+        <id column="no" property="no"/>
+        <result column="name" property="name"/>
+        <collection property="reservations" ofType="reservation">
+            <id column="no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="reserv_name" property="reservName"/>
+<!--            <result column="reserv_phone" property="reservPhone"/>-->
+            <result column="reserv_people" property="reservPeople"/>
+            <result column="request" property="request"/>
+            <result column="reg_date" property="regDate"/>
+            <result column="reserv_date" property="reservDate"/>
+            <result column="reserv_time" property="reservTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="reservationFindAllPage" resultMap="restaurantVoMap3">
+        select
+            t.name,
+            r.*
+        from
+            restaurant t join reservation r
+                                   on t.no = r.rest_no
+        <where>
+            <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+                ${searchType} like '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
+        order by
+            r.reg_date desc
+    </select>
+    <resultMap id="restaurantVoMap3" type="restaurantVo">
+        <id column="no" property="no"/>
+        <result column="name" property="name"/>
+        <collection property="reservations" ofType="reservation">
+            <id column="no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="reserv_name" property="reservName"/>
+            <!--            <result column="reserv_phone" property="reservPhone"/>-->
+            <result column="reserv_people" property="reservPeople"/>
+            <result column="request" property="request"/>
+            <result column="reg_date" property="regDate"/>
+            <result column="reserv_date" property="reservDate"/>
+            <result column="reserv_time" property="reservTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="getTotalCount" resultType="_int">
+        select
+            count(*)
+        from
+            restaurant t join reservation r
+                on t.no = r.rest_no
+        <where>
+            <if test="searchType != null and searchType != '' and searchKeyword != null and searchKeyword != ''">
+                ${searchType} like '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
+    </select>
 </mapper>

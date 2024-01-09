@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cancelReservations">
-    <select id="cancelReservationFindAll" resultType="cancelReservations">
+<mapper namespace="cancelReservation">
+    <select id="cancelReservationFindAll" resultType="cancelReservation">
         select
             *
         from

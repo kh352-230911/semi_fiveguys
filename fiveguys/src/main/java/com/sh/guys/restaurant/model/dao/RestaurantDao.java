@@ -1,11 +1,14 @@
 package com.sh.guys.restaurant.model.dao;
 
-import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.entity.Restaurant;
+import com.sh.guys.convenience.model.vo.ConvenienceVo;
 import com.sh.guys.restaurant.model.vo.RestaurantVo;
+import com.sh.guys.restaurant.model.vo.StarAverageVo;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 public class RestaurantDao {
     // 식당 한건 조회 - 우진
@@ -34,6 +37,7 @@ public class RestaurantDao {
     }
 
     public int updateRestaurant(SqlSession session, Restaurant restaurant) {
+        System.out.println("dao");
         return session.update("restaurant.updateRestaurant", restaurant);
     }
 
@@ -43,5 +47,34 @@ public class RestaurantDao {
 
     public List<ConvenienceVo> findConven(SqlSession session, String no) {
         return session.selectList("restaurant.findConven", no);
+    }
+
+    public Restaurant findByPhone(SqlSession session, String phone) {
+        return session.selectOne("restaurant.findByPhone", phone);
+    }
+
+    public List<StarAverageVo> findStarAverage(SqlSession session, String no) {
+        return session.selectList("restaurant.starAverage", no);
+    }
+
+    public RestaurantVo findByUsersId(SqlSession session, String no) {
+        return session.selectOne("restaurant.findByUsersId", no);
+    }
+
+    public Restaurant findByUsersNo(SqlSession session, String usersNo) {
+        return session.selectOne("restaurant.findByUsersNo", usersNo);
+    }
+
+    public List<RestaurantVo> reservationFindAll(SqlSession session, Map<String, Object> param) {
+        int page = (int) param.get("page");
+        int limit = (int) param.get("limit");
+        // 건너뛸 회원수
+        int offset = (page - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+        return session.selectList("restaurant.reservationFindAllPage", param, rowBounds);
+    }
+
+    public int getTotalCount(SqlSession session, Map<String, Object> param) {
+        return session.selectOne("restaurant.getTotalCount", param);
     }
 }

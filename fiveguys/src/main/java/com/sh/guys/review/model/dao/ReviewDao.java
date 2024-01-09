@@ -16,6 +16,7 @@ public class ReviewDao {
         return session.selectList("review.findAll");
     }
 
+
     public int insertReview(SqlSession session, Review review) {
         return session.insert("review.insertReview" , review);
     }
@@ -67,4 +68,11 @@ public class ReviewDao {
 //        RowBounds rowBounds = new RowBounds(offset, limit);
 //        return session.selectList("review.findByRestNo" , param ,   rowBounds);
 //    }
+
+    // github
+    public int reviewDelete(SqlSession session, String reviewNo) {
+        return session.delete("review.reviewDelete", reviewNo);
+    }
+    // end
+
 }

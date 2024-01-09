@@ -1,6 +1,5 @@
 package com.sh.guys.review.controller;
 
-import com.sh.guys.notification.model.service.NotificatonService;
 import com.sh.guys.review.model.entity.ReviewComment;
 import com.sh.guys.review.model.service.ReviewService;
 import com.sh.guys.user.model.entity.User;
@@ -17,7 +16,6 @@ import java.io.IOException;
 public class ReviewCommentCreateServlet extends HttpServlet {
     private ReviewService reviewService = new ReviewService();
 
-//    private NotificatonService notificatonService = new NotificatonService();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

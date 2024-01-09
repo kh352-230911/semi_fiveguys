@@ -1,5 +1,6 @@
 package com.sh.guys.common.filter;
 
+import com.sh.guys.user.model.entity.Role;
 import com.sh.guys.user.model.entity.User;
 
 import javax.servlet.FilterChain;
@@ -13,11 +14,11 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {
-
         "/user/userUpdate",
         "/user/userDelete",
-        "/user/uqdatePassword"
-
+        "/user/uqdatePassword",
+        "/reservation/reservationRegister",
+        "/oner/*"
 })
 public class AuthenticationFilter extends HttpFilter {
 

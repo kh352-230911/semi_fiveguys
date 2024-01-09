@@ -18,7 +18,7 @@ import java.util.Locale;
  * - LOCAL_DATE_PATTERN
  * - LOCAL_DATE_TIME_PATTERN
  * </pre>
- * 
+ *
  * @author shqkel
  */
 public class GsonConverter {

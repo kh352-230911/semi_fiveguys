@@ -144,7 +144,8 @@
             no = #{no}
     </update>
 
-    <delete id="deleteReview">
+
+    <delete id="reviewDelete">
         delete
         from
             review
