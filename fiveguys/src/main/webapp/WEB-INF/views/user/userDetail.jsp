@@ -82,13 +82,9 @@
                                     </c:forEach>
                                     <td class="px-6 py-4">
                                         ${reservations.reservDate}
-<%--                                        <fmt:parseDate value="${reservations.reservDate}" pattern="yyyy-MM-dd'T'HH:mm" var="reservDate"/>--%>
-<%--                                        <fmt:formatDate value="${reservDate}" pattern="yy/MM/dd"/>--%>
                                     </td>
                                     <td class="px-6 py-4">
                                         ${reservations.reservTime}
-<%--                                        <fmt:parseDate value="${reservations.reservTime}" pattern="yyyy-MM-dd'T'HH:mm" var="reservTime"/>--%>
-<%--                                        <fmt:formatDate value="${reservTime}" pattern="HH:mm"/>--%>
                                     </td>
                                     <c:forEach var="restaurants" items="${userReservationVo.restaurants}">
                                         <c:if test="${restaurants.no eq reservations.restNo}">

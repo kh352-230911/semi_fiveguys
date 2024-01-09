@@ -149,10 +149,6 @@ create sequence seq_reservation_no;
 
 select * from reservation;
 
--- 재준 예약 테이블 샘플 데이터 추가
-insert into reservation
-    values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '이재준1', sysdate, sysdate, '2', null, default);
-
 -- 좋아요 테이블
 create table attraction (
     users_no varchar2(30) not null,
@@ -573,15 +569,23 @@ insert into menu
 insert into menu
     values (('menu' || lpad(seq_menu_no.nextval,3,0)), 'restaurant043', '가츠동', '돈까스 덮밥', '8500');
     
+
+insert into menu
+    values (('menu' || lpad(seq_menu_no.nextval,3,0)), 'restaurant047', '런치', '1부 12:00 - 13:30 2부 14:00 - 15:30', '70000');
+insert into menu
+    values (('menu' || lpad(seq_menu_no.nextval,3,0)), 'restaurant047', '디너', '18:00 - 21:00', '150000');
+
+    
+
 -- 메뉴 사진 테이블에 샘플 데이터 추가 - 우진
 insert into menu_picture
-    values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu041', '사케동.jpeg');
+    values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu086', '사케동.jpeg');
 insert into menu_picture
-    values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu042', '데미그라스 돈까스.jpeg');
+    values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu087', '데미그라스 돈까스.jpeg');
 insert into menu_picture
-    values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu043', '오야꼬동.jpeg');
+    values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu088', '오야꼬동.jpeg');
 insert into menu_picture
-    values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu044', '가츠동.jpeg');
+    values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu089', '가츠동.jpeg');
 insert into menu_picture
     values (('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), 'menu044', '긴자료코메뉴판.jpeg');
 
@@ -729,6 +733,86 @@ from
     users u left join notification n
         on u.id = n.users_id
 where
+    r.no = 'restaurant043';
+
+-- 식당에 따른 별점 개수
+select
+    count(re.star_grade)
+from
+    restaurant r join review re
+        on r.no = re.rest_no
+where
+    r.no = 'restaurant043';
+    
+    
+select
+    round(
+        (select sum(re.star_grade)
+         from restaurant r
+              join review re on r.no = re.rest_no
+         where r.no = 'restaurant043') /
+        (select count(re.star_grade)
+         from restaurant r
+              join review re on r.no = re.rest_no
+         where r.no = 'restaurant043'),
+         1
+    ) as average_rating
+from dual;
+
+select * from review;
+
+select
+    round(avg(re.star_grade),1)
+from
+    restaurant r join review re
+        on r.no = re.rest_no
+where
+    r.no = 'restaurant043';
+    
+    
+    
+    select
+    where
+        date = 12  || r.count < 6
+    
+    
+    insert into valeus()
+    
+   
+        
+select * from reservation;
+        
+select
+            u.no,
+            u.id,
+            u.name,
+            u.nickname,
+            u.email,
+            u.phone,
+            u.category,
+            re.no review_no,
+            re.rest_no,
+            re.users_no,
+            re.content review_content,
+            re.star_grade,
+            re.reg_date,
+            r.no restaurant_no,
+            r.name restaurant_name,
+            r.address restaurant_address,
+            r.phone restaurant_phone,
+            r.category restaurant_category,
+            r.approval
+        from
+            users u join review re
+                on u.no = re.users_no
+            join restaurant r
+                on re.rest_no = r.no
+        where
+            u.no = 'user049'
+        order by
+            re.reg_date desc;
+            
+
     role = 'M';
     
 -- 재준 reservation 셀렉트문 실험
@@ -739,8 +823,7 @@ select
 from
     reservation
 where
-    reserv_date = '2024/01/07 09:42:29'
-    and reserv_time = '2024/01/07 09:42:29';
+    rest_no = 'restaurant043' and reserv_date = '2024/01/07 09:42:29' and reserv_time = '2024/01/07 09:42:29' and count < 6;
 
 select
     rest_no
@@ -810,16 +893,19 @@ alter table reservation drop column reserv_time;
 alter table reservation add reserv_time varchar2(10);
 
 select * from reservation;
-    
-insert into
-        reservation
-    values
-        (
-            ('reservation' || lpad(seq_reservation_no.nextval,3,0)), 'restaurant043', 'user065', '호날두' ,sysdate, sysdate, 2,
-            'gg', default
-        );
-select * from cancel_reservation;
+
+select 
+    *
+from
+    restaurant r join reservation re
+        on r.no = re.rest_no
+where
+    r.users_no = 'users007';
+
+
+select * from restaurant;
 select * from reservation;
+<<<<<<< HEAD
 <<<<<<< HEAD
 select * from users where role = 'M';
 select * from notification;
@@ -852,7 +938,65 @@ order by
 
 select * from restaurant;
 =======
+=======
+
+-- 사용자가 선호하는 카테고리에 맞게 정렬
+WITH UserCategories AS (
+    SELECT TRIM(REGEXP_SUBSTR(category, '[^,]+', 1, LEVEL)) AS category
+    FROM users
+    WHERE no = 'user0083'
+    CONNECT BY LEVEL <= REGEXP_COUNT(category, ',') + 1
+)
+, RankedPictures AS (
+    SELECT
+        r.no AS restaurant_no,
+        r.name,
+        r.address,
+        r.category,
+        p.renamed_filename,
+        ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
+    FROM
+        restaurant r
+    LEFT JOIN menu m ON r.no = m.rest_no
+    LEFT JOIN menu_picture p ON m.no = p.menu_no
+)
+SELECT
+    restaurant_no AS no,
+    name,
+    address,
+    category, 
+    renamed_filename
+FROM
+    RankedPictures
+WHERE
+    rn = 1
+    AND address LIKE '%역삼%'
+ORDER BY
+    CASE
+        WHEN category IN (SELECT category FROM UserCategories) THEN 0
+        ELSE 1
+    END,
+    category,
+    no DESC,
+    renamed_filename;
+
+>>>>>>> 2bdb5d7e36dbb620eb4b66daa0e8fefa9fcb6dd4
 select * from users;
+select * from reservation;
+select * from menu_picture;
+select * from reservation where rest_no = 'restaurant043';
+select * from restaurant;
+
+
+
+
+<where>
+            rn = 1
+            <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
+                and
+                ${searchType} like '%' || #{searchKeyword} || '%'
+            </if>
+        </where>
 
 SELECT
     rest_no,
@@ -885,4 +1029,8 @@ from
         on m.no = p.menu_no
 where
     m.no = 'menu085';
+<<<<<<< HEAD
 >>>>>>> f9e2fe9d8fdf77e19028ae5fa25ba8ec8278f3b3
+=======
+
+>>>>>>> 2bdb5d7e36dbb620eb4b66daa0e8fefa9fcb6dd4
