@@ -26,15 +26,39 @@
         insert into
         menu
         values (
-        ('menu' || lpad(seq_menu_no.nextval,3,0)), #{restNo}, #{name}, #{content}, #{price}
+            ('menu' || lpad(seq_menu_no.nextval,3,0)), #{restNo}, #{name}, #{content}, #{price}
         )
         <selectKey order="AFTER" resultType="string" keyProperty="no">
             select
-            ('menu' || lpad(seq_menu_no.currval,3,0))
+                ('menu' || lpad(seq_menu_no.currval,3,0))
             from
-            dual
+                dual
         </selectKey>
     </insert>
+    <!-- 메뉴 사진 추가 - 재준 -->
+    <insert id="insertMenuPicture">
+        insert into menu_picture values (
+            ('menu_pic' || lpad(seq_menu_picture_no.nextval,3,0)), #{menuNo}, #{renamedFilename}
+        )
+        <selectKey order="AFTER" resultType="string" keyProperty="no">
+            select
+                ('menu_pic' || lpad(seq_menu_picture_no.currval,3,0))
+            from
+                dual
+        </selectKey>
+    </insert>
+    <resultMap id="menuVoMap" type="menuVo">
+        <id column="no" property="no"/>
+        <result column="rest_no" property="restNo"/>
+        <result column="name" property="name"/>
+        <result column="content" property="content"/>
+        <result column="price" property="price"/>
+        <collection property="menuPictures" ofType="menuPicture">
+            <id column="no" property="no"/>
+            <result column="menu_no" property="menuNo"/>
+            <result column="renamed_filename" property="renamedFilename"/>
+        </collection>
+    </resultMap>
 
     <!-- 메뉴 수정 - 재준 -->
     <update id="updateMenu">
@@ -44,6 +68,14 @@
             name = #{name}
           , content = #{content}
           , price = #{price}
+        where
+            no = #{no}
+    </update>
+    <update id="updateMenuPicture">
+        update
+            menu_picture
+        set
+            renamed_filename = #{renamedFilename}
         where
             no = #{no}
     </update>
@@ -85,35 +117,27 @@
 
     <!-- 페이지 별 게시물 조회 - 정호 -->
     <select id="findAllPage" resultMap="restaurantVoMap">
-        <!-- WITH 절을 이용한 UserCategories 서브쿼리 -->
-        <if test="no1 != null">
-        WITH UserCategories AS (
-            SELECT TRIM(REGEXP_SUBSTR(category, '[^,]+', 1, LEVEL)) AS category
-            FROM users
-            WHERE no = #{no1}
-            CONNECT BY LEVEL &lt;= REGEXP_COUNT(category, ',') + 1
-        ),
-        RankedPictures AS (
+        WITH RankedPictures AS (
         SELECT
-            r.no AS restaurant_no,
-            r.name,
-            r.address,
-            r.category,
-            p.renamed_filename,
-            ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
+        r.no AS restaurant_no,
+        r.name AS name,
+        r.address AS address,
+        r.category AS category,
+        p.renamed_filename,
+        ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
         FROM
-            restaurant r
-            LEFT JOIN menu m ON r.no = m.rest_no
-            LEFT JOIN menu_picture p ON m.no = p.menu_no
-            )
+        restaurant r
+        left join menu m on r.no = m.rest_no
+        left join menu_picture p on m.no = p.menu_no
+        )
         SELECT
-            restaurant_no AS no,
-            name,
-            address,
-            category,
-            renamed_filename
+        restaurant_no AS no,
+        name,
+        address,
+        category,
+        renamed_filename
         FROM
-            RankedPictures
+        RankedPictures
         <where>
             rn = 1
             <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
@@ -122,46 +146,25 @@
             </if>
         </where>
         ORDER BY
-            CASE
-            WHEN category IN (SELECT category FROM UserCategories) THEN 0
-            ELSE 1
-            END,
-        category,
-        no DESC,
-        renamed_filename
-        </if>
-        <if test="no1 == null">
-            WITH RankedPictures AS (
-            SELECT
-            r.no AS restaurant_no,
-            r.name AS name,
-            r.address AS address,
-            r.category AS category,
-            p.renamed_filename,
-            ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
-            FROM
-            restaurant r
-            left join menu m on r.no = m.rest_no
-            left join menu_picture p on m.no = p.menu_no
-            )
-            SELECT
-            restaurant_no AS no,
-            name,
-            address,
-            category,
-            renamed_filename
-            FROM
-            RankedPictures
-            <where>
-                rn = 1
-                <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
-                    and
-                    ${searchType} like '%' || #{searchKeyword} || '%'
-                </if>
-            </where>
-            ORDER BY
-            no DESC, renamed_filename
-        </if>
+        no DESC, renamed_filename
+        <!--        select distinct-->
+        <!--            r.no,-->
+        <!--            r.name,-->
+        <!--            r.address,-->
+        <!--            r.category,-->
+        <!--            p.renamed_filename-->
+        <!--        from-->
+        <!--            restaurant r left join menu m-->
+        <!--                on r.no = m.rest_no-->
+        <!--                    left join menu_picture p-->
+        <!--                           on m.no = p.menu_no-->
+        <!--        <where>-->
+        <!--            <if test="searchKeyword != null and searchKeyword != ''">-->
+        <!--                    category like '%' || #{searchKeyword} || '%'-->
+        <!--            </if>-->
+        <!--        </where>-->
+        <!--        order by-->
+        <!--            no desc-->
     </select>
 
     <resultMap id="restaurantVoMap" type="restaurantVo">
@@ -174,6 +177,7 @@
             <result column="renamed_filename" property="renamedFilename"/>
         </collection>
     </resultMap>
+
     <select id="getTotalCount1" resultType="_int">
         select
             count(*)
@@ -182,5 +186,21 @@
                                    on r.no = m.rest_no
                          left join menu_picture p
                                    on m.no = p.menu_no
+    </select>
+
+    <select id="findForUpdate" resultMap="menuVoMap">
+        select
+            m.no menu_no
+            , m.rest_no
+            , m.name
+            , m.content
+            , m.price
+            , p.no picture_no
+            , p.renamed_filename
+        from
+            menu m join menu_picture p
+                on m.no = p.menu_no
+        where
+            m.no = #{no}
     </select>
 </mapper>

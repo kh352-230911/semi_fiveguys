@@ -218,16 +218,7 @@
                                                   <td class="px-6 py-4">${review.content}</td>
                                                   <td class="px-6 py-4">${review.regDate}</td>
                                                   <td class="px-6 py-4 text-right">
-                                                      <button type="button"
-                                                              onclick="confirm('삭제 하시겠습니까?') && document.querySelector('#reviewDeleteFrm').submit()"
-                                                              class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                                          리뷰 삭제
-                                                      </button>
-                                                      <form id="reviewDeleteFrm"
-                                                            action="${pageContext.request.contextPath}/review/reviewDelete"
-                                                            method="post">
-                                                          <input type="hidden" name="reviewNo" id="reviewNo" value="${review.no}">
-                                                      </form>
+                                                      <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">리뷰 삭제</a>
                                                   </td>
                                               </tr>
                                           </c:forEach>

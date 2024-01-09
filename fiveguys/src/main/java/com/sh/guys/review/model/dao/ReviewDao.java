@@ -9,8 +9,4 @@ public class ReviewDao {
     public List<Review> findAll(SqlSession session) {
         return session.selectList("reivew.findAll");
     }
-
-    public int reviewDelete(SqlSession session, String reviewNo) {
-        return session.delete("review.reviewDelete", reviewNo);
-    }
 }

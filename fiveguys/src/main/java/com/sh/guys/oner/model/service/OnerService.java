@@ -1,7 +1,6 @@
 package com.sh.guys.oner.model.service;
 
 import com.sh.guys.oner.model.dao.OnerDao;
-import com.sh.guys.oner.model.vo.OwnerReservationVo;
 import com.sh.guys.restaurant.model.entity.Restaurant;
 import org.apache.ibatis.session.SqlSession;
 
@@ -17,12 +16,5 @@ public class OnerService {
         List<Restaurant> restaurants = onerDao.findMyRestaurant(session, userNo);
         session.close();
         return restaurants;
-    }
-
-    public List<OwnerReservationVo> findOwnerRestaurant(String no) {
-        SqlSession session =getSqlSession();
-        List<OwnerReservationVo> ownerReservationVo = onerDao.findOwnerRestaurant(session, no);
-        session.close();
-        return ownerReservationVo;
     }
 }

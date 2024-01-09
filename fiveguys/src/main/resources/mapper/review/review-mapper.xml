@@ -3,11 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
-    <delete id="reviewDelete">
-        delete
-        from
-            review
-        where
-            no = #{no}
-    </delete>
+<!--    <select id="findaAll" resultType="review" >-->
+<!--        -->
+<!--    </select>-->
+  
 </mapper>
