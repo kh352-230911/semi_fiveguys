@@ -7,14 +7,17 @@ public class ReviewComment {
     private String usersNo;
     private String reviewNo;
     private String content;
-    private int commentLevel;
-    private String parentCommentNo;
+
+    private Integer commentLevel;
+    private Long parentCommentNo;
+
     private LocalDateTime regDate;
 
     public ReviewComment() {
     }
 
-    public ReviewComment(String no, String usersNo, String reviewNo, String content, int commentLevel, String parentCommentNo, LocalDateTime regDate) {
+
+    public ReviewComment(String no, String usersNo, String reviewNo, String content, Integer commentLevel, Long parentCommentNo, LocalDateTime regDate) {
         this.no = no;
         this.usersNo = usersNo;
         this.reviewNo = reviewNo;
@@ -56,19 +59,21 @@ public class ReviewComment {
         this.content = content;
     }
 
-    public int getCommentLevel() {
+
+    public Integer getCommentLevel() {
         return commentLevel;
     }
 
-    public void setCommentLevel(int commentLevel) {
+    public void setCommentLevel(Integer commentLevel) {
         this.commentLevel = commentLevel;
     }
 
-    public String getParentCommentNo() {
+    public Long getParentCommentNo() {
         return parentCommentNo;
     }
 
-    public void setParentCommentNo(String parentCommentNo) {
+    public void setParentCommentNo(Long parentCommentNo) {
+
         this.parentCommentNo = parentCommentNo;
     }
 
@@ -88,8 +93,10 @@ public class ReviewComment {
                 ", reviewNo='" + reviewNo + '\'' +
                 ", content='" + content + '\'' +
                 ", commentLevel=" + commentLevel +
-                ", parentCommentNo='" + parentCommentNo + '\'' +
+                ", parentCommentNo=" + parentCommentNo +
                 ", regDate=" + regDate +
                 '}';
     }
 }
+
+
