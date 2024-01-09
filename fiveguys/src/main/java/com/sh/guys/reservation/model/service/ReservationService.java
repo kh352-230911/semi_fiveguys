@@ -41,6 +41,13 @@ public class ReservationService {
         return result;
     }
 
+    public int countReservation(Reservation reservation) {
+        SqlSession session = getSqlSession();
+        int result = reservationDao.countReservation(session, reservation);
+        session.close();
+        return result;
+    }
+
     public int cancelReservation(String reservNo) {
         SqlSession session = getSqlSession();
         int result = 0;

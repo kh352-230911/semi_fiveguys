@@ -26,13 +26,20 @@ public class MenuDao {
     }
 
     // 메뉴 추가 - 재준
-    public int insertMenu(SqlSession session, Menu menu) {
-        return session.insert("menu.insertMenu", menu);
+    public int insertMenu(SqlSession session, MenuVo menuVo) {
+        return session.insert("menu.insertMenu", menuVo);
+    }
+    // 메뉴 사진 추가 - 재준
+    public int insertMenuPicture(SqlSession session, MenuPicture menuPicture) {
+        return session.insert("menu.insertMenuPicture", menuPicture);
     }
 
     // 메뉴 수정 - 재준
     public int updateMenu(SqlSession session, Menu menu) {
         return session.update("menu.updateMenu", menu);
+    }
+    public int updateMenuPicture(SqlSession session, MenuPicture menuPicture) {
+        return session.update("menu.updateMenuPicture", menuPicture);
     }
 
     // 메뉴 삭제 - 재준
@@ -61,5 +68,22 @@ public class MenuDao {
 
     public int getTotalCount1(SqlSession session) {
         return session.selectOne("menu.getTotalCount");
+    }
+
+    // github에서 가져옴
+    public List<MenuVo> findUserPage(SqlSession session, Map<String, Object> param1) {
+        int page = (int) param1.get("page");
+        int limit = (int) param1.get("limit");
+        int offset = (page - 1) * limit;
+        RowBounds rowBounds = new RowBounds(offset, limit);
+
+        String no1 = (String) param1.get("no1");
+        param1.put("no1", no1);
+        return session.selectList("menu.findUserPage", param1, rowBounds);
+    }
+    // end
+
+    public MenuVo findForUpdate(SqlSession session, MenuVo menuVo) {
+        return session.selectOne("menu.findForUpdate", menuVo);
     }
 }

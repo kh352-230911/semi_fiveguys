@@ -64,6 +64,29 @@
             </th>
             <th scope="col" class="px-6 py-3">
                 예약 일자
+
+<%--                식당 번호--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                예약 번호--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                회원 아이디--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                회원 이름--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                예약 날짜--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                예약 시간--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                요청사항--%>
+<%--            </th>--%>
+<%--            <th scope="col" class="px-6 py-3">--%>
+<%--                예약등록날짜--%>
             </th>
         </tr>
         </thead>
@@ -94,8 +117,43 @@
                     </td>
                 </tr>
             </c:forEach>
+
+<%--        <c:forEach items="${ownerReservationVo}" var="ownerReservationVo">--%>
+<%--        <c:forEach items="${ownerReservationVo.reservations}" var="reservations">--%>
+<%--        <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">--%>
+<%--            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">--%>
+<%--                    ${reservations.no}--%>
+<%--            </th>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${ownerReservationVo.no}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.usersNo}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.reservName}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.reservDate}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.reservTime}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.request}--%>
+<%--            </td>--%>
+<%--            <td class="px-6 py-4">--%>
+<%--                    ${reservations.regDate}--%>
+<%--                <fmt:parseDate value="${reservations.regDate}" pattern="yyyy-MM-dd" var="regDate"--%>
+<%--                               scope="page"/>--%>
+<%--                <fmt:formatDate value="${regDate}" pattern="yyyy/MM/dd HH:mm" var="regDate"/>--%>
+<%--            </td>--%>
+<%--            </c:forEach>--%>
+<%--            </c:forEach>--%>
+<%--        </tr>--%>
         </tbody>
     </table>
 </div>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
     

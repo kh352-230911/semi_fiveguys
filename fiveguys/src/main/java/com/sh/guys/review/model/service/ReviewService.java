@@ -18,4 +18,21 @@ public class ReviewService {
         session.close();
         return reviews;
     }
+
+    // github
+    public int reviewDelete(String reviewNo) {
+        SqlSession session = getSqlSession();
+        int result = 0;
+        try{
+            result = reviewDao.reviewDelete(session, reviewNo);
+            session.commit();
+        } catch (Exception e) {
+            session.rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+    // end
 }

@@ -67,4 +67,8 @@ public class UserDao {
     public List<UserReviewVo> findMyReview(SqlSession session, String no) {
         return session.selectList("user.findMyReview", no);
     }
+
+    public User findByUsersNo(SqlSession session, String usersNo) {
+        return session.selectOne("user.findByUsersNo", usersNo);
+    }
 }

@@ -19,7 +19,7 @@ import java.io.IOException;
  * - 검사할 url : /admin/*
  * - 인증확인 및 로그인된 사용자의 권한 검사 (Role.M)
  */
-@WebFilter("/admin/*")
+@WebFilter("")
 public class AuthorizationFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {

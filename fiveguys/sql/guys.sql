@@ -108,8 +108,8 @@ create table menu_picture (
 );
 create sequence seq_menu_picture_no;
 
+select * from menu;
 select * from menu_picture;
-
 
 -- 식당-편의시설 브릿지 테이블
 create table restaurant_convenience (
@@ -147,7 +147,11 @@ create table reservations (
 );
 create sequence seq_reservation_no;
 
-select * from reservations;
+select * from reservation;
+
+-- 재준 예약 테이블 샘플 데이터 추가
+insert into reservation
+    values (('reservation' || lpad(seq_reservation_no.nextval,3,0)),'restaurant016', 'users003', '이재준1', sysdate, sysdate, '2', null, default);
 
 -- 좋아요 테이블
 create table attraction (
@@ -727,15 +731,96 @@ from
 where
     role = 'M';
     
-    insert into
+-- 재준 reservation 셀렉트문 실험
+select * from reservation;
+
+select
+    *
+from
+    reservation
+where
+    reserv_date = '2024/01/07 09:42:29'
+    and reserv_time = '2024/01/07 09:42:29';
+
+select
+    rest_no
+    , reserv_date
+    , reserv_time
+from
+    (
+    select
+        *
+    from (
+        select
+            *
+        from
             reservation
-        values
-            (
-                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), 'restaurant043', 'user065', '호날두' ,sysdate, sysdate, 2,
-                'gg', default
-            );
+        where
+            rest_no = 'restaurant043'
+    )
+    where
+        reserv_date = '2024-01-24'
+    )
+where
+    reserv_time = '15:00';
+    
+select
+    rest_no
+    , reserv_date
+    , reserv_time
+    , reserv_count
+    , (select count(*) from(select * from reservation where rest_no = 'restaurant043') where reserv_date = '2024-01-24' group by reserv_time) reserve_count
+from
+    (
+    select
+        *
+    from (
+        select
+            *
+        from
+            reservation
+        where
+            rest_no = 'restaurant043'
+    )
+    where
+        reserv_date = '2024-01-24'
+    );
+where
+    rest_no = 'restaurant043'
+    and reserv_date = '2024-01-24';
+    
+    
+select * from reservation;
+    
+select
+    *
+from
+    reservation
+where
+    rest_no = 'restaurant043' and reserv_date = '2024-01-24' and reserv_time = '15:00' and count < 5 ;
+
+select
+    *
+from
+    reservation
+where
+    rest_no = 'restaurant043' and users_no = 'user065' and reserv_date = '2024/01/07 09:42:29' and reserv_time = '2024/01/07 09:42:29' and count < 5 ;
+
+alter table reservation drop column reserv_time;
+alter table reservation add reserv_time varchar2(10);
+
+select * from reservation;
+    
+insert into
+        reservation
+    values
+        (
+            ('reservation' || lpad(seq_reservation_no.nextval,3,0)), 'restaurant043', 'user065', '호날두' ,sysdate, sysdate, 2,
+            'gg', default
+        );
 select * from cancel_reservation;
 select * from reservation;
+<<<<<<< HEAD
 select * from users where role = 'M';
 select * from notification;
 select * from restaurant;
@@ -766,3 +851,38 @@ order by
     r.reg_date desc;
 
 select * from restaurant;
+=======
+select * from users;
+
+SELECT
+    rest_no,
+    reserv_date,
+    reserv_time,
+    reserve_count
+FROM (
+    SELECT
+        res.rest_no,
+        res.reserv_date,
+        res.reserv_time,
+        (
+            SELECT COUNT(*)
+            FROM reservation subres
+            WHERE subres.rest_no = res.rest_no
+                AND subres.reserv_date = res.reserv_date
+            GROUP BY subres.reserv_time
+        ) AS reserve_count
+    FROM reservation res
+    WHERE res.rest_no = 'restaurant043'
+        AND res.reserv_date = '2024-01-24'
+) AS subquery
+WHERE reserve_count > 1;
+
+select
+    m.*
+    , p.*
+from
+    menu m join menu_picture p
+        on m.no = p.menu_no
+where
+    m.no = 'menu085';
+>>>>>>> f9e2fe9d8fdf77e19028ae5fa25ba8ec8278f3b3
