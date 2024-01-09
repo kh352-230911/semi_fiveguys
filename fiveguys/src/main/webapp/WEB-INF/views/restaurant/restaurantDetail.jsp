@@ -18,7 +18,7 @@
 
             <div class="p-5">
                 <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">${restaurantVo.name}</h5><br>
-                <c:if test="${loginUser.role == Role.O or loginUser.role == Role.M}">
+                <c:if test="${(loginUser.role == Role.O and (loginUser.no == restaurantVo.usersNo)) or loginUser.role == Role.M}">
                     <div class="sticky w-full bg-white rounded-lg shadow my-4 sm:max-w-full xl:p-0 relative">
                         <button type="button"
                                 class="bg-blue-500 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800 absolute top-6 right-1">
@@ -196,11 +196,11 @@
             <img src="${pageContext.request.contextPath}/upload/picture/${restaurantVo.menuPictures[restaurantVo.menuPictures.size() - 1].renamedFilename}"/>
             <br>
             <hr>
-            <c:forEach items="${restaurantVo.menus}" var="restaurantVo">
-                    <div class="font-bold">${restaurantVo.name}</div>
-                    <div class="inline">${restaurantVo.price}원</div>
+            <c:forEach items="${restaurantVo.menus}" var="restaurantVom">
+                    <div class="font-bold">${restaurantVom.name}</div>
+                    <div class="inline">${restaurantVom.price}원</div>
                     <div class="plusminus-wrapper inline grid grid-cols-6 gap-6 place-content-center h-10 ...">
-                        <c:if test="${loginUser.role == Role.O or loginUser.role == Role.M}">
+                        <c:if test="${(loginUser.role == Role.O and (loginUser.no == restaurantVo.usersNo)) or loginUser.role == Role.M}">
                         <button id="update-etc" name="update-etc">
                             <a href="${pageContext.request.contextPath}/menu/menuUpdate?no=${no}">
                                 <img src="${pageContext.request.contextPath}/upload/img/free-icon-add-3394636.png"/>
@@ -209,7 +209,7 @@
                         <form name="menuDeleteFrm${no}" action="${pageContext.request.contextPath}/menu/menuDelete" method="post">
                             <input type="hidden" name="no" value="${restaurantVo.no}">
                             <input type="hidden" name="restNo" value="${restaurantVo.restNo}">
-                            <button id="delete-etc" name="delete-etc" onclick="confirm('해당 메뉴를 삭제하시겠습니까?') && document.menuDeleteFrm${restaurantVo.no}.submit();">
+                            <button id="delete-etc" name="delete-etc" onclick="confirm('해당 메뉴를 삭제하시겠습니까?') && document.menuDeleteFrm${restaurantVom.no}.submit();">
                                 <img src="${pageContext.request.contextPath}/upload/img/free-icon-minus-3485999.png"/>
                             </button>
                         </form>
