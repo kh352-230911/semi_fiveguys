@@ -15,7 +15,7 @@
             reservation
         values
             (
-                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), #{restNo}, #{usersNo}, #{reservName}, #{reservPeople}, #{request}, default, default, #{reservDate}, #{reservTime}
+                ('reservation' || lpad(seq_reservation_no.nextval,3,0)), #{restNo}, #{usersNo}, #{reservName}, #{reservPeople}, #{request}, default, default, #{reservDate}, #{reservTime}, #{reservPhone}
             )
     </insert>
 
