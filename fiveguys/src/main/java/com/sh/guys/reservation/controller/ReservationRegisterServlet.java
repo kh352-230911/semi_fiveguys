@@ -58,6 +58,7 @@ public class ReservationRegisterServlet extends HttpServlet {
             reservation.setReservName(reservName);
             reservation.setReservPeople(reservPeople);
             reservation.setRequest(request);
+            reservation.setReservPhone(phone);
             System.out.println(reservation);
 
             result = reservationService.insertReservation(reservation);

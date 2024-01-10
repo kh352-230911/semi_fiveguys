@@ -97,7 +97,7 @@
                         ${reservation.reservName}
                     </th>
                     <td class="px-6 py-4">
-        <%--                ${reservation.reservPhone}--%>
+                        ${reservation.reservPhone}
                     </td>
                     <td class="px-6 py-4">
                         ${reservation.reservDate}
