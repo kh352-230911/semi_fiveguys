@@ -1359,3 +1359,5 @@ insert into review values(
     'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '저는 다시 안 갈거 같아요....',1,default
 );
 
+update restaurant set close_time = '24:00' where no = 'rest051';
+commit;
