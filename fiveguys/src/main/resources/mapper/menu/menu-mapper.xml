@@ -165,25 +165,26 @@
         <if test="no1 == null">
             WITH RankedPictures AS (
             SELECT
-            r.no AS restaurant_no,
-            r.name AS name,
-            r.address AS address,
-            r.category AS category,
-            p.renamed_filename,
-            ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
+                r.no AS restaurant_no,
+                r.name AS name,
+                r.address AS address,
+                r.category AS category,
+                p.renamed_filename,
+                ROW_NUMBER() OVER (PARTITION BY r.no ORDER BY p.renamed_filename) AS rn
             FROM
-            restaurant r
-            left join menu m on r.no = m.rest_no
-            left join menu_picture p on m.no = p.menu_no
+                restaurant r left join menu m
+                    on r.no = m.rest_no
+                        left join menu_picture p
+                            on m.no = p.menu_no
             )
             SELECT
-            restaurant_no AS no,
-            name,
-            address,
-            category,
-            renamed_filename
+                restaurant_no AS no,
+                name,
+                address,
+                category,
+                renamed_filename
             FROM
-            RankedPictures
+                RankedPictures
             <where>
                 rn = 1
                 <if test="searchKeyword != null and searchKeyword != '' and searchType != null and searchType != ''">
@@ -192,7 +193,7 @@
                 </if>
             </where>
             ORDER BY
-            no DESC, renamed_filename
+                no DESC, renamed_filename
         </if>
     </select>
 
