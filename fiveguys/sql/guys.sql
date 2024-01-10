@@ -1528,3 +1528,7 @@ select * from reservation;
 select * from review_comment;
 select * from notification;
 select  * from attraction;
+
+update restaurant set approval = 'N' where no ='rest143';
+
+commit;
