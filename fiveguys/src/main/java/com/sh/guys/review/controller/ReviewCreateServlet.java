@@ -36,7 +36,7 @@ public class ReviewCreateServlet extends HttpServlet {
         // 사용자가 입력한 리뷰 내용 가져오기
         String restNo = req.getParameter("no");
         System.out.println(restNo);
-        File repository = new File("C:\\Users\\user1\\Dropbox\\Workspaces\\semi_project\\kh352_semi_project\\fiveguys\\src\\main\\webapp\\images");
+        File repository = new File("C:\\Workspaces\\semi_fiveguys\\fiveguys\\src\\main\\webapp\\images");
         int sizeThreshold = 10 * 1024 * 1024;
 
 
@@ -95,75 +95,3 @@ public class ReviewCreateServlet extends HttpServlet {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//package com.sh.guys.review.controller;
-//
-//import com.sh.guys.review.model.entity.Review;
-//import com.sh.guys.review.model.service.ReviewService;
-//import com.sh.guys.review.vo.ReviewVo;
-//import com.sh.guys.user.model.entity.User;
-//import org.apache.commons.fileupload.FileItem;
-//import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-//import org.apache.commons.fileupload.servlet.ServletFileUpload;
-//
-//import javax.servlet.ServletException;
-//import javax.servlet.annotation.WebServlet;
-//import javax.servlet.http.HttpServlet;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import java.io.File;
-//import java.io.IOException;
-//import java.util.List;
-//
-//@WebServlet("/review/reviewCreate")
-//public class ReviewCreateServlet extends HttpServlet {
-//    private ReviewService reviewService = new ReviewService();
-//
-//    @Override
-//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        // 리뷰 작성 페이지로 이동
-//        req.getRequestDispatcher("/WEB-INF/views/review/reviewCreate.jsp").forward(req, resp);
-//    }
-//
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        // 사용자가 입력한 리뷰 내용 가져오기
-//
-//        String content = req.getParameter("content");
-//        String restNo = req.getParameter("no");
-//        String usersNo = req.getParameter("usersNo");
-//        double revScore = Double.parseDouble(req.getParameter("revScore"));
-//        System.out.println(content + "   " + usersNo + "    " + restNo +" " + revScore);
-//
-//        // Review 객체 생성 및 데이터 설정
-//        Review review = new Review();
-//        review.setContent(content);
-//        review.setRestNo(restNo);
-//        review.setUsersNo(usersNo);
-//        review.setStarGrade(revScore);
-//
-//        // Review 객체를 데이터베이스에 저장
-//        int result = reviewService.insertReview(review);
-//        req.getSession().setAttribute("msg", "리뷰 작성이 성공적으로 완료되었습니다.");
-//        // 리뷰 목록 페이지로 리다이렉트
-//        resp.sendRedirect(req.getContextPath() + "/review/reviewList?no=" + restNo);
-//    }
-//}
