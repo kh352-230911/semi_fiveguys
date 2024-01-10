@@ -81,7 +81,7 @@ function frmPlease(restno, usersno, time, date) {
    document.querySelector("#timeBtnWrapper").innerHTML = `
     <div id="reservationRegisterModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-8 rounded-lg">
-        <h2 class="text-2xl font-bold mb-4">사용자 정보 변경</h2>
+        <h2 class="text-2xl font-bold mb-4">예약</h2>
         <form name="reservationRegisterFrm" id="reservationRegisterFrm"
               action="${contextPath}/reservation/reservationRegister" method="post"
               class="space-y-4 md:space-y-6">

@@ -1041,8 +1041,6 @@ from
         on m.no = p.menu_no
 where
     m.no = 'menu085';
-<<<<<<< HEAD
-=======
 
 commit;
 
@@ -1362,6 +1360,8 @@ insert into review values(
     'review' || lpad(seq_review_no.nextval,4,0), 'rest050', 'users045', '저는 다시 안 갈거 같아요....',1,default
 );
 
+update restaurant set close_time = '24:00' where no = 'rest051';
+commit;
 
 -- 짬뽕지존
 insert into review values(
@@ -1510,9 +1510,6 @@ insert into restaurant_convenience values('rest056','con003');
 insert into restaurant_convenience values('rest056','con004');
 insert into restaurant_convenience values('rest056','con008');
 
-
-
-
 -- 무진형
 select * from users;
 select * from review_picture;
@@ -1531,4 +1528,3 @@ select * from reservation;
 select * from review_comment;
 select * from notification;
 select  * from attraction;
->>>>>>> 04f236d8b880549e45940ba413a2285fe94681e7

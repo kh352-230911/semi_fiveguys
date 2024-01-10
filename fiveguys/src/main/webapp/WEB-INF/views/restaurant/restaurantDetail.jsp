@@ -186,8 +186,9 @@
             <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">메뉴</h5><br>
             <hr>
 
-            <div class="content-center">메뉴판</div>
 <%--            <c:if test="${(loginUser.role == Role.O and (loginUser.no == restaurantVo.usersNo)) or loginUser.role == Role.M}">--%>
+
+            <div class="content-center"></div>
 <%--            <c:forEach items="${restaurantVo.menuPictures}" var="restaurantVo.menuPictures" varStatus="status">--%>
 <%--                <c:if test="${status.last}">--%>
 <%--                    <img src="${pageContext.request.contextPath}/images/${restaurantVo.menuPictures.renamedFilename}"/>--%>
@@ -218,7 +219,7 @@
                 <br>
                 <hr>
             </c:forEach>
-<%--            </c:if>--%>
+
         </div>
         <hr>
         <%-- 편의 시설 --%>

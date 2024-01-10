@@ -29,7 +29,7 @@
     </div>
 
     <!-- 댓글 폼 -->
-    <c:if test="${loginUser.role eq Role.O}">
+    <c:if test="${(loginUser.role == Role.O and (loginUser.no == reviewVo.restaurant.usersNo))}">
         <div class="xl:container p-8 ">
         <form
             name="reviewCommentCreateFrm"

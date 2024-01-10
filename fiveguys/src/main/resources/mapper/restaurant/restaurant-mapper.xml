@@ -263,7 +263,7 @@
             <id column="no" property="no"/>
             <result column="rest_no" property="restNo"/>
             <result column="reserv_name" property="reservName"/>
-<!--            <result column="reserv_phone" property="reservPhone"/>-->
+            <result column="reserv_phone" property="reservPhone"/>
             <result column="reserv_people" property="reservPeople"/>
             <result column="request" property="request"/>
             <result column="reg_date" property="regDate"/>
