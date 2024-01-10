@@ -3,7 +3,148 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="review">
-    <!-- github -->
+    <select id="findAll" resultType="reviewVo" >
+        select
+            r.*,
+            (select count(*) from review_picture where review_no = r.no)  attach_count,
+            (select count(*) from review_comment where review_no = r.no)  comment_count
+        from
+            review r
+        order by
+            no desc
+    </select>
+
+    <insert id="insertReview">
+        insert into
+            review
+        values(
+             ('review' || lpad(seq_review_no.nextval,3,0)),
+            #{restNo},
+            #{usersNo},
+            #{content},
+               1,
+               default
+              )
+        <selectKey order="AFTER" resultType="String" keyProperty="no">
+        select
+            ('review' || lpad(seq_review_no.currval,3,0))
+            from
+            dual
+        </selectKey>
+    </insert>
+
+
+    <select id="findByRestNo" resultType="review">
+        select
+            *
+        from
+            review
+        where
+          rest_no = #{restNo}
+        order by
+            reg_date desc
+    </select>
+
+
+    <select id="getTotalCount" resultType="_int">
+        select
+            count(*)
+        from
+            review
+    </select>
+
+    <select id="findCommentByReviewNo" resultType="reviewComment">
+        select
+            *
+        from
+            review_comment
+        where
+            review_no =  #{reviewNo}
+            start with
+            comment_level =1
+        connect by
+            prior no = parent_comment_no
+        order by
+            no
+    </select>
+
+
+    <select id="findByNo" resultMap="reviewVoMap">
+        select
+            r.no,
+            r.name rname,
+            v.no  review_no,
+            v.users_no,
+            v.content,
+            v.reg_date,
+            rp.no  review_pic_no,
+            rp.renamed_filename,
+            rp.review_no reviewP_no,
+            u.no user_no,
+            u.id,
+            u.nickname,
+            rc.no comment_no,
+            rc.review_no reviewC_no,
+            rc.content  comment_content,
+            rc.users_no comment_users_no,
+            rc.comment_level,
+            rc.parent_comment_no
+        from
+            restaurant r
+                join
+            review v on r.no = v.rest_no
+                left join
+            review_picture rp on v.no = rp.review_no
+                join
+            users u on v.users_no = u.no
+                left join
+            review_comment rc on v.no = rc.review_no
+        where
+            v.no = #{no}
+    </select>
+
+    <resultMap id="reviewVoMap" type="reviewVo">
+        <id column="review_no" property="no"/>
+            <result column="rest_no" property="restNo"/>
+            <result column="users_no" property="usersNo"/>
+            <result column="content" property="content"/>
+            <result column="star_grade" property="starGrade"/>
+            <result column="reg_date" property="regDate"/>
+        <collection property="reviewComments" ofType="reviewComment">
+            <id column="comment_no" property="no"/>
+            <result column="users_no" property="usersNo"/>
+            <result column="reviewC_no" property="reviewNo"/>
+            <result column="comment_content" property="content"/>
+            <result column="comment_level" property="commentLevel"/>
+            <result column="parent_comment_no" property="parentCommentNo"/>
+        </collection>
+        <collection property="reviewPictures" ofType="reviewPicture">
+            <id column="review_pic_no" property="no"/>
+            <result column="reviewP_no" property="reviewNo"/>
+            <result column="renamed_filename" property="renamedFilename"/>
+        </collection>
+        <collection property="restaurant" ofType="restaurant">
+            <id column="no" property="no"/>
+            <result column="rname" property="name"/>
+        </collection>
+        <collection property="user" ofType="user">
+            <id column="user_no" property="no"/>
+            <result column="id" property="id"/>
+            <result column="nickname" property="nickName"/>
+        </collection>
+    </resultMap>
+
+
+    <update id="updateReview">
+        update
+            review
+        set
+            content = #{content}
+        where
+            no = #{no}
+    </update>
+
+
     <delete id="reviewDelete">
         delete
         from
@@ -11,8 +152,29 @@
         where
             no = #{no}
     </delete>
-    <!-- end -->
-<!--    <select id="findaAll" resultType="review" >-->
-<!--        -->
-<!--    </select>-->
+
+    <insert id="insertReviewComment">
+        insert into review_comment
+        values (
+                   ('review_comment' || lpad(seq_review_comment_no.nextval,3,0)),
+                   #{usersNo},
+                   #{reviewNo},
+                   #{content},
+                   #{commentLevel},
+                   #{parentCommentNo},
+                   default
+               )
+    </insert>
+
+    <insert id="insertReviewPicture">
+        insert into
+            review_picture
+        values(
+                  ('review_picture' || lpad(seq_review_picture_no.nextval,3,0)),
+                  #{reviewNo},
+                  #{renamedFilename},
+                  default
+              )
+    </insert>
+
 </mapper>

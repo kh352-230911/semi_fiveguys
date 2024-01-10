@@ -3,17 +3,17 @@ package com.sh.guys.review.model.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class Review {
+public class    Review {
     private  String no;
     private  String restNo;
     private  String usersNo;
     private  String content;
-    private  long starGrade;
+    private  double starGrade;
     private LocalDateTime regDate;
 
     public Review() {}
 
-    public Review(String no, String restNo, String usersNo, String content, long starGrade, LocalDateTime regDate) {
+    public Review(String no, String restNo, String usersNo, String content, double starGrade, LocalDateTime regDate) {
         this.no = no;
         this.restNo = restNo;
         this.usersNo = usersNo;
@@ -54,11 +54,11 @@ public class Review {
         this.content = content;
     }
 
-    public long getStarGrade() {
+    public double getStarGrade() {
         return starGrade;
     }
 
-    public void setStarGrade(long starGrade) {
+    public void setStarGrade(double starGrade) {
         this.starGrade = starGrade;
     }
 

@@ -5,7 +5,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 import java.util.List;
+
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,7 +23,7 @@ public class ReviewServiceTest {
 
     @DisplayName("리뷰 전체 조회")
     @Test
-    void  test1(){
+    public void test1() {
 
         List<Review> reviews = reviewService.findAll();
 
@@ -34,4 +36,23 @@ public class ReviewServiceTest {
                     assertThat(review.getRegDate()).isNotNull();
                 }));
     }
+    @DisplayName("리뷰 조회")
+    @Test
+    public  void  test2(){
+        Review review = reviewService.findByNo("review015");
+        System.out.println(review);
+
+        assertThat(review)
+                .isNotNull()
+                .satisfies((_review) -> {
+                    // pk, 필수값 확인
+                    assertThat(_review.getNo()).isNotNull();
+                    assertThat(_review.getRestNo()).isNull();
+                    assertThat(_review.getUsersNo()).isNotNull();
+                });
+
+    }
+
+
+
 }
