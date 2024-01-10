@@ -33,12 +33,13 @@ document.querySelectorAll('.openModal').forEach((a) => {
                 <label for="category" class="block mb-2 text-sm font-medium text-gray-900 after:content-['*'] after:ml-0.5 after:text-red-500">카테고리</label>
                 <select name="category" id="category" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5">
                     <option value="">카테고리를 선택하세요.</option>
+                    <option value="야식">야식</option>
                     <option value="한식">한식</option>
+                    <option value="분식">분식</option>
                     <option value="일식">일식</option>
-                    <option value="중식">중식</option>
                     <option value="양식">양식</option>
-                    <option value="동남아식">동남아식</option>
-                    <option value="패스트푸드">패스트푸드</option>
+                    <option value="중식">중식</option>
+                    <option value="이자카야">이자카야</option>
                 </select>
             </div>
             <div>
