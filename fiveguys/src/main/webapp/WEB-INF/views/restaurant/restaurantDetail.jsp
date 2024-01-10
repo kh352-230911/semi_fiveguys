@@ -187,7 +187,6 @@
             <hr>
 
             <div class="content-center">메뉴판</div>
-            <c:if test="${(loginUser.role == Role.O and (loginUser.no == restaurantVo.usersNo)) or loginUser.role == Role.M}">
 <%--            <c:forEach items="${restaurantVo.menuPictures}" var="restaurantVo.menuPictures" varStatus="status">--%>
 <%--                <c:if test="${status.last}">--%>
 <%--                    <img src="${pageContext.request.contextPath}/images/${restaurantVo.menuPictures.renamedFilename}"/>--%>
@@ -218,7 +217,6 @@
                 <br>
                 <hr>
             </c:forEach>
-            </c:if>
         </div>
         <hr>
         <%-- 편의 시설 --%>
