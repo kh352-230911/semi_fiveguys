@@ -1041,6 +1041,8 @@ from
         on m.no = p.menu_no
 where
     m.no = 'menu085';
+<<<<<<< HEAD
+=======
 
 commit;
 
@@ -1528,3 +1530,4 @@ select * from reservation;
 select * from review_comment;
 select * from notification;
 select  * from attraction;
+>>>>>>> 04f236d8b880549e45940ba413a2285fe94681e7

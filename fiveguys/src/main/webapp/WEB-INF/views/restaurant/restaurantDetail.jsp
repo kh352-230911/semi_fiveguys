@@ -186,8 +186,8 @@
             <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">메뉴</h5><br>
             <hr>
 
-<%--            <div class="content-center">메뉴판</div>--%>
-
+            <div class="content-center">메뉴판</div>
+            <c:if test="${(loginUser.role == Role.O and (loginUser.no == restaurantVo.usersNo)) or loginUser.role == Role.M}">
 <%--            <c:forEach items="${restaurantVo.menuPictures}" var="restaurantVo.menuPictures" varStatus="status">--%>
 <%--                <c:if test="${status.last}">--%>
 <%--                    <img src="${pageContext.request.contextPath}/images/${restaurantVo.menuPictures.renamedFilename}"/>--%>
@@ -207,9 +207,9 @@
                             </a>
                         </button>
                         <form name="menuDeleteFrm${no}" action="${pageContext.request.contextPath}/menu/menuDelete" method="post">
-                            <input type="hidden" name="no" value="${restaurantVo.no}">
-                            <input type="hidden" name="restNo" value="${restaurantVo.restNo}">
-                            <button id="delete-etc" name="delete-etc" onclick="confirm('해당 메뉴를 삭제하시겠습니까?') && document.menuDeleteFrm${restaurantVom.no}.submit();">
+                            <input type="hidden" name="no" value="${restaurantVom.no}">
+                            <input type="hidden" name="restNo" value="${restaurantVom.restNo}">
+                            <button id="delete-etc" name="delete-etc" onclick="confirm('해당 메뉴를 삭제하시겠습니까?') && document.menuDeleteFrm${no}.submit();">
                                 <img src="${pageContext.request.contextPath}/upload/img/free-icon-minus-3485999.png"/>
                             </button>
                         </form>
@@ -218,7 +218,7 @@
                 <br>
                 <hr>
             </c:forEach>
-<%--            </c:if>--%>
+            </c:if>
         </div>
         <hr>
         <%-- 편의 시설 --%>
