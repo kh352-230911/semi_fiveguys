@@ -12,7 +12,7 @@
             <c:if test="${not empty reviewVo.reviewPictures}">
                 <div class="bxslider">
                     <c:forEach items="${reviewVo.reviewPictures}" var="review">
-                        <img class="h-80 w-80 max-w-full rounded-lg" src="${pageContext.request.contextPath}/images/${review.renamedFilename}" alt="">
+                        <img class="h-80 w-80 max-w-full rounded-lg" src="${pageContext.request.contextPath}/upload/review/${review.renamedFilename}" alt="">
                     </c:forEach>
                 </div>
             </c:if>
