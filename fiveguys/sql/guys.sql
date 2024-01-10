@@ -28,6 +28,7 @@ create table user (
     constraints ck_users_role check(role in ('U', 'O', 'M'))
 );
 create sequence seq_users_no;
+--drop sequence seq_users_no;
 
 select * from users;
 
@@ -59,6 +60,10 @@ create table restaurant (
     constraints ck_restaurant_reserv_possible check(reserv_possible in ('Y', 'N'))
 );
 create sequence seq_restaurant_no;
+drop sequence seq_restaurant_no;
+alter table restaurant modify RESERV_POSSIBLE char(1) default 'Y';
+alter table restaurant modify content;
+commit;
 
 -- 재준 식당 테이블에 식당 승인 컬럼 추가
 alter table restaurant add approval char(1) default 'N' not null;
@@ -94,7 +99,10 @@ create table menu (
     constraints pk_menu_no primary key(no),
     constraints fk_menu_rest_no foreign key(rest_no) references restaurant(no) on delete cascade
 );
+alter table menu modify content;
 create sequence seq_menu_no;
+drop sequence seq_menu_no;
+commit;
 
 select * from menu;
 
@@ -107,6 +115,7 @@ create table menu_picture (
     constraints fk_menu_picture_menu_no foreign key(menu_no) references menu(no) on delete cascade
 );
 create sequence seq_menu_picture_no;
+drop sequence seq_menu_picture_no;
 
 select * from menu;
 select * from menu_picture;
@@ -127,6 +136,7 @@ create table convenience (
     constraints pk_convenience_no primary key(no)
 );
 create sequence seq_convenience_no;
+drop sequence seq_convenience_no;
 
 select * from convenience;
 
@@ -146,6 +156,7 @@ create table reservations (
     constraints fk_reservation_users_no foreign key(users_no) references user(no) on delete cascade
 );
 create sequence seq_reservation_no;
+drop sequence seq_reservation_no;
 
 select * from reservation;
 
@@ -172,6 +183,7 @@ create table review (
     constraints ck_review_star_grade check(star_grade in(1, 2, 3, 4, 5))
 );
 create sequence seq_review_no;
+drop sequence seq_review_no;
 
 select * from review;
 
@@ -185,6 +197,7 @@ create table review_picture (
     constraints fk_review_review_no foreign key(review_no) references review(no) on delete cascade
 );
 create sequence seq_review_picture_no;
+drop sequence seq_review_picture_no;
 
 select * from review_picture;
 
@@ -203,6 +216,7 @@ create table review_comment (
     constraints fk_review_comment_parent_comment_no foreign key(parent_comment_no) references review_comment(no) on delete cascade
 );
 create sequence seq_review_comment_no;
+drop sequence seq_review_comment_no;
 
 select * from review_comment;
 
@@ -221,6 +235,7 @@ create table notification (
     constraints ck_notification_type check (type in ('NEW_REVIEW', 'NEW_COMMENT', 'RECOGNIZE', 'NEW_FOLLOWER', 'RESERVATION_TIME'))
 );
 create sequence seq_notification_no;
+drop sequence seq_notification_no;
 --alter table notification drop column type;
 --alter table notification add type varchar2(100);
 --alter table notification add constraints ck_notification_type check (type in ('NEW_REVIEW', 'NEW_COMMENT', 'RECOGNIZE', 'NEW_FOLLOWER', 'RESERVATION_CONFIRM'));
@@ -1027,6 +1042,8 @@ from
 where
     m.no = 'menu085';
 
+commit;
+
 -- 무진형
 select * from users;
 select * from reservation;
@@ -1342,4 +1359,3 @@ insert into review values(
     'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '저는 다시 안 갈거 같아요....',1,default
 );
 
--- 짬뽕지존
