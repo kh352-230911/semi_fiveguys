@@ -185,13 +185,16 @@
         <div class="p-5">
             <h5 class="mb-2 inline text-2xl font-bold tracking-tight text-gray-900">메뉴</h5><br>
             <hr>
+
+<%--            <c:if test="${(loginUser.role == Role.O and (loginUser.no == restaurantVo.usersNo)) or loginUser.role == Role.M}">--%>
+
             <div class="content-center"></div>
 <%--            <c:forEach items="${restaurantVo.menuPictures}" var="restaurantVo.menuPictures" varStatus="status">--%>
 <%--                <c:if test="${status.last}">--%>
 <%--                    <img src="${pageContext.request.contextPath}/images/${restaurantVo.menuPictures.renamedFilename}"/>--%>
 <%--                </c:if>--%>
 <%--            </c:forEach>--%>
-            <img src="${pageContext.request.contextPath}/upload/picture/${restaurantVo.menuPictures[restaurantVo.menuPictures.size() - 1].renamedFilename}"/>
+            <img src="${pageContext.request.contextPath}/upload/picture/${restaurantVo.menuPictures[0].renamedFilename}"/>
             <br>
             <hr>
             <c:forEach items="${restaurantVo.menus}" var="restaurantVom">
@@ -216,6 +219,7 @@
                 <br>
                 <hr>
             </c:forEach>
+
         </div>
         <hr>
         <%-- 편의 시설 --%>

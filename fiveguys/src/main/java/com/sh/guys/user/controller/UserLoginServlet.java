@@ -48,16 +48,11 @@ public class UserLoginServlet extends HttpServlet {
             // session객체는 사용자가 서버첫접속부터 세션해제시까지 유효
             session.setAttribute("loginUser", user);
             System.out.println(user);
-            String location = req.getContextPath() + "/";
-            String next = (String) req.getSession().getAttribute("next");
-            if (next != null) {
-                location = next;
-                req.getSession().removeAttribute("next");
-            }
-            resp.sendRedirect(location);
+            req.getRequestDispatcher("/user/loginSuccess").forward(req, resp);
         }
         else {
-            session.setAttribute("msg", "아이디가 존재하지 않거나, 비밀번호가 틀립니다");
+            session.setAttribute("msg",
+                    "아이디가 존재하지 않거나, 비밀번호가 틀립니다");
             resp.sendRedirect(req.getContextPath() + "/user/userLogin");
         }
     }
