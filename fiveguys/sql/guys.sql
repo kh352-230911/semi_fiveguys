@@ -187,45 +187,6 @@ drop sequence seq_review_no;
 
 select * from review;
 
-select * from restaurant;
-
-insert into review 
-    values  (('review' || lpad(seq_review_no.nextval,3,0)), 'restaurant043 ' , 'users004' , '굿입니다' , 5 , default);
-insert into review
-    values  (('review' || lpad(seq_users_no.nextval,3,0)), 'users003' , 'restaurant015' , '별로입니다' , '3' , sysdate);    
-    
-    insert into review
-    values  (('review' || lpad(seq_users_no.nextval,3,0)), 'restaurant015' , 'users003' , '아주맛나요굿굿' , '3' , sysdate);  
-commit;
---리뷰 사진 테이블
---insert into review_picture (no, review_no, renamed_filename, reg_date)
---values ('review_pic' || lpad(seq_users_no.nextval, 3, '0'), 'review1', '2af3c384-a2bc-4a1f-bb7e-77bee293ea04.jpg', sysdate);
---
---insert into review_picture (no, review_no, renamed_filename, reg_date)
---values ('review_pic' || lpad(seq_users_no.nextval, 3, '0'), 'review2', '2af3c384-a2bc-4a1f-bb7e-77bee293ea04.jpg', sysdate);
-    
-
---댓글테이블
---insert into review_comment (no, users_no, review_no, content, comment_level, parent_comment_no, reg_date)
---values ('review_com' || lpad(seq_users_no.nextval, 3, '0'), '1', 'review1', '굿입니다', 1, null, sysdate);
---
---insert into review_comment (no, users_no, review_no, content, comment_level, parent_comment_no, reg_date)
---values ('review_com' || lpad(seq_users_no.nextval, 3, '0'), '2', 'review2', '별로입니다', 2, 'null', sysdate);
-
-select
-    r.*,
-    (select count(*) from review_picture where review_no = r.no)  attach_count,
-    (select count(*) from review_comment where review_no = r.no)  comment_count
-from
-    review r
-order by
-    no desc;
-
-select * from review_picture;
-select * from review_comment;
-select * from review;
-select * from users;
-
 -- 리뷰 사진 테이블
 create table review_picture (
     no varchar2(30) not null,
@@ -403,7 +364,6 @@ insert into restaurant
     values (('restaurant' || lpad(seq_restaurant_no.nextval,3,0)), 'users010', '백소정', '서울시 강남구 역삼동', null, '921-2466', '일식', '10:00', '20:00', default, 5, default); 
 
 select * from restaurant;
-select * from users;
 
 create table menu (
     no varchar2(30),
@@ -779,86 +739,6 @@ update
 set
     content = '<a href = "admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다'
 where
-    id = 'woojin';
-    
-    
-    
-        select
-        b.*,
-        (select count(*) from attachment where board_id = b.id) attach_count,
-        (select count(*) from board_comment where board_id = b.id) comment_count
-      from
-        board b
-      order by
-        id desc;
-    
-    select * from  review;
-    
-    select * from  review_picture;
-    
-    select * from review_comment;
-    
-    
-      select
-    r.*,
-    v.no  review_no,
-    v.users_no,
-    v.content,
-    v.reg_date,
-    rp.no  review_pic_no,
-    rp.renamed_filename,
-    u.no user_no,
-    u.id,
-    u.nickname,
-     rc.no comment_no,
-     rc.users_no comment_users_no
-from
-    restaurant r
-join
-    review v on r.no = v.rest_no
-left join
-    review_picture rp on v.no = rp.review_no
-join
-    users u on v.users_no = u.no
-left join
-    review_comment rc on v.no = rc.review_no
-where
- v.no = 'review013';
- 
- update 
-    review
-   set
-    content=  '개별로'
-   where
-     no = 'review015' ;
-     
-     select * from review;
-    
-    select 
-    *
-    from
-        review
-    where
-     no ='review013';
-     
-
-  select *from review;
-   select *from restaurant;
-   
-    
-     select
-            *
-        from
-            review
-        where
-          rest_no = 'restaurant015' ;
-    
-update
-    review
-set
-    rest_no = 'restaurant023'
-where
-    no = 'review051';
     content = '<a href = "${pageContext.request.contextPath}/admin/adminApprovalList">q1w2e3</a>님이 승인요청을 하였습니다';
     
 select
@@ -903,7 +783,18 @@ from
         on r.no = re.rest_no
 where
     r.no = 'restaurant043';
-
+    
+    
+    
+    select
+    where
+        date = 12  || r.count < 6
+    
+    
+    insert into valeus()
+    
+   
+        
 select * from reservation;
         
 select
@@ -1061,7 +952,6 @@ order by
 
 select * from restaurant;
 
-
 -- 사용자가 선호하는 카테고리에 맞게 정렬
 WITH UserCategories AS (
     SELECT TRIM(REGEXP_SUBSTR(category, '[^,]+', 1, LEVEL)) AS category
@@ -1101,6 +991,7 @@ ORDER BY
     category,
     no DESC,
     renamed_filename;
+
 
 select * from users;
 select * from reservation;
@@ -1152,3 +1043,319 @@ where
     m.no = 'menu085';
 
 commit;
+
+-- 무진형
+select * from users;
+select * from reservation;
+
+-- 재준
+select * from restaurant;
+select * from menu;
+select * from menu_picture;
+
+-- 우진
+select * from review;
+select * from review_picture;
+select * from review_comment;
+
+select * from notification;
+select * from convenience;
+select * from restaurant_convenience;
+select  * from attraction;
+
+
+--delete from users;
+--delete from restaurant;
+--delete from restaurant_convenience;
+--delete from attraction;
+
+-- 뽕쪽 
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '진짜 야들야들 부드럽고 존맛탱.... 불닭 못먹는 맵찔이지만 매운거 좋아하는데 맛있게 매웠어용 ㅎㅎㅎ',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '정말 맛있네요!!!!',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '1시간 기다렸습니다. 그러나 재방문의사 200프로 제 인생 족발 등극ㅋㅋㅋ 진짜 맛있어요 겉절이도 최고',5,default
+);
+
+--송희네 족발
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '족발과 막국수 먹었어요. 음식 너무 맛있었습니다. 친구 회사 근처라 또 먹으러 갑니당',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '근처 오향 족발이 영업종료해서 갔는데 솔직히 기대 이하였어요... 김치와 냅킨, 물에서 약간 냄새가 났어요',2,default
+);
+
+-- 촌집
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '가게 앞 족발 보쌈 집인데 점심때 고등어구이 등 식사메뉴도 잘 나와서 좋습니다',4,default
+);
+
+-- 영등족발
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '명불허전 정말 맛있습니다!!',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '고기가 쫄깃하고 잡내도 없고 맛있었다 여기 쟁반국수는 존맛탱 다른 국수와 비슷하면서 차별적이고, 소수가 정말 맛있다',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '굿',4,default
+);
+
+-- 보승회관
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '살면서 가본 음식점 중 최악입니다. 들어갈때부터 자리 안내도 안하길래 서 있었더니 그냥 앉으면 되지 왜 서 있냐고 하네요',1,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '설 출장와서 순대국밥~~ 부산하곤 다르네요~~',3,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '순대국밥 한그릇이면 든든한 한끼가 됩니다.',5,default
+);
+
+-- 현대진
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '기대가 컷던 탓일까?? 아쉬운걸??',2,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '왜 손님이 많은 줄 알았어요 고기도 냄새 없구 비린내도 안나고 바로바로 끓여주고 최고입니다',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '메뉴 모두 상당히 퀄리티 높은 국밥집',4,default
+);
+
+-- 농민 백암순대
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '워낙 유명한 곳이라 언젠가는 한번 가보고 싶었는데 역시나.. 명성에 걸맞는 최고의 음식점이었어요.',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '진득한 순대국의 정석',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '요즘 순대국밥 지존',5,default
+);
+
+-- 도곡 한우소머리 국밥
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '1700개 이상의 리뷰를 써온 솔직 블로거로써 저도 근처 주민으로서 가끔 자주 가는 맛집',3,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '소머리 국밥은 양념없이 맑은 국으로 먹는게 더 맛있는거 같아요',4,default
+);
+
+-- 카츠8
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '굿',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '강남역 바로 이어져 있어 아주 좋았어요 ㅎㅎ',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '이번에 새로 나온 얼큰 명란 먹어봤는데 진짜 맛있었어요!!!!! 강추 별 5개',5,default
+);
+
+-- 소노야
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '추운날 따뜻한 김치 냄비우동을 먹으니 넘 맛있네요',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '미소라멘, 오뎅꼬치우동 모두 맛있어요. 특히 국물이 깔끔하고 맛있습니다.',4,default
+);
+
+-- 백소정
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '평일 저녁에 마제소바 혼밥했어요 혼밥하는 사람들 많았고 10분정도 웨이팅 했네요 면이 탱글탱글 굿굿',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '늘 지나가다 보이는 백소정 맛있습니다',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '점심시간에 사람이 너무 많아요ㅠㅠ 하지만 맛있었어요',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '밥에 마제소바 비벼먹으면 밥도둑',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '정말 맛있습니다!!!!',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '내 삶의 유일한 낙',5,default
+);
+
+-- 규베규카츠
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '닭과 고기가 맛있고 면발도 좋았어요.',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '규카츠가 입에서 살살 녹습니다',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '너무 맛있어요 ㅠㅠㅠㅠ',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '재방문 의사 100프로 강추입니둥',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '개꿀맛 존맛탱',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '닭과 고기가 맛있고 면발도 좋았어요.',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '규카츠가 입에서 살살 녹아서 완전 맛있어요 불닭 크림 볶음 우동은 매콤함과 쫄깃함이 규카츠와 같이 먹으니 완맛이예요',5,default
+);
+
+-- 갓덴스시
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '회가 입에서 살살 녹아서 완전 맛있어요',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '유자고추 맛있고, 계란마요는 늘 맛있습니다.',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '사케하나 들고 방문했어요 콜키지 3만원 겨울한정으로 나온 방어 역시 맛있네요 키조개 암염구이는 너무 질기고 비리고 정말 돈 아깝네요 다신 안 먹을거 같아요.',1,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '여기는 민물장어가 대박입니다!!',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '개 존맛탱탱구리',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '또 왔다 또 왔다 내가 또 왔다.',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '정말 맛있습니다!!!!',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '회전 초밥집 치고 나쁘지 않았습니다',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '정말 맛있게 잘 먹고 가요',5,default
+);
+
+-- 은행골
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '정말 맛있습니다!!!!',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '은행골은 워낙 맛집이라 맛은 말해뭐해인데 강남역점 서비스도 좋고 너무 친절했습니다 ㅠㅠ',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '제 나이대면 초밥 맛집의 대표중 하나가 은행골이라거 다들 아실텐데요~!',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '믿고 먹는 은행골',5,default
+);
+
+-- 상무초밥
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '이상무!!',3,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '점심특선 진짜 맛있습니다!!',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '혼밥하려고 오래간만에 방문했는데 예전 보다 맛이 더 좋아졌네요',4,default
+);
+
+-- 스시마이우
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '초밥이 땡길 때 늘 가장 먼저 선택하는 단골 초밥집입니다...',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '신선한 회초밥의 맛보다는 각종 소슷로 과하지 않고 맛있게 즐길 수 있는 초밥!!!',5,default
+);
+
+-- 고에몬
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '7년째 미각의 환기가 필요할때마다 가눈 제 마음속 강남 파스타 맛집 1위',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '맛이있어용',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '역시 수플레 오믈렛 맛나여~~ 갠적으로 스파게티보다는 리조또가 더 맛있는듯??',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', 'as usual very enjoyable meal, quality always very good and service is fast, nice decorate restaurant, clean and courteous staff..not much you can ask from this kind of restaurant, never disappointed and indeed will keep coming back. highly recommend omulet risotto :)',4,default
+);
+
+-- 82올리언즈
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '82올리언즈 포에버',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '미국 레트로 감성 입니다',3,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '난 누구 맛집은 어디냐 찾아보자꾸나',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '정말 미국에 온 것 같은 분위기와 맛이었어요(미국 가 본적 없음ㅋㅋ)',5,default
+);
+
+-- 나폴리회관
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '조명이 전구라 아늑한 느낌이고, 저는 4인 방문했는데 단체손님도 많은 것 같았어요',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '결혼기념일을 맞아 아이와 함께 오프런으로 입장',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '마르게리따 피자 정말 맛져요!!!',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '여긴 진짜 파스타도 맛있지만 피자가 대박 맛있어요!!',5,default
+);
+
+-- 마녀 주방
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '대학생때부터 종종 방문하던 강남역 마녀식당!!',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '인테리어도 넘나 멋지고 음식들 다 맛있고 양도 짱많아',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '할로윈 컨셉 확실',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '가성비 굿',5,default
+);
+
+-- 중리
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', 'KH정보교육원에서 왔다 그러면 1000원 할인해 줍니다',2,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '가성비 좋지만 간이 쌥니다',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '헉 꿀맛',3,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '점심 급하게 때울때 먹는 곳 맛은 기대하지 않습니다',2,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '양 많고 맛있어요',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '오늘의 메뉴 새우 볶음밥 제 최애 입니다.',5,default
+);
+
+-- 보배반점
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '밤 9시쯤 갔는데도 사람이 엄청 많았어요 가볍게 한 잔 하면서 술자리하기 좋은 분위기 입니다.',4,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '일하다가 점심 먹으러 왔는데도 깨끗하고 친절하네요',5,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '보배반점 점보짬뽕 도장깨기!!!',3,default
+);
+insert into review values(
+    'review' || lpad(seq_review_no.nextval,3,0), ' ', ' ', '저는 다시 안 갈거 같아요....',1,default
+);
+
