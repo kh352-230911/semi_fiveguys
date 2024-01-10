@@ -73,6 +73,7 @@
         select
             r.no,
             r.name rname,
+            r.users_no restUsresNo,
             v.no  review_no,
             v.users_no,
             v.content,
@@ -126,6 +127,7 @@
         <collection property="restaurant" ofType="restaurant">
             <id column="no" property="no"/>
             <result column="rname" property="name"/>
+            <result column="restUsresNo" property="usersNo"/>
         </collection>
         <collection property="user" ofType="user">
             <id column="user_no" property="no"/>
