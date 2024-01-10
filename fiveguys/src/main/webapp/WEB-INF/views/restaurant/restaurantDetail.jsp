@@ -187,6 +187,7 @@
             <hr>
 
             <div class="content-center">메뉴판</div>
+
 <%--            <c:forEach items="${restaurantVo.menuPictures}" var="restaurantVo.menuPictures" varStatus="status">--%>
 <%--                <c:if test="${status.last}">--%>
 <%--                    <img src="${pageContext.request.contextPath}/images/${restaurantVo.menuPictures.renamedFilename}"/>--%>

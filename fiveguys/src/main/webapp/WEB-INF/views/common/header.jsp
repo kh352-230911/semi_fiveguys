@@ -8,10 +8,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Five Guys</title>
+<%--    <link rel="preconnect" href="https://fonts.googleapis.com">--%>
+<%--    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>--%>
+<%--    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Rubik+Doodle+Shadow&display=swap"--%>
+<%--          rel="stylesheet">--%>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Rubik+Doodle+Shadow&display=swap"
-          rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Lemon&family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
           integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -204,7 +207,7 @@
                                     </li>
                                     </c:if>
                             </div>
-                            <c:if test="${loginUser.role == Role.O or loginUser.role == Role.M}">
+                            <c:if test="${loginUser.role == Role.O}">
                                 <li>
                                     <a href="${pageContext.request.contextPath}/oner/onerReservationList"
                                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
