@@ -194,7 +194,7 @@
 <%--                    <img src="${pageContext.request.contextPath}/images/${restaurantVo.menuPictures.renamedFilename}"/>--%>
 <%--                </c:if>--%>
 <%--            </c:forEach>--%>
-            <img src="${pageContext.request.contextPath}/upload/picture/${restaurantVo.menuPictures[restaurantVo.menuPictures.size() - 1].renamedFilename}"/>
+            <img src="${pageContext.request.contextPath}/upload/picture/${restaurantVo.menuPictures[0].renamedFilename}"/>
             <br>
             <hr>
             <c:forEach items="${restaurantVo.menus}" var="restaurantVom">
