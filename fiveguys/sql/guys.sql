@@ -937,8 +937,6 @@ order by
     r.reg_date desc;
 
 select * from restaurant;
-=======
-=======
 
 -- 사용자가 선호하는 카테고리에 맞게 정렬
 WITH UserCategories AS (
@@ -1029,8 +1027,3 @@ from
         on m.no = p.menu_no
 where
     m.no = 'menu085';
-<<<<<<< HEAD
->>>>>>> f9e2fe9d8fdf77e19028ae5fa25ba8ec8278f3b3
-=======
-
->>>>>>> 2bdb5d7e36dbb620eb4b66daa0e8fefa9fcb6dd4

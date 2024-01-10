@@ -25,6 +25,7 @@ public class ReservationRegisterServlet extends HttpServlet {
         String reservName = req.getParameter("name");
         int reservPeople = Integer.parseInt(req.getParameter("people"));
         String request = req.getParameter("request");
+        String phone = req.getParameter("phone");
         System.out.println(restNo + "     " + usersNo + "     " + reservName + "      " + reservPeople + "      " + request);
 
         String reservDate = req.getParameter("reservDate");

@@ -12,11 +12,12 @@ public class Reservation {
     private int reservPeople;
     private String request;
     private LocalDateTime regDate;
+    private String reservPhone;
 
     public Reservation() {
     }
 
-    public Reservation(String no, String restNo, String usersNo, String reservName, String reservDate, String reservTime, int reservPeople, String request, LocalDateTime regDate) {
+    public Reservation(String no, String restNo, String usersNo, String reservName, String reservDate, String reservTime, int reservPeople, String request, LocalDateTime regDate, String reservPhone) {
         this.no = no;
         this.restNo = restNo;
         this.usersNo = usersNo;
@@ -26,6 +27,15 @@ public class Reservation {
         this.reservPeople = reservPeople;
         this.request = request;
         this.regDate = regDate;
+        this.reservPhone = reservPhone;
+    }
+
+    public String getReservPhone() {
+        return reservPhone;
+    }
+
+    public void setReservPhone(String reservPhone) {
+        this.reservPhone = reservPhone;
     }
 
     public String getNo() {
@@ -112,6 +122,7 @@ public class Reservation {
                 ", reservPeople=" + reservPeople +
                 ", request='" + request + '\'' +
                 ", regDate=" + regDate +
+                ", reservPhone='" + reservPhone + '\'' +
                 '}';
     }
 }
