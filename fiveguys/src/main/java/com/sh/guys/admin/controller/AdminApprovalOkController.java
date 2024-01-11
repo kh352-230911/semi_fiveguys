@@ -22,30 +22,35 @@ private AdminService adminService = new AdminService();
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 사용자입력값 처리
         String no = req.getParameter("no");
-        System.out.println(no);
+
+        System.out.println("no = " + no);
         String _role = req.getParameter("role");
-        System.out.println(_role);
+        System.out.println("role = " + _role);
         Role role = Role.valueOf(_role);
         String rno = req.getParameter("rno");
-        System.out.println(rno);
+        System.out.println("rno = " + rno);
         String _approval = req.getParameter("approval");
-        System.out.println(_approval);
+        System.out.println("approval = " + _approval);
+
         Approval approval = Approval.valueOf(_approval);
 
         User user = new User();
-        user.setId(no);
+        user.setNo(no);
         user.setRole(role);
+        System.out.println(user);
 
         Restaurant restaurant = new Restaurant();
         restaurant.setNo(rno);
         restaurant.setApproval(approval);
+        System.out.println(restaurant);
 
 
         // 2. 업무로직
-        if (user.getRole().equals(Role.U)) {
+        if (user.getRole() == Role.U) {
             user.setRole(Role.O);
             System.out.println(user.getRole());
             int resultRole = adminService.updateRole(user);
+            System.out.println(resultRole);
         }
         restaurant.setApproval(Approval.Y);
         System.out.println(restaurant.getApproval());

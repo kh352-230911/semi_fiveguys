@@ -58,7 +58,8 @@ public class UserLoginServlet extends HttpServlet {
             req.getRequestDispatcher("/user/loginSuccess").forward(req, resp);
         }
         else {
-            session.setAttribute("msg", "아이디가 존재하지 않거나, 비밀번호가 틀립니다");
+            session.setAttribute("msg",
+                    "아이디가 존재하지 않거나, 비밀번호가 틀립니다");
             resp.sendRedirect(req.getContextPath() + "/user/userLogin");
         }
     }
