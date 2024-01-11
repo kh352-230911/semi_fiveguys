@@ -22,14 +22,14 @@ private AdminService adminService = new AdminService();
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 사용자입력값 처리
         String no = req.getParameter("no");
-//        System.out.println(no);
+        System.out.println(no);
         String _role = req.getParameter("role");
-//        System.out.println(_role);
+        System.out.println(_role);
         Role role = Role.valueOf(_role);
         String rno = req.getParameter("rno");
-//        System.out.println(rno);
+        System.out.println(rno);
         String _approval = req.getParameter("approval");
-//        System.out.println(_approval);
+        System.out.println(_approval);
         Approval approval = Approval.valueOf(_approval);
 
         User user = new User();
@@ -44,11 +44,11 @@ private AdminService adminService = new AdminService();
         // 2. 업무로직
         if (user.getRole().equals(Role.U)) {
             user.setRole(Role.O);
-//            System.out.println(user.getRole());
+            System.out.println(user.getRole());
             int resultRole = adminService.updateRole(user);
         }
         restaurant.setApproval(Approval.Y);
-//        System.out.println(restaurant.getApproval());
+        System.out.println(restaurant.getApproval());
         int resultApproval = adminService.updateApproval(restaurant);
 
         req.getSession().setAttribute("msg", "식당 승인이 완료되었습니다.");

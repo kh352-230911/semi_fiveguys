@@ -146,7 +146,10 @@
     </table>
 </div>
 
-<%-- --%>
+<!-- 모달 -->
+<div id="restaurantDetailModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div id="restaurantDetail" class="bg-white p-8 rounded-lg"></div>
+</div>
 
 <script src="${pageContext.request.contextPath}/js/oner/onerRestaurantList.js"></script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
