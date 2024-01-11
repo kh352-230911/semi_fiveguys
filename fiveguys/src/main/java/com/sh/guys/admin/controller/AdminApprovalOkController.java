@@ -22,6 +22,7 @@ private AdminService adminService = new AdminService();
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // 1. 사용자입력값 처리
         String no = req.getParameter("no");
+
         System.out.println("no = " + no);
         String _role = req.getParameter("role");
         System.out.println("role = " + _role);
@@ -30,6 +31,7 @@ private AdminService adminService = new AdminService();
         System.out.println("rno = " + rno);
         String _approval = req.getParameter("approval");
         System.out.println("approval = " + _approval);
+
         Approval approval = Approval.valueOf(_approval);
 
         User user = new User();
